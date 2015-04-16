@@ -1,5 +1,6 @@
 'use strict';
 
+var lodash = require('lodash');
 var util = require('util');
 var EventEmitter = require('events').EventEmitter;
 var utils = require('./utils');
@@ -7,11 +8,10 @@ var sjcl = require('./utils').sjcl;
 var Amount = require('./amount').Amount;
 var Currency = require('./amount').Currency;
 var UInt160 = require('./amount').UInt160;
-var Seed = require('./seed').Seed;
 var SerializedObject = require('./serializedobject').SerializedObject;
 var RippleError = require('./rippleerror').RippleError;
 var hashprefixes = require('./hashprefixes');
-var config = require('./config');
+var getCachedKeyPair = require('./keypairs').getCachedKeyPair;
 var log = require('./log').internal.sub('transaction');
 
 /**
@@ -42,7 +42,7 @@ function Transaction(remote) {
   this._maxFee = remoteExists ? this.remote.max_fee : undefined;
   this.state = 'unsubmitted';
   this.finalized = false;
-  this.previousSigningHash = undefined;
+  this.previousSigningData = undefined;
   this.submitIndex = undefined;
   this.canonical = remoteExists ? this.remote.canonical_signing : true;
   this.submittedIDs = [ ];
@@ -389,9 +389,8 @@ Transaction.prototype.complete = function() {
 
   if (typeof this.tx_json.SigningPubKey === 'undefined') {
     try {
-      var seed = Seed.from_json(this._secret);
-      var key = seed.get_key();
-      this.tx_json.SigningPubKey = key.to_hex_pub();
+      var keyPair = getCachedKeyPair(this._secret);
+      this.tx_json.SigningPubKey = keyPair.pubKeyHex();
     } catch(e) {
       this.emit('error', new RippleError(
         'tejSecretInvalid', 'Invalid secret'));
@@ -434,7 +433,8 @@ Transaction.prototype.serialize = function() {
 };
 
 Transaction.prototype.signingHash = function() {
-  return this.hash(config.testnet ? 'HASH_TX_SIGN_TESTNET' : 'HASH_TX_SIGN');
+  // assert(this.tx_json.SigningPubKey !== '');
+  return this.hash('HASH_TX_SIGN');
 };
 
 Transaction.prototype.hash = function(prefix, asUINT256, serialized) {
@@ -452,26 +452,31 @@ Transaction.prototype.hash = function(prefix, asUINT256, serialized) {
   return asUINT256 ? hash : hash.to_hex();
 };
 
-Transaction.prototype.sign = function() {
-  var seed = Seed.from_json(this._secret);
+Transaction.prototype.signingData = function() {
+  return this._signingData('HASH_TX_SIGN').buffer;
+};
 
-  var prev_sig = this.tx_json.TxnSignature;
+Transaction.prototype._signingData = function(prefix) {
+  return SerializedObject.from_json(
+        this.tx_json, hashprefixes[prefix].toString(16));
+};
+
+Transaction.prototype.sign = function() {
+  var keyPair = getCachedKeyPair(this._secret);
+  var prevSig = this.tx_json.TxnSignature;
   delete this.tx_json.TxnSignature;
 
-  var hash = this.signingHash();
+  var signingData = this.signingData();
 
-  // If the hash is the same, we can re-use the previous signature
-  if (prev_sig && hash === this.previousSigningHash) {
-    this.tx_json.TxnSignature = prev_sig;
+  // If the signingData is the same, we can re-use the previous signature
+  if (prevSig && lodash.isEqual(signingData, this.previousSigningData)) {
+    this.tx_json.TxnSignature = prevSig;
     return this;
   }
 
-  var key = seed.get_key();
-  var sig = key.sign(hash);
-  var hex = sjcl.codec.hex.fromBits(sig).toUpperCase();
-
-  this.tx_json.TxnSignature = hex;
-  this.previousSigningHash = hash;
+  var sig = keyPair.signHex(signingData);
+  this.tx_json.TxnSignature = sig;
+  this.previousSigningData = signingData;
 
   return this;
 };

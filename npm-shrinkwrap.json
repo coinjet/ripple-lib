@@ -18,9 +18,9 @@
       "resolved": "https://registry.npmjs.org/extend/-/extend-1.2.1.tgz"
     },
     "lodash": {
-      "version": "3.6.0",
+      "version": "3.7.0",
       "from": "lodash@>=3.1.0 <4.0.0",
-      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.6.0.tgz"
+      "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.7.0.tgz"
     },
     "lru-cache": {
       "version": "2.5.2",
@@ -131,6 +131,11 @@
           }
         }
       }
+    },
+    "tweetnacl": {
+      "version": "0.13.1",
+      "from": "tweetnacl@>=0.13.0 <0.14.0",
+      "resolved": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.13.1.tgz"
     },
     "ws": {
       "version": "0.7.1",

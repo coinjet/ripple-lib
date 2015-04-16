@@ -22,7 +22,8 @@
     "lru-cache": "~2.5.0",
     "ripple-wallet-generator": "1.0.2",
     "ws": "~0.7.1",
-    "superagent": "^0.18.0"
+    "superagent": "^0.18.0",
+    "tweetnacl": "^0.13.0"
   },
   "devDependencies": {
     "assert-diff": "^1.0.1",

@@ -35,6 +35,8 @@ exports.types = require('./serializedtypes');
 
 exports.config = require('./config');
 
+exports.keypairs = require('./keypairs');
+
 // camelCase to under_scored API conversion
 function attachUnderscored(name) {
  var o = exports[name];

@@ -7,6 +7,7 @@
 //
 
 var extend = require('extend');
+var lodash = require('lodash');
 var utils = require('./utils');
 var sjcl = utils.sjcl;
 
@@ -19,6 +20,7 @@ var Sha512 = utils.Sha512;
 var Seed = extend(function() {
   this._curve = sjcl.ecc.curves.k256;
   this._value = NaN;
+  this._version = Base.VER_FAMILY_SEED;
 }, UInt);
 
 Seed.width = 16;
@@ -33,7 +35,7 @@ Seed.prototype.parse_json = function(j) {
       this._value = NaN;
     // XXX Should actually always try and continue if it failed.
     } else if (j[0] === 's') {
-      this._value = Base.decode_check(Base.VER_FAMILY_SEED, j);
+      this.parse_base58(j);
     } else if (/^[0-9a-fA-f]{32}$/.test(j)) {
       this.parse_hex(j);
     // XXX Should also try 1751
@@ -60,12 +62,27 @@ Seed.prototype.parse_passphrase = function(j) {
   return this;
 };
 
+Seed.prototype.parse_base58 = function(j) {
+  var result = Base.decode_multi(j, Seed.width);
+  if (result.error) {
+    this._value = NaN;
+  } else {
+    if (lodash.isEqual(result.version, [Base.VER_FAMILY_SEED]) ||
+        lodash.isEqual(result.version, Base.VER_ED25519_SEED)) {
+      this._version = result.version;
+      this._value = sjcl.bn.fromBits(sjcl.codec.bytes.toBits(result.bytes));
+    }
+  }
+  return this;
+};
+
 Seed.prototype.to_json = function() {
   if (!(this.is_valid())) {
     return NaN;
   }
 
-  var output = Base.encode_check(Base.VER_FAMILY_SEED, this.to_bytes());
+  var version = this._version; // Base.VER_FAMILY_SEED;
+  var output = Base.encode_check(version, this.to_bytes());
 
   return output;
 };
