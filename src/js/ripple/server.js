@@ -1,10 +1,12 @@
-var util         = require('util');
-var url          = require('url');
-var LRU          = require('lru-cache');
+'use strict';
+
+var util = require('util');
+var url = require('url');
+var LRU = require('lru-cache');
 var EventEmitter = require('events').EventEmitter;
-var Amount       = require('./amount').Amount;
-var RangeSet     = require('./rangeset').RangeSet;
-var log          = require('./log').internal.sub('server');
+var Amount = require('./amount').Amount;
+var RangeSet = require('./rangeset').RangeSet;
+var log = require('./log').internal.sub('server');
 
 /**
  *  @constructor Server
@@ -430,7 +432,21 @@ Server.prototype.connect = function() {
   self.emit('connecting');
 
   ws.onmessage = function onMessage(msg) {
-    self.emit('message', msg.data);
+    var message = msg.data;
+
+    try {
+      message = JSON.parse(message);
+    } catch (e) {
+      var error = new RippleError('unexpected',
+        'Unexpected response from server: ' + JSON.stringify(message));
+
+      // XXX self.remote.emit('error', error);
+      self.emit('unexpected', message);
+      log.error(error);
+      return;
+    }
+
+    self.emit('message', message);
   };
 
   ws.onopen = function onOpen() {
@@ -550,12 +566,8 @@ Server.prototype._handleClose = function() {
 Server.prototype._handleMessage = function(message) {
   var self = this;
 
-  try {
-    message = JSON.parse(message);
-  } catch(e) {
-  }
-
   if (!Server.isValidMessage(message)) {
+    // XXX
     this.emit('unexpected', message);
     return;
   }

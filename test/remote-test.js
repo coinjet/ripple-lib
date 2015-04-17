@@ -717,13 +717,13 @@ describe('Remote', function() {
     var message = require('./fixtures/pathfind');
     var i = 0;
 
-    remote.on('error', function(err) { ++i; });
+    remote.on('error', function(e) {++i;});
     remote._servers[0].emit('message', '1');
     remote._servers[0].emit('message', { });
     remote._servers[0].emit('message', { type: 'response' });
     remote._servers[0].emit('message', JSON.stringify({ type: 'response' }));
 
-    assert.strictEqual(i, 2, 'Failed to receive all invalid message errors');
+    assert.strictEqual(i, 3, 'Failed to receive all invalid message errors');
   });
 
   it('Get server', function() {
