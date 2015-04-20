@@ -4,6 +4,7 @@ var util = require('util');
 var url = require('url');
 var LRU = require('lru-cache');
 var EventEmitter = require('events').EventEmitter;
+var RippleError = require('./rippleerror');
 var Amount = require('./amount').Amount;
 var RangeSet = require('./rangeset').RangeSet;
 var log = require('./log').internal.sub('server');
@@ -37,11 +38,14 @@ function Server(remote, opts) {
   }
 
   if (!Server.DOMAIN_RE.test(opts.host)) {
-    throw new Error('Server host is malformed, use "host" and "port" server configuration');
+    throw new Error(
+      'Server host is malformed, use "host" and "port" server configuration');
   }
 
-  // We want to allow integer strings as valid port numbers for backward compatibility
-  if (!(opts.port = Number(opts.port))) {
+  // We want to allow integer strings as valid port numbers for backward
+  // compatibility
+  opts.port = Number(opts.port);
+  if (isNaN(opts.port)) {
     throw new TypeError('Server port must be a number');
   }
 
@@ -55,17 +59,17 @@ function Server(remote, opts) {
 
   this._remote = remote;
   this._opts = opts;
-  this._ws = void(0);
+  this._ws = undefined;
 
   this._connected = false;
   this._shouldConnect = false;
   this._state = 'offline';
   this._ledgerRanges = new RangeSet();
-  this._ledgerMap = LRU({ max: 200 });
+  this._ledgerMap = new LRU({max: 200});
 
   this._id = 0; // request ID
   this._retry = 0;
-  this._requests = { };
+  this._requests = {};
 
   this._load_base = 256;
   this._load_factor = 256;
@@ -73,8 +77,8 @@ function Server(remote, opts) {
   this._fee = 10;
   this._fee_ref = 10;
   this._fee_base = 10;
-  this._reserve_base = void(0);
-  this._reserve_inc = void(0);
+  this._reserve_base = undefined;
+  this._reserve_inc = undefined;
   this._fee_cushion = this._remote.fee_cushion;
 
   this._lastLedgerIndex = NaN;
@@ -102,7 +106,7 @@ function Server(remote, opts) {
   function setActivityInterval() {
     var interval = self._checkActivity.bind(self);
     self._activityInterval = setInterval(interval, 1000);
-  };
+  }
 
   this.on('disconnect', function onDisconnect() {
     clearInterval(self._activityInterval);
@@ -126,11 +130,13 @@ function Server(remote, opts) {
   this.on('connect', function() {
     self.requestServerID();
   });
-};
+}
 
 util.inherits(Server, EventEmitter);
 
+/* eslint-disable max-len */
 Server.DOMAIN_RE = /^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|[-_]){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|[-_]){0,61}[0-9A-Za-z])?)*\.?$/;
+/* eslint-enable max-len */
 
 Server.TLS_ERRORS = [
   'UNABLE_TO_GET_ISSUER_CERT', 'UNABLE_TO_GET_CRL',
@@ -256,6 +262,7 @@ Server.prototype.requestServerID = function() {
     try {
       self._pubkey_node = message.info.pubkey_node;
     } catch (e) {
+      log.warn('Failed to get server pubkey_node', message);
     }
   });
 
@@ -282,18 +289,20 @@ Server.prototype._updateScore = function(type, data) {
   }
 
   var weight = this._scoreWeights[type] || 1;
+  var delta;
 
   switch (type) {
     case 'ledgerclose':
       // Ledger lag
-      var delta = data.ledger_index - this._lastLedgerIndex;
+      delta = data.ledger_index - this._lastLedgerIndex;
       if (delta > 0) {
         this._score += weight * delta;
       }
       break;
     case 'response':
       // Ping lag
-      var delta = Math.floor((Date.now() - data.time) / 200);
+      // Servers are not pinged by default
+      delta = Math.floor((Date.now() - data.time) / 200);
       this._score += weight * delta;
       break;
     case 'loadchange':
@@ -322,6 +331,7 @@ Server.prototype._remoteAddress = function() {
   try {
     address = this._ws._socket.remoteAddress;
   } catch (e) {
+    log.warn('Cannot get remote address. Does not work in browser');
   }
   return address;
 };
@@ -351,8 +361,8 @@ Server.prototype.disconnect = function() {
     return;
   }
 
-  //these need to be reset so that updateScore 
-  //and checkActivity do not trigger reconnect
+  // these need to be reset so that updateScore
+  // and checkActivity do not trigger reconnect
   this._lastLedgerIndex = NaN;
   this._lastLedgerClose = NaN;
   this._score = 0;
@@ -379,7 +389,7 @@ Server.prototype.reconnect = function() {
     self._shouldConnect = true;
     self._retry = 0;
     self.connect();
-  };
+  }
 
   if (this._ws && this._shouldConnect) {
     if (this.isConnected()) {
@@ -462,7 +472,7 @@ Server.prototype.connect = function() {
       self.emit('socket_error');
 
       if (self._remote.trace) {
-        log.info(self.getServerID(), 'onerror:',  e.data || e);
+        log.info(self.getServerID(), 'onerror:', e.data || e);
       }
 
       if (Server.TLS_ERRORS.indexOf(e.message) !== -1) {
@@ -470,13 +480,13 @@ Server.prototype.connect = function() {
         throw e;
       }
 
-      // Most connection errors for WebSockets are conveyed as 'close' events with
-      // code 1006. This is done for security purposes and therefore unlikely to
-      // ever change.
+      // Most connection errors for WebSockets are conveyed as 'close' events
+      // with code 1006. This is done for security purposes and therefore
+      // unlikely to ever change.
 
-      // This means that this handler is hardly ever called in practice. If it is,
-      // it probably means the server's WebSocket implementation is corrupt, or
-      // the connection is somehow producing corrupt data.
+      // This means that this handler is hardly ever called in practice. If it
+      // is, it probably means the server's WebSocket implementation is corrupt,
+      // or the connection is somehow producing corrupt data.
 
       // Most WebSocket applications simply log and ignore this error. Once we
       // support for multiple servers, we may consider doing something like
@@ -528,7 +538,7 @@ Server.prototype._retryConnect = function() {
       }
       self.connect();
     }
-  };
+  }
 
   this._retryTimer = setTimeout(connectionRetry, retryTimeout);
 };
@@ -540,10 +550,9 @@ Server.prototype._retryConnect = function() {
  */
 
 Server.prototype._handleClose = function() {
-  var self = this;
   var ws = this._ws;
 
-  function noOp(){};
+  function noOp() {}
 
   // Prevent additional events from this socket
   ws.onopen = ws.onerror = ws.onclose = ws.onmessage = noOp;
@@ -564,8 +573,6 @@ Server.prototype._handleClose = function() {
  */
 
 Server.prototype._handleMessage = function(message) {
-  var self = this;
-
   if (!Server.isValidMessage(message)) {
     // XXX
     this.emit('unexpected', message);
@@ -645,7 +652,7 @@ Server.prototype._handleResponse = function(message) {
 
     request.emit('success', result);
 
-    [ this, this._remote ].forEach(function(emitter) {
+    [this, this._remote].forEach(function(emitter) {
       emitter.emit(responseEvent, result, request, message);
     });
   } else if (message.error) {
@@ -687,7 +694,8 @@ Server.prototype._handleResponseSubscribe = function(message) {
       && !Server.hasFullLedgerHistory(message)) {
     // Server has partial history and Remote has been configured to disallow
     // servers with incomplete history
-    return this.reconnect();
+    this.reconnect();
+    return;
   }
 
   if (message.pubkey_node) {
@@ -780,7 +788,7 @@ Server.prototype._sendMessage = function(message) {
  */
 
 Server.prototype._request = function(request) {
-  var self  = this;
+  var self = this;
 
   // Only bother if we are still connected.
   if (!this._ws) {
@@ -801,7 +809,7 @@ Server.prototype._request = function(request) {
 
   function sendRequest() {
     self._sendMessage(request.message);
-  };
+  }
 
   var isOpen = this._ws.readyState === 1;
   var isSubscribeRequest = request && request.message.command === 'subscribe';
@@ -869,7 +877,8 @@ Server.prototype._feeTxUnit = function() {
   // Apply load fees
   fee_unit *= this._load_factor / this._load_base;
 
-  // Apply fee cushion (a safety margin in case fees rise since we were last updated)
+  // Apply fee cushion (a safety margin in case fees rise since we were last
+  // updated)
   fee_unit *= this._fee_cushion;
 
   return fee_unit;
@@ -883,8 +892,8 @@ Server.prototype._feeTxUnit = function() {
 
 Server.prototype._reserve = function(ownerCount) {
   var reserve_base = Amount.from_json(String(this._reserve_base));
-  var reserve_inc  = Amount.from_json(String(this._reserve_inc));
-  var owner_count  = ownerCount || 0;
+  var reserve_inc = Amount.from_json(String(this._reserve_inc));
+  var owner_count = ownerCount || 0;
 
   if (owner_count < 0) {
     throw new Error('Owner count must not be negative.');
@@ -905,7 +914,7 @@ Server.prototype.hasLedger = function(ledger) {
 
   if (typeof ledger === 'string' && /^[A-F0-9]{64}$/.test(ledger)) {
     result = this._ledgerMap.has(ledger);
-  } else if (ledger != null && !isNaN(ledger)) {
+  } else if (!(ledger === null || ledger === undefined) && !isNaN(ledger)) {
     result = this._ledgerRanges.has(ledger);
   }
 
