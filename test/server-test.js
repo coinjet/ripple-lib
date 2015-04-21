@@ -615,17 +615,12 @@ describe('Server', function() {
     var server = new Server(new Remote(), 'ws://localhost:5748');
 
     server._ws = { };
-
     server._handleClose();
 
-    var noOp = (function noOp(){}).toString();
-
-    var coverageRE = /__cov_.+;/;
-
-    assert.strictEqual(server._ws.onopen.toString().replace(coverageRE, ''), noOp);
-    assert.strictEqual(server._ws.onclose.toString().replace(coverageRE, ''), noOp);
-    assert.strictEqual(server._ws.onmessage.toString().replace(coverageRE, ''), noOp);
-    assert.strictEqual(server._ws.onerror.toString().replace(coverageRE, ''), noOp);
+    assert.strictEqual(server._ws.onopen.name, 'noOp');
+    assert.strictEqual(server._ws.onclose.name, 'noOp');
+    assert.strictEqual(server._ws.onmessage.name, 'noOp');
+    assert.strictEqual(server._ws.onerror.name, 'noOp');
     assert.strictEqual(server._state, 'offline');
   });
 

@@ -149,7 +149,11 @@ var NullLogEngine = {
 if (typeof window !== 'undefined' && typeof console !== 'undefined') {
   Log.engine = InteractiveLogEngine;
 } else if (typeof console !== 'undefined' && console.log) {
-  Log.engine = BasicLogEngine;
+  if (process.env.NODE_ENV === 'test') {
+    Log.engine = NullLogEngine;
+  } else {
+    Log.engine = BasicLogEngine;
+  }
 } else {
   Log.engine = NullLogEngine;
 }

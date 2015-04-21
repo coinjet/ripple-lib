@@ -710,7 +710,7 @@ describe('Remote', function() {
     var i = 0;
 
     remote.on('error', function(e) {
-      assert.strictEqual(e.message, 'Unexpected resposne from remote');
+      assert(/^Unexpected response from remote/.test(e.message));
       ++i;
     });
     remote._servers[0].emit('message', '1');
