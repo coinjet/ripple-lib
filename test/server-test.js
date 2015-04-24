@@ -1,14 +1,19 @@
+/* eslint-disable space-before-blocks, no-multi-spaces, space-in-brackets */
+/* eslint-disable spaced-line-comment, max-len */
+/* eslint-disable no-new, no-extra-semi, no-proto */
+
+'use strict';
+
 var assert = require('assert');
 var ws = require('ws');
 var Remote  = require('ripple-lib').Remote;
 var Server = require('ripple-lib').Server;
 var Request = require('ripple-lib').Request;
-var Transaction = require('ripple-lib').Transaction;
 
 describe('Server', function() {
   it('Server constructor - invalid options', function() {
     assert.throws(function() {
-      var server = new Server(new Remote());
+      new Server(new Remote());
     });
   });
 
@@ -63,7 +68,7 @@ describe('Server', function() {
     server.once('disconnect', function() {
       // Interval should clear
       assert.deepEqual(server._activityInterval.__proto__, interval.__proto__);
-      assert.strictEqual(server._activityInterval._onTimeout, null)
+      assert.strictEqual(server._activityInterval._onTimeout, null);
 
       server.once('ledger_closed', function() {
         // Interval should be reset
@@ -217,7 +222,7 @@ describe('Server', function() {
       assert(false, 'Should not reconnect');
     };
 
-    //server._lastLedgerClose = Date.now() - 1000 * 30;
+    // server._lastLedgerClose = Date.now() - 1000 * 30;
     server._checkActivity();
     setImmediate(function() {
       done();
@@ -349,8 +354,8 @@ describe('Server', function() {
   it('Connect', function(done) {
     var wss = new ws.Server({ port: 5748  });
 
-    wss.once('connection', function(ws) {
-      ws.once('message', function(message) {
+    wss.once('connection', function(w) {
+      w.once('message', function(message) {
         var m = JSON.parse(message);
 
         assert.deepEqual(m, {
@@ -359,7 +364,7 @@ describe('Server', function() {
           streams: [ 'ledger', 'server' ]
         });
 
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: 0,
           status: 'success',
           type: 'response',
@@ -412,8 +417,8 @@ describe('Server', function() {
   it.skip('Connect - prior WebSocket connection exists', function(done) {
     var wss = new ws.Server({ port: 5748  });
 
-    wss.once('connection', function(ws) {
-      ws.once('message', function(message) {
+    wss.once('connection', function(w) {
+      w.once('message', function(message) {
         var m = JSON.parse(message);
 
         assert.deepEqual(m, {
@@ -422,7 +427,7 @@ describe('Server', function() {
           streams: [ 'ledger', 'server' ]
         });
 
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: 0,
           status: 'success',
           type: 'response',
@@ -465,7 +470,7 @@ describe('Server', function() {
     var websocketConstructor = Server.websocketConstructor;
 
     Server.websocketConstructor = function() {
-      return void(0);
+      return undefined;
     };
 
     assert.throws(function() {
@@ -478,8 +483,8 @@ describe('Server', function() {
   it('Connect - partial history disabled', function(done) {
     var wss = new ws.Server({ port: 5748  });
 
-    wss.once('connection', function(ws) {
-      ws.once('message', function(message) {
+    wss.once('connection', function(w) {
+      w.once('message', function(message) {
         var m = JSON.parse(message);
 
         assert.deepEqual(m, {
@@ -488,7 +493,7 @@ describe('Server', function() {
           streams: [ 'ledger', 'server' ]
         });
 
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: 0,
           status: 'success',
           type: 'response',
@@ -533,8 +538,8 @@ describe('Server', function() {
     // undefined properties on server subscribe response
     var wss = new ws.Server({ port: 5748  });
 
-    wss.once('connection', function(ws) {
-      ws.once('message', function(message) {
+    wss.once('connection', function(w) {
+      w.once('message', function(message) {
         var m = JSON.parse(message);
 
         assert.deepEqual(m, {
@@ -543,7 +548,7 @@ describe('Server', function() {
           streams: [ 'ledger', 'server' ]
         });
 
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: 0,
           status: 'success',
           type: 'response',
@@ -627,8 +632,8 @@ describe('Server', function() {
   it('Handle error', function(done) {
     var wss = new ws.Server({ port: 5748  });
 
-    wss.once('connection', function(ws) {
-      ws.once('message', function(message) {
+    wss.once('connection', function(w) {
+      w.once('message', function(message) {
         var m = JSON.parse(message);
 
         assert.deepEqual(m, {
@@ -637,7 +642,7 @@ describe('Server', function() {
           streams: [ 'ledger', 'server' ]
         });
 
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: 0,
           status: 'success',
           type: 'response',
@@ -683,7 +688,7 @@ describe('Server', function() {
       ledger_index: 1
     };
 
-    server.once('ledger_closed', function(message) {
+    server.once('ledger_closed', function() {
       assert.strictEqual(server._lastLedgerIndex, ledger.ledger_index);
       done();
     });
@@ -705,21 +710,21 @@ describe('Server', function() {
 
     server.once('load', function(message) {
       assert.deepEqual(message, status);
-      if (++receivedEvents == events) {
+      if (++receivedEvents === events) {
         done();
       }
     });
 
     server.once('load_changed', function(message) {
       assert.deepEqual(message, status);
-      if (++receivedEvents == events) {
+      if (++receivedEvents === events) {
         done();
       }
     });
 
     remote.once('load_changed', function(message) {
       assert.deepEqual(message, status);
-      if (++receivedEvents == events) {
+      if (++receivedEvents === events) {
         done();
       }
     });
@@ -730,8 +735,6 @@ describe('Server', function() {
   it('Handle message - serverStatus - no load', function(done) {
     var remote = new Remote();
     var server = new Server(remote, 'ws://localhost:5748');
-    var events = 3;
-    var receivedEvents = 0;
 
     var status = {
       type: 'serverStatus'
@@ -741,11 +744,11 @@ describe('Server', function() {
       assert.deepEqual(message, status);
     });
 
-    server.once('load_changed', function(message) {
+    server.once('load_changed', function() {
       assert(false, 'Non-load status should not trigger events');
     });
 
-    remote.once('load_changed', function(message) {
+    remote.once('load_changed', function() {
       assert(false, 'Non-load status should not trigger events');
     });
 
@@ -772,9 +775,9 @@ describe('Server', function() {
       status: 'success',
       result: {
         info: {
-          build_version: "0.25.2-rc1",
-          complete_ledgers: "32570-7623483",
-          hostid: "MAC",
+          build_version: '0.25.2-rc1',
+          complete_ledgers: '32570-7623483',
+          hostid: 'MAC',
           io_latency_ms: 1,
           last_close: {
             converge_time_s: 2.052,
@@ -782,12 +785,12 @@ describe('Server', function() {
           },
           load_factor: 1,
           peers: 50,
-          pubkey_node: "n94pSqypSfddzAVj9qoezHyUoetsrMnwgNuBqRJ3WHvM8aMMf7rW",
-          server_state: "full",
+          pubkey_node: 'n94pSqypSfddzAVj9qoezHyUoetsrMnwgNuBqRJ3WHvM8aMMf7rW',
+          server_state: 'full',
           validated_ledger: {
             age: 5,
             base_fee_xrp: 0.00001,
-            hash: "AB575193C623179078BE7CC42965FD4262EE8611D1CE7F839CEEBFFEF4B653B6",
+            hash: 'AB575193C623179078BE7CC42965FD4262EE8611D1CE7F839CEEBFFEF4B653B6',
             reserve_base_xrp: 20,
             reserve_inc_xrp: 5,
             seq: 7623483
@@ -842,8 +845,6 @@ describe('Server', function() {
         test: 'property'
       }
     };
-
-    var receivedEvents = 0;
 
     request.once('error', function(message) {
       assert.deepEqual(message, {
@@ -933,7 +934,7 @@ describe('Server', function() {
       }
     };
 
-    server._sendMessage = function(message) {
+    server._sendMessage = function() {
       done();
     };
 
@@ -955,7 +956,7 @@ describe('Server', function() {
     server._request(request);
 
     setImmediate(function() {
-      server._sendMessage = function(message) {
+      server._sendMessage = function() {
         done();
       };
 
@@ -967,7 +968,7 @@ describe('Server', function() {
     var server = new Server(new Remote(), 'ws://localhost:5748');
     server._connected = true;
 
-    server._ws = void(0);
+    server._ws = undefined;
 
     var request = {
       message: {
@@ -975,7 +976,7 @@ describe('Server', function() {
       }
     };
 
-    server._sendMessage = function(message) {
+    server._sendMessage = function() {
       assert(false, 'Should not send message if WebSocket does not exist');
     };
 
@@ -1000,13 +1001,11 @@ describe('Server', function() {
 
   it('Compute fee - fee units', function() {
     var server = new Server(new Remote(), 'ws://localhost:5748');
-    var transaction = new Transaction();
     assert.strictEqual(server._computeFee(10), '12');
   });
 
   it('Compute fee - bad arg', function() {
     var server = new Server(new Remote(), 'ws://localhost:5748');
-    var transaction = new Transaction();
     assert.throws(function() {
       server._computeFee('asdf');
     });
@@ -1018,7 +1017,6 @@ describe('Server', function() {
     server._load_base = 256;
     server._load_factor = 256 * 4;
 
-    var transaction = new Transaction();
     assert.strictEqual(server._computeFee(10), '48');
   });
 
@@ -1032,17 +1030,17 @@ describe('Server', function() {
   it('Cache hostid', function(done) {
     var wss = new ws.Server({ port: 5748  });
 
-    wss.once('connection', function(ws) {
+    wss.once('connection', function(w) {
       function sendServerInfo(message) {
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: message.id,
           status: 'success',
           type: 'response',
           result: {
             info: {
-              build_version: "0.25.2-rc1",
-              complete_ledgers: "32570-7623483",
-              hostid: "MAC",
+              build_version: '0.25.2-rc1',
+              complete_ledgers: '32570-7623483',
+              hostid: 'MAC',
               io_latency_ms: 1,
               last_close: {
                 converge_time_s: 2.052,
@@ -1050,12 +1048,12 @@ describe('Server', function() {
               },
               load_factor: 1,
               peers: 50,
-              pubkey_node: "n94pSqypSfddzAVj9qoezHyUoetsrMnwgNuBqRJ3WHvM8aMMf7rW",
-              server_state: "full",
+              pubkey_node: 'n94pSqypSfddzAVj9qoezHyUoetsrMnwgNuBqRJ3WHvM8aMMf7rW',
+              server_state: 'full',
               validated_ledger: {
                 age: 5,
                 base_fee_xrp: 0.00001,
-                hash: "AB575193C623179078BE7CC42965FD4262EE8611D1CE7F839CEEBFFEF4B653B6",
+                hash: 'AB575193C623179078BE7CC42965FD4262EE8611D1CE7F839CEEBFFEF4B653B6',
                 reserve_base_xrp: 20,
                 reserve_inc_xrp: 5,
                 seq: 7623483
@@ -1067,7 +1065,7 @@ describe('Server', function() {
       };
 
       function sendSubscribe(message) {
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: message.id,
           status: 'success',
           type: 'response',
@@ -1088,7 +1086,7 @@ describe('Server', function() {
         }));
       };
 
-      ws.on('message', function(message) {
+      w.on('message', function(message) {
         var m = JSON.parse(message);
 
         switch (m.command) {
@@ -1128,9 +1126,9 @@ describe('Server', function() {
   it('Track ledger ranges', function(done) {
     var wss = new ws.Server({ port: 5748  });
 
-    wss.once('connection', function(ws) {
+    wss.once('connection', function(w) {
       function sendSubscribe(message) {
-        ws.send(JSON.stringify({
+        w.send(JSON.stringify({
           id: message.id,
           status: 'success',
           type: 'response',
@@ -1147,12 +1145,12 @@ describe('Server', function() {
             reserve_inc: 5000000,
             server_status: 'full',
             validated_ledgers: '32570-7053695',
-            pubkey_node: 'n94pSqypSfddzAVj9qoezHyUoetsrMnwgNuBqRJ3WHvM8aMMf7rW',
+            pubkey_node: 'n94pSqypSfddzAVj9qoezHyUoetsrMnwgNuBqRJ3WHvM8aMMf7rW'
           }
         }));
       };
 
-      ws.on('message', function(message) {
+      w.on('message', function(message) {
         var m = JSON.parse(message);
 
         switch (m.command) {
