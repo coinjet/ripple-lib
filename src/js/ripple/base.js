@@ -9,7 +9,6 @@ var convertBase = require('./baseconverter');
 var Base = {};
 
 var alphabets = Base.alphabets = {
-                                      // rrrrrrrrrrrrrrrrrrrrrrrrrrrr
   ripple: 'rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz',
   tipple: 'RPShNAF39wBUDnEGHJKLM4pQrsT7VWXYZ2bcdeCg65jkm8ofqi1tuvaxyz',
   bitcoin: '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
@@ -190,10 +189,6 @@ Base.decode_check = function(version, input, alphabet) {
   if (!Base.verify_checksum(buffer)) {
     return NaN;
   }
-
-  // We'll use the version byte to add a leading zero, this ensures JSBN doesn't
-  // intrepret the value as a negative number
-  // buffer[0] = 0;
 
   return sjcl.bn.fromBits(sjcl.codec.bytes.toBits(buffer.slice(1, -4)));
 };

@@ -64,15 +64,15 @@ Seed.prototype.parse_passphrase = function(j) {
 
 Seed.prototype.parse_base58 = function(j) {
   var result = Base.decode_multi(j, Seed.width);
+
   if (result.error) {
     this._value = NaN;
-  } else {
-    if (lodash.isEqual(result.version, [Base.VER_FAMILY_SEED]) ||
+  } else if (lodash.isEqual(result.version, [Base.VER_FAMILY_SEED]) ||
         lodash.isEqual(result.version, Base.VER_ED25519_SEED)) {
-      this._version = result.version;
-      this._value = sjcl.bn.fromBits(sjcl.codec.bytes.toBits(result.bytes));
-    }
+    this._version = result.version;
+    this._value = sjcl.bn.fromBits(sjcl.codec.bytes.toBits(result.bytes));
   }
+
   return this;
 };
 
@@ -81,7 +81,7 @@ Seed.prototype.to_json = function() {
     return NaN;
   }
 
-  var version = this._version; // Base.VER_FAMILY_SEED;
+  var version = this._version;
   var output = Base.encode_check(version, this.to_bytes());
 
   return output;
@@ -91,6 +91,11 @@ Seed.prototype.get_key = function(opts) {
   if (opts !== undefined && typeof opts !== 'object') {
     throw new Error('get_key options not supported: ' + opts);
   }
+
+  if (lodash.isEqual(this._version, Base.VER_ED25519_SEED)) {
+    throw new Error('get_key ed25519 not supported');
+  }
+
   return this._get_key(opts);
 };
 

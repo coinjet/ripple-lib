@@ -208,7 +208,7 @@ hasCachedProperty(Secp256k1Pair.prototype, 'pubKeyBytes', function() {
  */
 Secp256k1Pair.prototype.sign = function(message) {
   var hash = this.hashMessage(message);
-  var signatureBits = this.keyPair.sign(hash, 0);
+  var signatureBits = this.keyPair.sign(hash);
   return sjcl.codec.bytes.fromBits(signatureBits);
 };
 

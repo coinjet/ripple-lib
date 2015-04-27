@@ -53,7 +53,7 @@ function SerializedObject(buf) {
 SerializedObject.from_json = function(obj, prefix) {
   // Create a copy of the object so we don't modify it
   obj = extend(true, {}, obj);
-  var so  = new SerializedObject(prefix);
+  var so = new SerializedObject(prefix);
   var typedef;
 
   if (typeof obj.TransactionType === 'number') {
