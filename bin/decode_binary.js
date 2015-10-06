@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var SerializedObject = require('../src/js/ripple/serializedobject').SerializedObject;
+var SerializedObject = require('../src/js/divvy/serializedobject').SerializedObject;
 
 var argv = process.argv.slice(2);
 

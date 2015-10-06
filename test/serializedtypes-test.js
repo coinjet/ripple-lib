@@ -1,8 +1,8 @@
 var assert           = require('assert');
-var SerializedObject = require('ripple-lib').SerializedObject;
-var types            = require('ripple-lib').types;
-var Amount           = require('ripple-lib').Amount;
-var sjcl             = require('ripple-lib').sjcl;
+var SerializedObject = require('divvy-lib').SerializedObject;
+var types            = require('divvy-lib').types;
+var Amount           = require('divvy-lib').Amount;
+var sjcl             = require('divvy-lib').sjcl;
 
 describe('Serialized types', function() {
   describe('Int8', function() {

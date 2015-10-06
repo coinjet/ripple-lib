@@ -1,7 +1,7 @@
 {
-  "name": "ripple-lib",
+  "name": "divvy-lib",
   "version": "0.12.4",
-  "description": "A JavaScript API for interacting with Ripple in Node.js and the browser",
+  "description": "A JavaScript API for interacting with Divvy in Node.js and the browser",
   "files": [
     "src/js/*",
     "bin/*",
@@ -10,7 +10,7 @@
     "Makefile",
     "Gulpfile.js"
   ],
-  "main": "src/js/ripple",
+  "main": "src/js/divvy",
   "directories": {
     "test": "test"
   },
@@ -20,7 +20,7 @@
     "extend": "~1.2.1",
     "lodash": "^3.1.0",
     "lru-cache": "~2.5.0",
-    "ripple-wallet-generator": "^1.0.3",
+    "divvy-wallet": "git://github.com/xdv/divvy-wallet.git#4fe05d5622327c4d8389fea958b02ea62042e7a5",
     "ws": "~0.7.1"
   },
   "devDependencies": {
@@ -51,12 +51,12 @@
     "pretest": "node_modules/.bin/gulp concat-sjcl",
     "test": "./node_modules/.bin/istanbul test -x build/sjcl.js -x src/js/jsbn/* ./node_modules/mocha/bin/_mocha -- --reporter ${MOCHA_REPORTER:=spec} --timeout 10000 --slow 500 test/*-test.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
-    "lint": "if ! [ -f eslintrc ]; then curl -o eslintrc 'https://raw.githubusercontent.com/ripple/javascript-style-guide/master/eslintrc'; fi; eslint --reset -c eslintrc src/js/ripple/*.js",
+    "lint": "if ! [ -f eslintrc ]; then curl -o eslintrc 'https://raw.githubusercontent.com/xdv/javascript-style-guide/master/eslintrc'; fi; eslint --reset -c eslintrc src/js/divvy/*.js",
     "perf": "./scripts/perf_test.sh"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ripple/ripple-lib.git"
+    "url": "git://github.com/xdv/divvy-lib.git"
   },
   "readmeFilename": "README.md",
   "engines": {

@@ -19,7 +19,7 @@
 *.o
 build/*.js
 tags
-bin/rippled
+bin/divvyd
 Debug/*.*
 Release/*.*
 
@@ -35,7 +35,7 @@ db/*.db
 db/*.db-*
 
 # Ignore customized configs
-rippled.cfg
+divvyd.cfg
 validators.txt
 test/config.js
 

@@ -3,10 +3,10 @@
 'use strict';
 
 var assert = require('assert-diff');
-var Remote = require('ripple-lib').Remote;
-var Currency = require('ripple-lib').Currency;
-var Amount = require('ripple-lib').Amount;
-var Meta = require('ripple-lib').Meta;
+var Remote = require('divvy-lib').Remote;
+var Currency = require('divvy-lib').Currency;
+var Amount = require('divvy-lib').Amount;
+var Meta = require('divvy-lib').Meta;
 var addresses = require('./fixtures/addresses');
 var fixtures = require('./fixtures/orderbook');
 
@@ -742,7 +742,7 @@ describe('OrderBook', function() {
             },
             LowNode: '0000000000000000'
           },
-          LedgerEntryType: 'RippleState',
+          LedgerEntryType: 'DivvyState',
           LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
           PreviousFields: {
             Balance: {
@@ -792,7 +792,7 @@ describe('OrderBook', function() {
             },
             LowNode: '0000000000000000'
           },
-          LedgerEntryType: 'RippleState',
+          LedgerEntryType: 'DivvyState',
           LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
           PreviousTxnID: '53354D84BAE8FDFC3F4DA879D984D24B929E7FEB9100D2AD9EFCD2E126BCCDC8',
           PreviousTxnLgrSeq: 343570
@@ -835,7 +835,7 @@ describe('OrderBook', function() {
             },
             LowNode: '0000000000000000'
           },
-          LedgerEntryType: 'RippleState',
+          LedgerEntryType: 'DivvyState',
           LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
           PreviousFields: {
             Balance: {
@@ -885,7 +885,7 @@ describe('OrderBook', function() {
             },
             LowNode: '0000000000000000'
           },
-          LedgerEntryType: 'RippleState',
+          LedgerEntryType: 'DivvyState',
           LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
           PreviousFields: {
             Balance: {
@@ -1001,7 +1001,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'DivvyState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousFields: {
               Balance: {
@@ -1036,7 +1036,7 @@ describe('OrderBook', function() {
               },
               LowNode: '0000000000000000'
             },
-            LedgerEntryType: 'RippleState',
+            LedgerEntryType: 'DivvyState',
             LedgerIndex: 'EA4BF03B4700123CDFFB6EB09DC1D6E28D5CEB7F680FB00FC24BC1C3BB2DB959',
             PreviousFields: {
               Balance: {
@@ -1107,7 +1107,7 @@ describe('OrderBook', function() {
 
     var remote = new Remote();
 
-    var message = fixtures.transactionWithRippleState();
+    var message = fixtures.transactionWithDivvyState();
 
     var book = remote.createOrderBook({
       currency_gets: 'USD',
@@ -1158,7 +1158,7 @@ describe('OrderBook', function() {
 
     var remote = new Remote();
 
-    var message = fixtures.transactionWithRippleState({
+    var message = fixtures.transactionWithDivvyState({
       balance: '50'
     });
 
@@ -1200,7 +1200,7 @@ describe('OrderBook', function() {
   it('Update funded amounts - owner_funds', function(done) {
     var remote = new Remote();
 
-    var message = fixtures.transactionWithRippleState();
+    var message = fixtures.transactionWithDivvyState();
 
     var book = remote.createOrderBook({
       currency_gets: 'USD',
@@ -1227,7 +1227,7 @@ describe('OrderBook', function() {
   it('Update funded amounts - issuer transfer rate set', function(done) {
     var remote = new Remote();
 
-    var message = fixtures.transactionWithRippleState();
+    var message = fixtures.transactionWithDivvyState();
 
     var book = remote.createOrderBook({
       currency_gets: 'USD',
@@ -1374,7 +1374,7 @@ describe('OrderBook', function() {
       currency_pays: 'XRP'
     });
 
-    var message = fixtures.transactionWithRippleState();
+    var message = fixtures.transactionWithDivvyState();
 
     remote.request = function(request) {
       assert.deepEqual(request.message, {

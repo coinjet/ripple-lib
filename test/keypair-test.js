@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Seed   = require('ripple-lib').Seed;
+var Seed   = require('divvy-lib').Seed;
 
 describe('KeyPair', function() {
   it('can generate an address', function () {

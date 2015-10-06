@@ -1,8 +1,8 @@
 /*eslint-disable */
 
 var assert   = require('assert');
-var currency = require('ripple-lib').Currency;
-var timeUtil = require('ripple-lib').utils.time;
+var currency = require('divvy-lib').Currency;
+var timeUtil = require('divvy-lib').utils.time;
 
 describe('Currency', function() {
   describe('json_rewrite', function() {
@@ -131,8 +131,8 @@ describe('Currency', function() {
       assert.strictEqual(cur.to_json(), 'XRP');
       assert(cur.is_native(), true);
     });
-    it('From human "XRP - Ripples"', function() {
-      var cur = currency.from_human('XRP - Ripples');
+    it('From human "XRP - Divvys"', function() {
+      var cur = currency.from_human('XRP - Divvys');
       assert.strictEqual(cur.to_json(), 'XRP');
       assert(cur.is_native(), true);
     });
@@ -173,8 +173,8 @@ describe('Currency', function() {
     it('to_human with full_name "USD - US Dollar"', function() {
       assert.strictEqual('USD - US Dollar', currency.from_json('USD').to_human({full_name:'US Dollar'}));
     });
-    it('to_human with full_name "XRP - Ripples"', function() {
-      assert.strictEqual('XRP - Ripples', currency.from_json('XRP').to_human({full_name:'Ripples'}));
+    it('to_human with full_name "XRP - Divvys"', function() {
+      assert.strictEqual('XRP - Divvys', currency.from_json('XRP').to_human({full_name:'Divvys'}));
     });
     it('to_human human "TIM" without full_name', function() {
       var cur = currency.from_json("TIM");
@@ -265,11 +265,11 @@ describe('Currency', function() {
 
       // At start, no demurrage should occur
       assert.equal(1, cur.get_interest_at(443845330));
-      assert.equal(1, precision(cur.get_interest_at(new Date(timeUtil.fromRipple(443845330))), 14));
+      assert.equal(1, precision(cur.get_interest_at(new Date(timeUtil.fromDivvy(443845330))), 14));
 
       // After one year, 0.5% should have occurred
       assert.equal(0.995, precision(cur.get_interest_at(443845330 + 31536000), 14));
-      assert.equal(0.995, precision(cur.get_interest_at(new Date(timeUtil.fromRipple(443845330 + 31536000))), 14));
+      assert.equal(0.995, precision(cur.get_interest_at(new Date(timeUtil.fromDivvy(443845330 + 31536000))), 14));
 
       // After one demurrage period, 1/e should have occurred
       assert.equal(1/Math.E, cur.get_interest_at(443845330 + 6291418827.05));

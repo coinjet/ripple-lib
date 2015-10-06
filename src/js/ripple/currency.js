@@ -118,7 +118,7 @@ Currency.prototype.parse_json = function(j, shouldInterpretXrpAsIou) {
 
         // for the currency 'XRP' case
         // we drop everything else that could have been provided
-        // e.g. 'XRP - Ripple'
+        // e.g. 'XRP - Divvy'
         if (!currencyCode || /^(0|XRP)$/.test(currencyCode)) {
           this.parse_hex(shouldInterpretXrpAsIou
             ? Currency.HEX_CURRENCY_BAD
@@ -300,7 +300,7 @@ Currency.prototype.has_interest = function() {
 
 /**
  *
- * @param {number} referenceDate number of seconds since the Ripple Epoch
+ * @param {number} referenceDate number of seconds since the Divvy Epoch
  * (0:00 on January 1, 2000 UTC) used to calculate the
  * interest over provided interval pass in one years
  * worth of seconds to ge the yearly interest

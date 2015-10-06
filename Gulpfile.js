@@ -63,30 +63,30 @@ gulp.task('concat-sjcl', function() {
 gulp.task('build', ['concat-sjcl'], function(callback) {
   webpack({
     cache: true,
-    entry: './src/js/ripple/index.js',
+    entry: './src/js/divvy/index.js',
     output: {
-      library: 'ripple',
+      library: 'divvy',
       path: './build/',
-      filename: ['ripple-', '.js'].join(pkg.version)
+      filename: ['divvy-', '.js'].join(pkg.version)
     }
   }, callback);
 });
 
 gulp.task('build-min', ['build'], function() {
-  return gulp.src(['./build/ripple-', '.js'].join(pkg.version))
+  return gulp.src(['./build/divvy-', '.js'].join(pkg.version))
   .pipe(uglify())
-  .pipe(rename(['ripple-', '-min.js'].join(pkg.version)))
+  .pipe(rename(['divvy-', '-min.js'].join(pkg.version)))
   .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('build-debug', ['concat-sjcl'], function(callback) {
   webpack({
     cache: true,
-    entry: './src/js/ripple/index.js',
+    entry: './src/js/divvy/index.js',
     output: {
-      library: 'ripple',
+      library: 'divvy',
       path: './build/',
-      filename: ['ripple-', '-debug.js'].join(pkg.version)
+      filename: ['divvy-', '-debug.js'].join(pkg.version)
     },
     debug: true,
     devtool: 'eval'
@@ -107,7 +107,7 @@ function buildUseError(cons) {
 gulp.task('build-core', ['concat-sjcl'], function(callback) {
   webpack({
     entry: [
-      './src/js/ripple/remote.js'
+      './src/js/divvy/remote.js'
     ],
     externals: [
       {
@@ -118,9 +118,9 @@ gulp.task('build-core', ['concat-sjcl'], function(callback) {
       }
     ],
     output: {
-      library: 'ripple',
+      library: 'divvy',
       path: './build/',
-      filename: ['ripple-', '-core.js'].join(pkg.version)
+      filename: ['divvy-', '-core.js'].join(pkg.version)
     },
     plugins: [
       new webpack.optimize.UglifyJsPlugin()
@@ -129,20 +129,20 @@ gulp.task('build-core', ['concat-sjcl'], function(callback) {
 });
 
 gulp.task('bower-build', ['build'], function() {
-  return gulp.src(['./build/ripple-', '.js'].join(pkg.version))
-  .pipe(rename('ripple.js'))
+  return gulp.src(['./build/divvy-', '.js'].join(pkg.version))
+  .pipe(rename('divvy.js'))
   .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('bower-build-min', ['build-min'], function() {
-  return gulp.src(['./build/ripple-', '-min.js'].join(pkg.version))
-  .pipe(rename('ripple-min.js'))
+  return gulp.src(['./build/divvy-', '-min.js'].join(pkg.version))
+  .pipe(rename('divvy-min.js'))
   .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('bower-build-debug', ['build-debug'], function() {
-  return gulp.src(['./build/ripple-', '-debug.js'].join(pkg.version))
-  .pipe(rename('ripple-debug.js'))
+  return gulp.src(['./build/divvy-', '-debug.js'].join(pkg.version))
+  .pipe(rename('divvy-debug.js'))
   .pipe(gulp.dest('./dist/'));
 });
 
@@ -156,12 +156,12 @@ gulp.task('bower', ['bower-build', 'bower-build-min', 'bower-build-debug',
                     'bower-version']);
 
 gulp.task('watch', function() {
-  gulp.watch('src/js/ripple/*', ['build-debug']);
+  gulp.watch('src/js/divvy/*', ['build-debug']);
 });
 
 // To use this, each javascript file must have /* @flow */ on the first line
 gulp.task('typecheck', function() {
-  return gulp.src('src/js/ripple/*.js')
+  return gulp.src('src/js/divvy/*.js')
   .pipe(flow({      // note: do not set the 'all' option, it is broken
     weak: true,   // remove this after all errors are addressed
     killFlow: true
@@ -169,8 +169,8 @@ gulp.task('typecheck', function() {
 });
 
 gulp.task('strip', function() {
-  return gulp.src('src/js/ripple/*.js')
-  .pipe(watch('src/js/ripple/*.js'))
+  return gulp.src('src/js/divvy/*.js')
+  .pipe(watch('src/js/divvy/*.js'))
   .pipe(cleanDest('out'))   // delete outdated output file before stripping
   .pipe(plumber())        // prevent an error in one file from ending build
   .pipe(react({stripTypes: true}).on('error', logPluginError))

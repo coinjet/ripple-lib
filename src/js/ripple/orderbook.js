@@ -191,7 +191,7 @@ OrderBook.prototype.subscribe = function() {
 };
 
 /**
- * Unhook event listeners and prevent ripple-lib from further work on this
+ * Unhook event listeners and prevent divvy-lib from further work on this
  * orderbook. There is no more orderbook stream, so "unsubscribe" is nominal
  */
 
@@ -653,7 +653,7 @@ OrderBook.prototype.setOfferFundedAmount = function(offer) {
 /**
  * Get account and final balance of a meta node
  *
- * @param {Object} node - RippleState or AccountRoot meta node
+ * @param {Object} node - DivvyState or AccountRoot meta node
  * @return {Object}
  */
 
@@ -669,7 +669,7 @@ OrderBook.prototype.parseAccountBalanceFromNode = function(node) {
       result.balance = node.fieldsFinal.Balance;
       break;
 
-    case 'RippleState':
+    case 'DivvyState':
       if (node.fields.HighLimit.issuer === this._issuerGets) {
         result.account = node.fields.LowLimit.issuer;
         result.balance = node.fieldsFinal.Balance.value;
@@ -693,7 +693,7 @@ OrderBook.prototype.parseAccountBalanceFromNode = function(node) {
 /**
  * Check that affected meta node represents a balance change
  *
- * @param {Object} node - RippleState or AccountRoot meta node
+ * @param {Object} node - DivvyState or AccountRoot meta node
  * @return {Boolean}
  */
 
@@ -727,7 +727,7 @@ OrderBook.prototype.isBalanceChangeNode = function(node) {
 /**
  * Updates funded amounts/balances using modified balance nodes
  *
- * Update owner funds using modified AccountRoot and RippleState nodes.
+ * Update owner funds using modified AccountRoot and DivvyState nodes.
  * Update funded amounts for offers in the orderbook using owner funds.
  *
  * @param {Object} transaction - transaction that holds meta nodes
@@ -750,7 +750,7 @@ OrderBook.prototype.updateFundedAmounts = function(transaction) {
 
   var affectedNodes = transaction.mmeta.getNodes({
     nodeType: 'ModifiedNode',
-    entryType: this._currencyGets.is_native() ? 'AccountRoot' : 'RippleState'
+    entryType: this._currencyGets.is_native() ? 'AccountRoot' : 'DivvyState'
   });
 
   _.each(affectedNodes, function (node) {

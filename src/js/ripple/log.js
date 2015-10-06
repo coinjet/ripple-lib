@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Logging functionality for ripple-lib and any applications built on it.
+ * Logging functionality for divvy-lib and any applications built on it.
  *
  * @param {String} namespace logging prefix
  * @return {Void} this function does not return...
@@ -25,7 +25,7 @@ function Log(namespace) {
  *
  * @example
  *
- *   var log = require('ripple').log.sub('server');
+ *   var log = require('divvy').log.sub('server');
  *
  *   log.info('connection successful');
  *   // prints: 'server: connection successful'
@@ -158,12 +158,12 @@ if (typeof window !== 'undefined' && typeof console !== 'undefined') {
  * Provide a root logger as our main export.
  *
  * This means you can use the logger easily on the fly:
- *     ripple.log.debug('My object is', myObj);
+ *     divvy.log.debug('My object is', myObj);
  */
 module.exports = new Log();
 
 /**
- * This is the logger for ripple-lib internally.
+ * This is the logger for divvy-lib internally.
  */
 module.exports.internal = module.exports.sub();
 

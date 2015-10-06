@@ -1,6 +1,6 @@
 'use strict';
 var assert = require('assert');
-var Base = require('ripple-lib').Base;
+var Base = require('divvy-lib').Base;
 var fixtures = require('./fixtures/base58.json');
 
 function digitArray(str) {
@@ -47,8 +47,8 @@ describe('Base', function() {
   });
   describe('encode', function() {
     it('fixtures', function() {
-      for (var i = 0; i < fixtures.ripple.length; i++) {
-        var testCase = fixtures.ripple[i];
+      for (var i = 0; i < fixtures.divvy.length; i++) {
+        var testCase = fixtures.divvy[i];
         var encoded = Base.encode(hexToByteArray(testCase.hex));
         assert.strictEqual(encoded, testCase.string);
       }
@@ -56,8 +56,8 @@ describe('Base', function() {
   });
   describe('decode', function() {
     it('fixtures', function() {
-      for (var i = 0; i < fixtures.ripple.length; i++) {
-        var testCase = fixtures.ripple[i];
+      for (var i = 0; i < fixtures.divvy.length; i++) {
+        var testCase = fixtures.divvy[i];
         var decoded = Base.decode(testCase.string);
         assert.deepEqual(decoded, hexToByteArray(testCase.hex));
       }

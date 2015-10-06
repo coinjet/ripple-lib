@@ -1,7 +1,7 @@
 var util   = require('util');
 var extend = require('extend');
 
-function RippleError(code, message) {
+function DivvyError(code, message) {
   switch (typeof code) {
     case 'object':
       extend(this, code);
@@ -26,8 +26,8 @@ function RippleError(code, message) {
   }
 };
 
-util.inherits(RippleError, Error);
+util.inherits(DivvyError, Error);
 
-RippleError.prototype.name = 'RippleError';
+DivvyError.prototype.name = 'DivvyError';
 
-exports.RippleError = RippleError;
+exports.DivvyError = DivvyError;

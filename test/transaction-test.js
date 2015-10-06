@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 'use strict';
 var assert = require('assert');
-var Transaction = require('ripple-lib').Transaction;
-var TransactionQueue = require('ripple-lib').TransactionQueue;
-var Remote = require('ripple-lib').Remote;
-var Server = require('ripple-lib').Server;
-var sjcl = require('ripple-lib').sjcl;
+var Transaction = require('divvy-lib').Transaction;
+var TransactionQueue = require('divvy-lib').TransactionQueue;
+var Remote = require('divvy-lib').Remote;
+var Server = require('divvy-lib').Server;
+var sjcl = require('divvy-lib').sjcl;
 
 var transactionResult = {
   engine_result: 'tesSUCCESS',
@@ -209,22 +209,22 @@ describe('Transaction', function() {
   it('Compute fee', function() {
     var remote = new Remote();
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = true;
 
-    var s2 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s2 = new Server(remote, 'wss://s-west.divvy.com:443');
     s2._connected = true;
     s2._load_factor = 256 * 4;
 
-    var s3 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s3 = new Server(remote, 'wss://s-west.divvy.com:443');
     s3._connected = true;
     s3._load_factor = 256 * 8;
 
-    var s4 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s4 = new Server(remote, 'wss://s-west.divvy.com:443');
     s4._connected = true;
     s4._load_factor = 256 * 8;
 
-    var s5 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s5 = new Server(remote, 'wss://s-west.divvy.com:443');
     s5._connected = true;
     s5._load_factor = 256 * 7;
 
@@ -249,14 +249,14 @@ describe('Transaction', function() {
   it('Compute fee - no connected server', function() {
     var remote = new Remote();
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = false;
 
-    var s2 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s2 = new Server(remote, 'wss://s-west.divvy.com:443');
     s2._connected = false;
     s2._load_factor = 256 * 4;
 
-    var s3 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s3 = new Server(remote, 'wss://s-west.divvy.com:443');
     s3._connected = false;
     s3._load_factor = 256 * 8;
 
@@ -274,14 +274,14 @@ describe('Transaction', function() {
   it('Compute fee - one connected server', function() {
     var remote = new Remote();
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = false;
 
-    var s2 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s2 = new Server(remote, 'wss://s-west.divvy.com:443');
     s2._connected = false;
     s2._load_factor = 256 * 4;
 
-    var s3 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s3 = new Server(remote, 'wss://s-west.divvy.com:443');
     s3._connected = true;
     s3._load_factor = 256 * 8;
 
@@ -299,19 +299,19 @@ describe('Transaction', function() {
   it('Does not compute a median fee with floating point', function() {
     var remote = new Remote();
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = true;
 
-    var s2 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s2 = new Server(remote, 'wss://s-west.divvy.com:443');
     s2._connected = true;
     s2._load_factor = 256 * 4;
 
-    var s3 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s3 = new Server(remote, 'wss://s-west.divvy.com:443');
     s3._connected = true;
 
     s3._load_factor = (256 * 7) + 1;
 
-    var s4 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s4 = new Server(remote, 'wss://s-west.divvy.com:443');
     s4._connected = true;
     s4._load_factor = 256 * 16;
 
@@ -340,18 +340,18 @@ describe('Transaction', function() {
   it('Compute fee - even server count', function() {
     var remote = new Remote();
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = true;
 
-    var s2 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s2 = new Server(remote, 'wss://s-west.divvy.com:443');
     s2._connected = true;
     s2._load_factor = 256 * 4;
 
-    var s3 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s3 = new Server(remote, 'wss://s-west.divvy.com:443');
     s3._connected = true;
     s3._load_factor = 256 * 8;
 
-    var s4 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s4 = new Server(remote, 'wss://s-west.divvy.com:443');
     s4._connected = true;
     s4._load_factor = 256 * 16;
 
@@ -371,7 +371,7 @@ describe('Transaction', function() {
   it('Complete transaction', function(done) {
     var remote = new Remote();
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = true;
 
     remote._servers = [s1];
@@ -470,7 +470,7 @@ describe('Transaction', function() {
     var remote = new Remote();
     var transaction = new Transaction(remote);
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = true;
 
     remote._servers = [s1];
@@ -493,7 +493,7 @@ describe('Transaction', function() {
   it('Complete transaction - compute fee exceeds max fee', function(done) {
     var remote = new Remote({max_fee: 10});
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = true;
     s1._load_factor = 256 * 16;
 
@@ -517,7 +517,7 @@ describe('Transaction', function() {
   it('Complete transaction - canonical flags', function(done) {
     var remote = new Remote();
 
-    var s1 = new Server(remote, 'wss://s-west.ripple.com:443');
+    var s1 = new Server(remote, 'wss://s-west.divvy.com:443');
     s1._connected = true;
     s1._load_factor = 256;
 
@@ -1107,12 +1107,12 @@ describe('Transaction', function() {
 
     var transaction3 = new Transaction();
     transaction3.tx_json.TransactionType = 'Payment';
-    transaction3.setFlags('NoRippleDirect');
+    transaction3.setFlags('NoDivvyDirect');
     assert.strictEqual(transaction3.tx_json.Flags, 65536);
 
     var transaction4 = new Transaction();
     transaction4.tx_json.TransactionType = 'Payment';
-    transaction4.setFlags('PartialPayment', 'NoRippleDirect');
+    transaction4.setFlags('PartialPayment', 'NoDivvyDirect');
     assert.strictEqual(transaction4.tx_json.Flags, 196608);
 
     var transaction5 = new Transaction();
@@ -1433,7 +1433,7 @@ describe('Transaction', function() {
     var expiration = new Date();
     expiration.setHours(expiration.getHours() + 1);
 
-    var rippleExpiration = Math.round(expiration.getTime() / 1000) - 0x386D4380;
+    var divvyExpiration = Math.round(expiration.getTime() / 1000) - 0x386D4380;
 
     var transaction = new Transaction().offerCreate('rsLEU1TPdCJPPysqhWYw9jD97xtG5WqSJm', bid, ask, expiration, 1);
 
@@ -1452,7 +1452,7 @@ describe('Transaction', function() {
         currency: 'EUR',
         issuer: 'rsLEU1TPdCJPPysqhWYw9jD97xtG5WqSJm'
       },
-      Expiration: rippleExpiration,
+      Expiration: divvyExpiration,
       OfferSequence: 1
     });
   });
@@ -1463,7 +1463,7 @@ describe('Transaction', function() {
     var expiration = new Date();
     expiration.setHours(expiration.getHours() + 1);
 
-    var rippleExpiration = Math.round(expiration.getTime() / 1000) - 0x386D4380;
+    var divvyExpiration = Math.round(expiration.getTime() / 1000) - 0x386D4380;
 
     var transaction = new Transaction().offerCreate({
       account: 'rsLEU1TPdCJPPysqhWYw9jD97xtG5WqSJm',
@@ -1488,7 +1488,7 @@ describe('Transaction', function() {
         currency: 'EUR',
         issuer: 'rsLEU1TPdCJPPysqhWYw9jD97xtG5WqSJm'
       },
-      Expiration: rippleExpiration,
+      Expiration: divvyExpiration,
       OfferSequence: 1
     });
   });
@@ -1753,7 +1753,7 @@ describe('Transaction', function() {
     function submitCallback(err) {
       setImmediate(function() {
         assert(err);
-        assert.strictEqual(err.constructor.name, 'RippleError');
+        assert.strictEqual(err.constructor.name, 'DivvyError');
         assert(receivedError);
         done();
       });
@@ -1786,7 +1786,7 @@ describe('Transaction', function() {
     var remote = new Remote();
     remote.setSecret('rJaT8TafQfYJqDm8aC5n3Yx5yWEL2Ery79', 'snPwFATthTkKnGjEW73q3TL4yci1Q');
 
-    var server = new Server(remote, 'wss://s1.ripple.com:443');
+    var server = new Server(remote, 'wss://s1.divvy.com:443');
     server._computeFee = function() {
       return '12';
     };

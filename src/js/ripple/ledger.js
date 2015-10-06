@@ -23,7 +23,7 @@ Ledger.space = require('./ledgerspaces');
 /**
  * Generate the key for an AccountRoot entry.
  *
- * @param {String|UInt160} account Ripple Account
+ * @param {String|UInt160} account Divvy Account
  * @return {UInt256}
  */
 Ledger.calcAccountRootEntryHash =
@@ -41,7 +41,7 @@ Ledger.prototype.calcAccountRootEntryHash = function(account) {
 /**
  * Generate the key for an Offer entry.
  *
- * @param {String|UInt160} account Ripple Account
+ * @param {String|UInt160} account Divvy Account
  * @param {Number} sequence Sequence number of the OfferCreate transaction
  *   that instantiated this offer.
  * @return {UInt256}
@@ -61,17 +61,17 @@ Ledger.prototype.calcOfferEntryHash = function(account, sequence) {
 };
 
 /**
- * Generate the key for a RippleState entry.
+ * Generate the key for a DivvyState entry.
  *
  * The ordering of the two account parameters does not matter.
  *
- * @param {String|UInt160} account1 First Ripple Account
- * @param {String|UInt160} account2 Second Ripple Account
+ * @param {String|UInt160} account1 First Divvy Account
+ * @param {String|UInt160} account2 Second Divvy Account
  * @param {String|Currency} currency The currency code
  * @return {UInt256}
  */
-Ledger.calcRippleStateEntryHash =
-Ledger.prototype.calcRippleStateEntryHash = function(
+Ledger.calcDivvyStateEntryHash =
+Ledger.prototype.calcDivvyStateEntryHash = function(
     account1, account2, currency) {
   currency = Currency.from_json(currency);
   account1 = UInt160.from_json(account1);
@@ -96,7 +96,7 @@ Ledger.prototype.calcRippleStateEntryHash = function(
 
   var index = new SerializedObject();
 
-  index.append([0, Ledger.space.rippleState.charCodeAt(0)]);
+  index.append([0, Ledger.space.divvyState.charCodeAt(0)]);
   index.append(account1.to_bytes());
   index.append(account2.to_bytes());
   index.append(currency.to_bytes());
@@ -130,7 +130,7 @@ Ledger.prototype.calc_tx_hash = function() {
 *
 *   If `true`, will serialize each accountState item to binary and then back to
 *   json before finally serializing for hashing. This is mostly to expose any
-*   issues with ripple-lib's binary <--> json codecs.
+*   issues with divvy-lib's binary <--> json codecs.
 *
 */
 Ledger.prototype.calc_account_hash = function(options) {

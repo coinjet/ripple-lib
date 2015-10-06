@@ -1,6 +1,6 @@
 'use strict';
 
-// Represent Ripple amounts and currencies.
+// Represent Divvy amounts and currencies.
 // - Numbers in hex are big-endian.
 
 var assert = require('assert');
@@ -194,7 +194,7 @@ Amount.prototype.divide = function(divisor) {
  * @param opts Options for the calculation.
  * @param opts.reference_date {Date|Number} Date based on which
  * demurrage/interest should be applied. Can be given as JavaScript Date or int
- * for Ripple epoch.
+ * for Divvy epoch.
  * @return {Amount} The resulting ratio. Unit will be the same as numerator.
  */
 
@@ -257,7 +257,7 @@ Amount.prototype.ratio_human = function(denominator, opts) {
  * @param {Object} opts Options for the calculation.
  * @param {Date|Number} opts.reference_date Date based on which
  * demurrage/interest should be applied. Can be given as JavaScript Date or int
- * for Ripple epoch.
+ * for Divvy epoch.
  * @return {Amount} The product. Unit will be the same as the first factor.
  */
 Amount.prototype.product_human = function(factor, opts) {
@@ -315,8 +315,8 @@ Amount.prototype.invert = function() {
 /**
  * Canonicalize amount value
  *
- * Mirrors rippled's internal Amount representation
- * From https://github.com/ripple/rippled/blob/develop/src/ripple/data
+ * Mirrors divvyd's internal Amount representation
+ * From https://github.com/xdv/divvyd/blob/develop/src/divvy/data
  * /protocol/STAmount.h#L31-L40
  *
  * Internal form:
@@ -573,7 +573,7 @@ Amount.prototype.parse_issuer = function(issuer) {
  *   price will be false.
  * @param {Date|Number} opts.reference_date Date based on which
  * demurrage/interest should be applied. Can be given as JavaScript Date or int
- * for Ripple epoch.
+ * for Divvy epoch.
  * @param {Boolean} opts.xrp_as_drops Whether XRP amount should be treated as
  *   drops. When the base currency is XRP, the quality is calculated in drops.
  *   For human use however, we want to think of 1000000 drops as 1 XRP and
@@ -794,7 +794,7 @@ Amount.prototype.to_text = function() {
  * intended by display functions such as toHuman().
  *
  * @param {Date|Number} referenceDate Date based on which demurrage/interest
- *   should be applied. Can be given as JavaScript Date or int for Ripple epoch.
+ *   should be applied. Can be given as JavaScript Date or int for Divvy epoch.
  * @return {Amount} The amount with interest applied.
  */
 Amount.prototype.applyInterest = function(referenceDate) {
@@ -826,7 +826,7 @@ Amount.prototype.applyInterest = function(referenceDate) {
  *   prefix. If String, that string will be used as the prefix. Default: '-'
  * @param {Date|Number} opts.reference_date Date based on which
  * demurrage/interest should be applied. Can be given as JavaScript Date or int
- * for Ripple epoch.
+ * for Divvy epoch.
  * @return {String} amount string
  */
 Amount.prototype.to_human = function(opts) {

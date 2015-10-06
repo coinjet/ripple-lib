@@ -1,9 +1,9 @@
 var assert = require('assert');
 var ws = require('ws');
-var Remote  = require('ripple-lib').Remote;
-var Server = require('ripple-lib').Server;
-var Request = require('ripple-lib').Request;
-var Transaction = require('ripple-lib').Transaction;
+var Remote  = require('divvy-lib').Remote;
+var Server = require('divvy-lib').Server;
+var Request = require('divvy-lib').Request;
+var Transaction = require('divvy-lib').Transaction;
 
 describe('Server', function() {
   it('Server constructor - invalid options', function() {

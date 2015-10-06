@@ -162,8 +162,8 @@ Server.onlineStates = [
 
 /**
  * This is the final interface between client code and a socket connection to a
- * `rippled` server. As such, this is a decent hook point to allow a WebSocket
- * interface conforming object to be used as a basis to mock rippled. This
+ * `divvyd` server. As such, this is a decent hook point to allow a WebSocket
+ * interface conforming object to be used as a basis to mock divvyd. This
  * avoids the need to bind a websocket server to a port and allows a more
  * synchronous style of code to represent a client <-> server message sequence.
  * We can also use this to log a message sequence to a buffer.
@@ -173,7 +173,7 @@ Server.onlineStates = [
 
 Server.websocketConstructor = function() {
   // We require this late, because websocket shims may be loaded after
-  // ripple-lib in the browser
+  // divvy-lib in the browser
   return require('ws');
 };
 
@@ -311,7 +311,7 @@ Server.prototype._updateScore = function(type, data) {
 /**
  * Get the server's remote address
  *
- * Incompatible with ripple-lib client build
+ * Incompatible with divvy-lib client build
  */
 
 Server.prototype.getRemoteAddress =
@@ -334,7 +334,7 @@ Server.prototype.getServerID = function() {
 };
 
 /**
- * Disconnect from rippled WebSocket server
+ * Disconnect from divvyd WebSocket server
  *
  * @api public
  */
@@ -365,7 +365,7 @@ Server.prototype.disconnect = function() {
 };
 
 /**
- * Reconnect to rippled WebSocket server
+ * Reconnect to divvyd WebSocket server
  *
  * @api public
  */
@@ -390,7 +390,7 @@ Server.prototype.reconnect = function() {
 };
 
 /**
- * Connect to rippled WebSocket server and subscribe to events that are
+ * Connect to divvyd WebSocket server and subscribe to events that are
  * internally requisite. Automatically retry connections with a gradual
  * back-off
  *
@@ -483,7 +483,7 @@ Server.prototype.connect = function() {
 };
 
 /**
- * Retry connection to rippled server
+ * Retry connection to divvyd server
  *
  * @api private
  */
@@ -541,7 +541,7 @@ Server.prototype._handleClose = function() {
 };
 
 /**
- * Handle incoming messages from rippled WebSocket server
+ * Handle incoming messages from divvyd WebSocket server
  *
  * @param {JSON-parseable} message
  * @api private
@@ -717,7 +717,7 @@ Server.hasFullLedgerHistory = function(message) {
 };
 
 /**
- * Check that received message from rippled is valid
+ * Check that received message from divvyd is valid
  *
  * @param {Object} message
  * @return {Boolean}
@@ -742,7 +742,7 @@ Server.isLoadStatus = function(message) {
 };
 
 /**
- * Send JSON message to rippled WebSocket server
+ * Send JSON message to divvyd WebSocket server
  *
  * @param {JSON-Stringifiable} message
  * @api private
@@ -761,7 +761,7 @@ Server.prototype._sendMessage = function(message) {
  * Submit a Request object
  *
  * Requests are indexed by message ID, which is repeated in the response from
- * rippled WebSocket server
+ * divvyd WebSocket server
  *
  * @param {Request} request
  * @api private

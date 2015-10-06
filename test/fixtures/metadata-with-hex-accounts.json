@@ -44,7 +44,7 @@
         },
         "LowNode": "0000000000000000"
       },
-      "LedgerEntryType": "RippleState",
+      "LedgerEntryType": "DivvyState",
       "LedgerIndex": "2DECFAC23B77D5AEA6116C15F5C6D4669EBAEE9E7EE050A40FE2B1E47B6A9419",
       "PreviousFields": {
         "Balance": {
@@ -79,7 +79,7 @@
         },
         "LowNode": "0000000000000000"
       },
-      "LedgerEntryType": "RippleState",
+      "LedgerEntryType": "DivvyState",
       "LedgerIndex": "4AB2FFDEE65E025AAB54305A161C80D32082574BB0502311F29227089C696388",
       "PreviousFields": {
         "Balance": {
@@ -143,7 +143,7 @@
         },
         "LowNode": "000000000000004A"
       },
-      "LedgerEntryType": "RippleState",
+      "LedgerEntryType": "DivvyState",
       "LedgerIndex": "826CF5BFD28F3934B518D0BDF3231259CBD3FD0946E3C3CA0C97D2C75D2D1A09",
       "PreviousFields": {
         "Balance": {
@@ -257,7 +257,7 @@
         },
         "LowNode": "00000000000001B0"
       },
-      "LedgerEntryType": "RippleState",
+      "LedgerEntryType": "DivvyState",
       "LedgerIndex": "FAD28E839AF29C6CCB8DA6DC71510A5BF8A9C34062C128071C7D22E2469B8288",
       "PreviousFields": {
         "Balance": {

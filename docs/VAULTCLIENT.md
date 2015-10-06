@@ -1,20 +1,20 @@
-ripple-vault-client
+divvy-vault-client
 ===================
 
-A javascript / http client to interact with Ripple Vault servers.
+A javascript / http client to interact with Divvy Vault servers.
 
 The purpose of this tool is to enable applications in any javascript
-environment to login with the ripple vault and access the decrypted
-data stored using credentials originally obtained at ripple.com
+environment to login with the divvy vault and access the decrypted
+data stored using credentials originally obtained at divvy.com
      
         
 ## Vault Client Usage
 
-    vaultClient = new ripple.VaultClient(domain);
+    vaultClient = new divvy.VaultClient(domain);
     
     vaultClient.getAuthInfo(username, callback);
     
-    vaultClient.getRippleName(address, url, callback);
+    vaultClient.getDivvyName(address, url, callback);
 
     vaultClient.exists(username, callback);
     
@@ -114,9 +114,9 @@ data stored using credentials originally obtained at ripple.com
 
 Run `npm test` to test the high-level behavior specs 
 
-  Ripple Txt
-    ✓ should get the content of a ripple.txt file from a given domain 
-    ✓ should get currencies from a ripple.txt file for a given domain
+  Divvy Txt
+    ✓ should get the content of a divvy.txt file from a given domain 
+    ✓ should get currencies from a divvy.txt file for a given domain
     ✓ should get the domain from a given url 
 
   AuthInfo
@@ -125,7 +125,7 @@ Run `npm test` to test the high-level behavior specs
   VaultClient
     #initialization
       ✓ should be initialized with a domain 
-      ✓ should default to ripple.com without a domain 
+      ✓ should default to divvy.com without a domain 
     #exists
       ✓ should determine if a username exists on the domain 
     #login

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var Transaction = require('../src/js/ripple/transaction').Transaction;
+var Transaction = require('../src/js/divvy/transaction').Transaction;
 
 var argv = process.argv.slice(2);
 

@@ -3,7 +3,7 @@ var util         = require('util');
 var async        = require('async');
 var UInt160      = require('./uint160').UInt160;
 var Currency     = require('./currency').Currency;
-var RippleError  = require('./rippleerror').RippleError;
+var DivvyError  = require('./divvyerror').DivvyError;
 var Server       = require('./server').Server;
 
 // Request events emitted:
@@ -217,8 +217,8 @@ Request.prototype.callback = function(callback, successEvent, errorEvent) {
     if (!called) {
       called = true;
 
-      if (!(error instanceof RippleError)) {
-        error = new RippleError(error);
+      if (!(error instanceof DivvyError)) {
+        error = new DivvyError(error);
       }
 
       callback.call(self, error);
@@ -305,7 +305,7 @@ Request.prototype.buildPath = function(build) {
   if (build) {
     this.message.build_path = true;
   } else {
-    // ND: rippled currently intreprets the mere presence of `build_path` as the
+    // ND: divvyd currently intreprets the mere presence of `build_path` as the
     // value being `truthy`
     delete this.message.build_path;
   }
@@ -413,8 +413,8 @@ Request.prototype.txBlob = function(json) {
   return this;
 };
 
-Request.prototype.rippleState = function(account, issuer, currency) {
-  this.message.ripple_state = {
+Request.prototype.divvyState = function(account, issuer, currency) {
+  this.message.divvy_state = {
     currency: currency,
     accounts: [
       UInt160.json_rewrite(account),

@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 'use strict';
 var assert = require('assert');
-var sjcl = require('ripple-lib').sjcl;
-var Message = require('ripple-lib').Message;
-var Seed = require('ripple-lib').Seed;
-var Remote = require('ripple-lib').Remote;
+var sjcl = require('divvy-lib').sjcl;
+var Message = require('divvy-lib').Message;
+var Seed = require('divvy-lib').Seed;
+var Remote = require('divvy-lib').Remote;
 
 describe('Message', function() {
 

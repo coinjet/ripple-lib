@@ -1,12 +1,12 @@
 var assert = require('assert');
-var Remote = require('ripple-lib').Remote;
-var Server = require('ripple-lib').Server;
-var Request = require('ripple-lib').Request;
-var Transaction = require('ripple-lib').Transaction;
-var UInt160 = require('ripple-lib').UInt160;
-var Currency = require('ripple-lib').Currency;
-var Amount = require('ripple-lib').Amount;
-var PathFind = require('../src/js/ripple/pathfind').PathFind;
+var Remote = require('divvy-lib').Remote;
+var Server = require('divvy-lib').Server;
+var Request = require('divvy-lib').Request;
+var Transaction = require('divvy-lib').Transaction;
+var UInt160 = require('divvy-lib').UInt160;
+var Currency = require('divvy-lib').Currency;
+var Amount = require('divvy-lib').Amount;
+var PathFind = require('../src/js/divvy/pathfind').PathFind;
 
 var options, remote, callback, database, tx;
 
@@ -21,45 +21,45 @@ describe('Remote', function() {
   beforeEach(function() {
     options = {
       trusted: true,
-      servers: [ 'wss://s1.ripple.com:443' ]
+      servers: [ 'wss://s1.divvy.com:443' ]
     };
     remote = new Remote(options);
   });
 
   it('Server initialization -- url object', function() {
     var remote = new Remote({
-      servers: [ { host: 's-west.ripple.com', port: 443, secure: true } ]
+      servers: [ { host: 's-west.divvy.com', port: 443, secure: true } ]
     });
     assert(Array.isArray(remote._servers));
     assert(remote._servers[0] instanceof Server);
-    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.ripple.com:443');
+    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.divvy.com:443');
   });
 
   it('Server initialization -- url object -- no secure property', function() {
     var remote = new Remote({
-      servers: [ { host: 's-west.ripple.com', port: 443 } ]
+      servers: [ { host: 's-west.divvy.com', port: 443 } ]
     });
     assert(Array.isArray(remote._servers));
     assert(remote._servers[0] instanceof Server);
-    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.ripple.com:443');
+    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.divvy.com:443');
   });
 
   it('Server initialization -- url object -- secure: false', function() {
     var remote = new Remote({
-      servers: [ { host: 's-west.ripple.com', port: 443, secure: false } ]
+      servers: [ { host: 's-west.divvy.com', port: 443, secure: false } ]
     });
     assert(Array.isArray(remote._servers));
     assert(remote._servers[0] instanceof Server);
-    assert.strictEqual(remote._servers[0]._url, 'ws://s-west.ripple.com:443');
+    assert.strictEqual(remote._servers[0]._url, 'ws://s-west.divvy.com:443');
   });
 
   it('Server initialization -- url object -- string port', function() {
     var remote = new Remote({
-      servers: [ { host: 's-west.ripple.com', port: '443', secure: true } ]
+      servers: [ { host: 's-west.divvy.com', port: '443', secure: true } ]
     });
     assert(Array.isArray(remote._servers));
     assert(remote._servers[0] instanceof Server);
-    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.ripple.com:443');
+    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.divvy.com:443');
   });
 
   it('Server initialization -- url object -- invalid host', function() {
@@ -75,7 +75,7 @@ describe('Remote', function() {
     assert.throws(
       function() {
         var remote = new Remote({
-          servers: [ { host: 's-west.ripple.com', port: null, secure: true } ]
+          servers: [ { host: 's-west.divvy.com', port: null, secure: true } ]
         });
       }, TypeError);
   });
@@ -84,27 +84,27 @@ describe('Remote', function() {
     assert.throws(
       function() {
         var remote = new Remote({
-          servers: [ { host: 's-west.ripple.com', port: 65537, secure: true } ]
+          servers: [ { host: 's-west.divvy.com', port: 65537, secure: true } ]
         });
       }, Error);
   });
 
   it('Server initialization -- url string', function() {
     var remote = new Remote({
-      servers: [ 'wss://s-west.ripple.com:443' ]
+      servers: [ 'wss://s-west.divvy.com:443' ]
     });
     assert(Array.isArray(remote._servers));
     assert(remote._servers[0] instanceof Server);
-    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.ripple.com:443');
+    assert.strictEqual(remote._servers[0]._url, 'wss://s-west.divvy.com:443');
   });
 
   it('Server initialization -- url string -- ws://', function() {
     var remote = new Remote({
-      servers: [ 'ws://s-west.ripple.com:443' ]
+      servers: [ 'ws://s-west.divvy.com:443' ]
     });
     assert(Array.isArray(remote._servers));
     assert(remote._servers[0] instanceof Server);
-    assert.strictEqual(remote._servers[0]._url, 'ws://s-west.ripple.com:443');
+    assert.strictEqual(remote._servers[0]._url, 'ws://s-west.divvy.com:443');
   });
 
   it('Server initialization -- url string -- invalid host', function() {
@@ -121,7 +121,7 @@ describe('Remote', function() {
     assert.throws(
       function() {
         var remote = new Remote({
-          servers: [ 'ws://s-west.ripple.com:null' ]
+          servers: [ 'ws://s-west.divvy.com:null' ]
         });
       }, Error
     );
@@ -131,7 +131,7 @@ describe('Remote', function() {
     assert.throws(
       function() {
         var remote = new Remote({
-          servers: [ 'ws://s-west.ripple.com:65537:' ]
+          servers: [ 'ws://s-west.divvy.com:65537:' ]
         });
       }, Error
     );
@@ -404,7 +404,7 @@ describe('Remote', function() {
   });
 
   it('Add server', function() {
-    var server = remote.addServer('wss://s1.ripple.com:443');
+    var server = remote.addServer('wss://s1.divvy.com:443');
     assert(server instanceof Server);
 
     var i = 0;
@@ -424,7 +424,7 @@ describe('Remote', function() {
   });
   it('Add server -- primary server', function() {
     var server = remote.addServer({
-      host: 's1.ripple.com',
+      host: 's1.divvy.com',
       port: 443,
       secure: true,
       primary: true
@@ -450,7 +450,7 @@ describe('Remote', function() {
   });
 
   it('Connect', function() {
-    remote.addServer('wss://s1.ripple.com:443');
+    remote.addServer('wss://s1.divvy.com:443');
 
     var i = 0;
     remote._servers.forEach(function(s) {
@@ -464,7 +464,7 @@ describe('Remote', function() {
   });
 
   it('Connect -- with callback', function(done) {
-    remote.addServer('wss://s1.ripple.com:443');
+    remote.addServer('wss://s1.divvy.com:443');
 
     var i = 0;
     remote._servers.forEach(function(s) {
@@ -487,7 +487,7 @@ describe('Remote', function() {
   });
 
   it('Disconnect', function() {
-    remote.addServer('wss://s1.ripple.com:443');
+    remote.addServer('wss://s1.divvy.com:443');
 
     var i = 0;
     remote._servers.forEach(function(s) {
@@ -501,7 +501,7 @@ describe('Remote', function() {
     assert.strictEqual(i, 2, 'Did not attempt disconnect to all servers');
   });
   it('Disconnect -- with callback', function(done) {
-    remote.addServer('wss://s1.ripple.com:443');
+    remote.addServer('wss://s1.divvy.com:443');
 
     var i = 0;
     remote._servers.forEach(function(s) {
@@ -519,7 +519,7 @@ describe('Remote', function() {
     });
   });
   it('Disconnect -- unconnected', function(done) {
-    remote.addServer('wss://s1.ripple.com:443');
+    remote.addServer('wss://s1.divvy.com:443');
 
     var i = 0;
     remote._servers.forEach(function(s) {
@@ -727,7 +727,7 @@ describe('Remote', function() {
   });
 
   it('Get server', function() {
-    var server = remote.addServer('wss://sasdf.ripple.com:443');
+    var server = remote.addServer('wss://sasdf.divvy.com:443');
 
     remote.connect();
     remote._connected = true;
@@ -760,13 +760,13 @@ describe('Remote', function() {
     assert.strictEqual(new Remote().getServer(), null);
   });
   it('Get server -- no connected servers', function() {
-    var server = remote.addServer('wss://sasdf.ripple.com:443');
+    var server = remote.addServer('wss://sasdf.divvy.com:443');
     assert.strictEqual(remote._servers.length, 2);
     assert.strictEqual(remote.getServer(), null);
   });
   it('Get server -- primary server', function() {
     var server = remote.addServer({
-      host: 'sasdf.ripple.com',
+      host: 'sasdf.divvy.com',
       port: 443,
       secure: true,
       primary: true
@@ -822,8 +822,8 @@ describe('Remote', function() {
     var parsedDirectoryNode = Remote.parseBinaryLedgerData(binaryLedgerData.DirectoryNode.binary);
     assert.deepEqual(parsedDirectoryNode, binaryLedgerData.DirectoryNode.parsed);
 
-    var parsedRippleState = Remote.parseBinaryLedgerData(binaryLedgerData.RippleState.binary);
-    assert.deepEqual(parsedRippleState, binaryLedgerData.RippleState.parsed);
+    var parsedDivvyState = Remote.parseBinaryLedgerData(binaryLedgerData.DivvyState.binary);
+    assert.deepEqual(parsedDivvyState, binaryLedgerData.DivvyState.parsed);
   });
 
   it('Prepare currency', function() {
@@ -912,7 +912,7 @@ describe('Remote', function() {
   });
   it('Initiate request -- set non-existent servers', function() {
     var request = remote.requestServerInfo();
-    request.setServer('wss://s-east.ripple.com:443');
+    request.setServer('wss://s-east.divvy.com:443');
     assert.strictEqual(request.server, null);
     assert.throws(function() {
       remote._connected = true;
@@ -1156,7 +1156,7 @@ describe('Remote', function() {
     });
   });
   it('Construct ping request -- with server', function() {
-    var request = remote.requestPing('wss://s1.ripple.com:443');
+    var request = remote.requestPing('wss://s1.divvy.com:443');
     assert.strictEqual(request.server, remote._servers[0]);
     assert.deepEqual(request.message, {
       command: 'ping',
@@ -1663,8 +1663,8 @@ describe('Remote', function() {
     });
   });
 
-  it('Construct ripple balance request', function() {
-    var request = remote.requestRippleBalance({
+  it('Construct divvy balance request', function() {
+    var request = remote.requestDivvyBalance({
       account: 'rGr9PjmVe7MqEXTSbd3njhgJc2s5vpHV54',
       issuer: 'rwxBjBC9fPzyQ9GgPZw6YYLNeRTSx5c2W6',
       ledger: 1,
@@ -1674,7 +1674,7 @@ describe('Remote', function() {
     assert.deepEqual(request.message, {
       command: 'ledger_entry',
       id: void(0),
-      ripple_state: {
+      divvy_state: {
         currency: 'USD',
         accounts: [
           'rGr9PjmVe7MqEXTSbd3njhgJc2s5vpHV54',
@@ -1685,8 +1685,8 @@ describe('Remote', function() {
     });
   });
 
-  it('Construct ripple_path_find request', function() {
-    var request = remote.requestRipplePathFind({
+  it('Construct divvy_path_find request', function() {
+    var request = remote.requestDivvyPathFind({
       src_account: 'rGr9PjmVe7MqEXTSbd3njhgJc2s5vpHV54',
       dst_account: 'rwxBjBC9fPzyQ9GgPZw6YYLNeRTSx5c2W6',
       dst_amount: '1/USD/rGr9PjmVe7MqEXTSbd3njhgJc2s5vpHV54',
@@ -1694,7 +1694,7 @@ describe('Remote', function() {
     });
 
     assert.deepEqual(request.message, {
-      command: 'ripple_path_find',
+      command: 'divvy_path_find',
       id: void(0),
       source_account: 'rGr9PjmVe7MqEXTSbd3njhgJc2s5vpHV54',
       destination_account: 'rwxBjBC9fPzyQ9GgPZw6YYLNeRTSx5c2W6',

@@ -7,8 +7,8 @@
  *
  * Mapping of type ids to data types. The type id is specified by the high
  *
- * For reference, see rippled's definition:
- * https://github.com/ripple/rippled/blob/develop/src/ripple/data/protocol
+ * For reference, see divvyd's definition:
+ * https://github.com/xdv/divvyd/blob/develop/src/divvy/data/protocol
  *                                                              /SField.cpp
  */
 
@@ -129,7 +129,7 @@ var FIELDS_MAP = exports.fields = {
     8: 'Fee',
     9: 'SendMax',
     16: 'MinimumOffer',
-    17: 'RippleEscrow',
+    17: 'DivvyEscrow',
     18: 'DeliveredAmount'
   },
   7: { // VL
@@ -267,7 +267,7 @@ exports.tx = {
     [ 'Expiration'         , REQUIRED ],
     [ 'BondAmount'         , REQUIRED ],
     [ 'StampEscrow'        , REQUIRED ],
-    [ 'RippleEscrow'       , REQUIRED ],
+    [ 'DivvyEscrow'       , REQUIRED ],
     [ 'CreateCode'         , OPTIONAL ],
     [ 'FundCode'           , OPTIONAL ],
     [ 'RemoveCode'         , OPTIONAL ],
@@ -380,7 +380,7 @@ exports.ledger = {
     ['TakerPays',           REQUIRED],
     ['TakerGets',           REQUIRED],
     ['Account',             REQUIRED]]),
-  RippleState: [114].concat(sleBase,[
+  DivvyState: [114].concat(sleBase,[
     ['LedgerEntryType',     REQUIRED],
     ['Flags',               REQUIRED],
     ['PreviousTxnLgrSeq',   REQUIRED],

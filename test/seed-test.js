@@ -1,7 +1,7 @@
 /* eslint max-len: 0 */
 'use strict';
 var assert = require('assert');
-var Seed = require('ripple-lib').Seed;
+var Seed = require('divvy-lib').Seed;
 
 function assert_helper(seed_json, address_or_nth, expected) {
   var seed = Seed.from_json(seed_json);
@@ -45,7 +45,7 @@ describe('Seed', function() {
       var nth_for_seed = test_data[nth][2];
       var expected = test_data[nth][3];
 
-      // `seed.get_key($ripple_address)` is arguably an ill concieved feature
+      // `seed.get_key($divvy_address)` is arguably an ill concieved feature
       // as it needs to generate `nth` many keypairs and generate hashed public
       // keys (addresses) for equality tests ??
       // Would need remote.set_secret(address, private_key_not_seed) ??

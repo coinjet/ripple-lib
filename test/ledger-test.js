@@ -1,7 +1,7 @@
 var assert = require('assert');
 var fs     = require('fs');
 
-var Ledger = require('ripple-lib').Ledger;
+var Ledger = require('divvy-lib').Ledger;
 
 /**
 * @param ledger_index {Number}
@@ -43,28 +43,28 @@ describe('Ledger', function() {
     });
   });
 
-  describe('#calcRippleStateEntryHash', function () {
-    it('will calculate the RippleState entry hash for rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh and rB5TihdPbKgMrkFqrqUC3yLdE8hhv4BdeY in USD', function () {
+  describe('#calcDivvyStateEntryHash', function () {
+    it('will calculate the DivvyState entry hash for rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh and rB5TihdPbKgMrkFqrqUC3yLdE8hhv4BdeY in USD', function () {
       var account1 = 'rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh';
       var account2 = 'rB5TihdPbKgMrkFqrqUC3yLdE8hhv4BdeY';
       var currency = 'USD';
 
       var expectedEntryHash = 'C683B5BB928F025F1E860D9D69D6C554C2202DE0D45877ADB3077DA4CB9E125C';
-      var actualEntryHash1 = Ledger.calcRippleStateEntryHash(account1, account2, currency);
-      var actualEntryHash2 = Ledger.calcRippleStateEntryHash(account2, account1, currency);
+      var actualEntryHash1 = Ledger.calcDivvyStateEntryHash(account1, account2, currency);
+      var actualEntryHash2 = Ledger.calcDivvyStateEntryHash(account2, account1, currency);
       
       assert.equal(actualEntryHash1.to_hex(), expectedEntryHash);
       assert.equal(actualEntryHash2.to_hex(), expectedEntryHash);
     });
     
-    it('will calculate the RippleState entry hash for r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV and rUAMuQTfVhbfqUDuro7zzy4jj4Wq57MPTj in UAM', function () {
+    it('will calculate the DivvyState entry hash for r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV and rUAMuQTfVhbfqUDuro7zzy4jj4Wq57MPTj in UAM', function () {
       var account1 = 'r3kmLJN5D28dHuH8vZNUZpMC43pEHpaocV';
       var account2 = 'rUAMuQTfVhbfqUDuro7zzy4jj4Wq57MPTj';
       var currency = 'UAM';
 
       var expectedEntryHash = 'AE9ADDC584358E5847ADFC971834E471436FC3E9DE6EA1773DF49F419DC0F65E';
-      var actualEntryHash1 = Ledger.calcRippleStateEntryHash(account1, account2, currency);
-      var actualEntryHash2 = Ledger.calcRippleStateEntryHash(account2, account1, currency);
+      var actualEntryHash1 = Ledger.calcDivvyStateEntryHash(account1, account2, currency);
+      var actualEntryHash2 = Ledger.calcDivvyStateEntryHash(account2, account1, currency);
       
       assert.equal(actualEntryHash1.to_hex(), expectedEntryHash);
       assert.equal(actualEntryHash2.to_hex(), expectedEntryHash);

@@ -1,9 +1,9 @@
 /* eslint-disable max-len */
 'use strict';
 var assert = require('assert');
-var Amount = require('ripple-lib').Amount;
-var UInt160 = require('ripple-lib').UInt160;
-var load_config = require('ripple-lib').config.load;
+var Amount = require('divvy-lib').Amount;
+var UInt160 = require('divvy-lib').UInt160;
+var load_config = require('divvy-lib').config.load;
 var config = require('./config-example');
 
 load_config(config);

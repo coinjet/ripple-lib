@@ -3,11 +3,11 @@
 var ws = require('ws');
 var lodash = require('lodash');
 var assert = require('assert-diff');
-var sjcl = require('ripple-lib').sjcl;
-var Remote = require('ripple-lib').Remote;
-var SerializedObject = require('ripple-lib').SerializedObject;
-var Transaction = require('ripple-lib').Transaction;
-var TransactionManager = require('../src/js/ripple/transactionmanager')
+var sjcl = require('divvy-lib').sjcl;
+var Remote = require('divvy-lib').Remote;
+var SerializedObject = require('divvy-lib').SerializedObject;
+var Transaction = require('divvy-lib').Transaction;
+var TransactionManager = require('../src/js/divvy/transactionmanager')
 .TransactionManager;
 
 var LEDGER = require('./fixtures/transactionmanager').LEDGER;
@@ -37,8 +37,8 @@ var SUBMIT_TEL_RESPONSE = require('./fixtures/transactionmanager')
 .SUBMIT_TEL_RESPONSE;
 
 describe('TransactionManager', function() {
-  var rippled;
-  var rippledConnection;
+  var divvyd;
+  var divvydConnection;
   var remote;
   var account;
   var transactionManager;
@@ -49,9 +49,9 @@ describe('TransactionManager', function() {
   });
 
   beforeEach(function(done) {
-    rippled = new ws.Server({port: 5763});
+    divvyd = new ws.Server({port: 5763});
 
-    rippled.on('connection', function(c) {
+    divvyd.on('connection', function(c) {
       var ledger = lodash.extend({}, LEDGER);
       c.sendJSON = function(v) {
         try {
@@ -72,17 +72,17 @@ describe('TransactionManager', function() {
       };
       c.on('message', function(m) {
         m = JSON.parse(m);
-        rippled.emit('request_' + m.command, m, c);
+        divvyd.emit('request_' + m.command, m, c);
       });
-      rippledConnection = c;
+      divvydConnection = c;
     });
 
-    rippled.on('request_subscribe', function(message, c) {
+    divvyd.on('request_subscribe', function(message, c) {
       if (lodash.isEqual(message.streams, ['ledger', 'server'])) {
         c.sendResponse(SUBSCRIBE_RESPONSE, {id: message.id});
       }
     });
-    rippled.on('request_account_info', function(message, c) {
+    divvyd.on('request_account_info', function(message, c) {
       if (message.account === ACCOUNT.address) {
         c.sendResponse(ACCOUNT_INFO_RESPONSE, {id: message.id});
       }
@@ -100,7 +100,7 @@ describe('TransactionManager', function() {
 
   afterEach(function(done) {
     remote.disconnect(function() {
-      rippled.close();
+      divvyd.close();
       setImmediate(done);
     });
   });
@@ -130,7 +130,7 @@ describe('TransactionManager', function() {
 
     transaction.addId(TX_STREAM_TRANSACTION.transaction.hash);
     transactionManager.getPending().push(transaction);
-    rippledConnection.sendJSON(TX_STREAM_TRANSACTION);
+    divvydConnection.sendJSON(TX_STREAM_TRANSACTION);
   });
   it('Handle received transaction -- failed', function(done) {
     var transaction = Transaction.from_json(TX_STREAM_TRANSACTION.transaction);
@@ -142,12 +142,12 @@ describe('TransactionManager', function() {
 
     transaction.addId(TX_STREAM_TRANSACTION.transaction.hash);
     transactionManager.getPending().push(transaction);
-    rippledConnection.sendJSON(lodash.extend({ }, TX_STREAM_TRANSACTION, {
+    divvydConnection.sendJSON(lodash.extend({ }, TX_STREAM_TRANSACTION, {
       engine_result: 'tecINSUFF_FEE_P'
     }));
   });
   it('Handle received transaction -- not submitted', function(done) {
-    rippledConnection.sendJSON(TX_STREAM_TRANSACTION);
+    divvydConnection.sendJSON(TX_STREAM_TRANSACTION);
 
     remote.once('transaction', function() {
       assert(transactionManager.getPending().getReceived(
@@ -160,7 +160,7 @@ describe('TransactionManager', function() {
     lodash.extend(tx.transaction, {
       Account: 'rMP2Y5EZrVZdFKsow11NoKTE5FjXuBQd3d'
     });
-    rippledConnection.sendJSON(tx);
+    divvydConnection.sendJSON(tx);
 
     setImmediate(function() {
       assert(!transactionManager.getPending().getReceived(
@@ -172,7 +172,7 @@ describe('TransactionManager', function() {
     var tx = lodash.extend({ }, TX_STREAM_TRANSACTION, {
       validated: false
     });
-    rippledConnection.sendJSON(tx);
+    divvydConnection.sendJSON(tx);
 
     setImmediate(function() {
       assert(!transactionManager.getPending().getReceived(
@@ -204,7 +204,7 @@ describe('TransactionManager', function() {
 
     transactionManager.getPending().push(transaction);
 
-    rippledConnection.sendJSON({
+    divvydConnection.sendJSON({
       type: 'serverStatus',
       load_base: 256,
       load_factor: 256 * 2,
@@ -224,7 +224,7 @@ describe('TransactionManager', function() {
 
     transactionManager.getPending().push(transaction);
 
-    rippledConnection.sendJSON({
+    divvydConnection.sendJSON({
       type: 'serverStatus',
       load_base: 256,
       load_factor: 256 * 2,
@@ -246,7 +246,7 @@ describe('TransactionManager', function() {
 
     transactionManager.getPending().push(transaction);
 
-    rippledConnection.sendJSON({
+    divvydConnection.sendJSON({
       type: 'serverStatus',
       load_base: 256,
       load_factor: 256 * 2,
@@ -260,7 +260,7 @@ describe('TransactionManager', function() {
     transactionManager._waitLedgers(3, done);
 
     for (var i = 1; i <= 3; i++) {
-      rippledConnection.closeLedger();
+      divvydConnection.closeLedger();
     }
   });
 
@@ -293,7 +293,7 @@ describe('TransactionManager', function() {
     transactionManager.getPending().push(transaction);
 
     for (var i = 1; i <= 10; i++) {
-      rippledConnection.closeLedger();
+      divvydConnection.closeLedger();
     }
   });
 
@@ -321,7 +321,7 @@ describe('TransactionManager', function() {
     transactionManager.getPending().push(transaction);
 
     for (var i = 1; i <= 10; i++) {
-      rippledConnection.closeLedger();
+      divvydConnection.closeLedger();
     }
 
     setImmediate(function() {
@@ -351,7 +351,7 @@ describe('TransactionManager', function() {
 
     transactionManager.getPending().push(transaction);
 
-    rippled.once('request_account_tx', function(m, req) {
+    divvyd.once('request_account_tx', function(m, req) {
       var response = lodash.extend({}, ACCOUNT_TX_RESPONSE);
       response.result.transactions = [binaryTx];
       req.sendResponse(response, {id: m.id});
@@ -376,7 +376,7 @@ describe('TransactionManager', function() {
 
     transactionManager.getPending().push(transaction);
 
-    rippled.once('request_account_tx', function(m, req) {
+    divvyd.once('request_account_tx', function(m, req) {
       var response = lodash.extend({}, ACCOUNT_TX_RESPONSE);
       response.result.transactions = [binaryTx];
       req.sendResponse(response, {id: m.id});
@@ -393,7 +393,7 @@ describe('TransactionManager', function() {
       assert(false, 'Should not resubmit');
     };
 
-    rippled.once('request_account_tx', function(m, req) {
+    divvyd.once('request_account_tx', function(m, req) {
       req.sendResponse(ACCOUNT_TX_ERROR, {id: m.id});
       setImmediate(done);
     });
@@ -417,7 +417,7 @@ describe('TransactionManager', function() {
       receivedInitialSuccess = true;
     });
 
-    rippled.once('request_submit', function(m, req) {
+    divvyd.once('request_submit', function(m, req) {
       assert.strictEqual(m.tx_blob, SerializedObject.from_json(
         transaction.tx_json).to_hex());
       assert.strictEqual(transactionManager.getPending().length(), 1);
@@ -426,7 +426,7 @@ describe('TransactionManager', function() {
         var txEvent = lodash.extend({}, TX_STREAM_TRANSACTION);
         txEvent.transaction = transaction.tx_json;
         txEvent.transaction.hash = transaction.hash();
-        rippledConnection.sendJSON(txEvent);
+        divvydConnection.sendJSON(txEvent);
       });
     });
 
@@ -455,7 +455,7 @@ describe('TransactionManager', function() {
       receivedSubmitted = true;
     });
 
-    rippled.once('request_submit', function(m, req) {
+    divvyd.once('request_submit', function(m, req) {
       assert.strictEqual(m.tx_blob, SerializedObject.from_json(
         transaction.tx_json).to_hex());
       assert.strictEqual(transactionManager.getPending().length(), 1);
@@ -465,7 +465,7 @@ describe('TransactionManager', function() {
           SUBMIT_TEC_RESPONSE.result);
         txEvent.transaction = transaction.tx_json;
         txEvent.transaction.hash = transaction.hash();
-        rippledConnection.sendJSON(txEvent);
+        divvydConnection.sendJSON(txEvent);
       });
     });
 
@@ -496,7 +496,7 @@ describe('TransactionManager', function() {
       receivedSubmitted = true;
     });
 
-    rippled.on('request_submit', function(m, req) {
+    divvyd.on('request_submit', function(m, req) {
       var deserialized = new SerializedObject(m.tx_blob).to_json();
 
       switch (deserialized.TransactionType) {
@@ -513,7 +513,7 @@ describe('TransactionManager', function() {
           break;
       }
     });
-    rippled.once('request_submit', function(m, req) {
+    divvyd.once('request_submit', function(m, req) {
       req.sendJSON(lodash.extend({}, LEDGER, {
         ledger_index: transaction.tx_json.LastLedgerSequence + 1
       }));
@@ -546,14 +546,14 @@ describe('TransactionManager', function() {
       receivedSubmitted = true;
     });
 
-    rippled.on('request_submit', function(m, req) {
+    divvyd.on('request_submit', function(m, req) {
       assert.strictEqual(transactionManager.getPending().length(), 1);
       assert.strictEqual(m.tx_blob, SerializedObject.from_json(
         transaction.tx_json).to_hex());
       req.sendResponse(SUBMIT_TEF_RESPONSE, {id: m.id});
     });
 
-    rippled.once('request_submit', function(m, req) {
+    divvyd.once('request_submit', function(m, req) {
       transaction.once('resubmitted', function() {
         receivedResubmitted = true;
         req.sendJSON(lodash.extend({}, LEDGER, {
@@ -589,14 +589,14 @@ describe('TransactionManager', function() {
       receivedSubmitted = true;
     });
 
-    rippled.on('request_submit', function(m, req) {
+    divvyd.on('request_submit', function(m, req) {
       assert.strictEqual(transactionManager.getPending().length(), 1);
       assert.strictEqual(m.tx_blob, SerializedObject.from_json(
         transaction.tx_json).to_hex());
       req.sendResponse(SUBMIT_TEL_RESPONSE, {id: m.id});
     });
 
-    rippled.once('request_submit', function(m, req) {
+    divvyd.once('request_submit', function(m, req) {
       transaction.once('resubmitted', function() {
         receivedResubmitted = true;
         req.sendJSON(lodash.extend({}, LEDGER, {
@@ -624,7 +624,7 @@ describe('TransactionManager', function() {
       account: ACCOUNT.address
     });
 
-    rippled.once('request_submit', function() {
+    divvyd.once('request_submit', function() {
       assert(false, 'Should not request submit');
     });
 

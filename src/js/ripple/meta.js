@@ -219,8 +219,8 @@ Meta.prototype.getAffectedBooks = function() {
  *     // Type of diff, e.g. CreatedNode, ModifiedNode
  *     nodeType: 'CreatedNode'
  *
- *     // Type of node affected, e.g. RippleState, AccountRoot
- *     entryType: 'RippleState',
+ *     // Type of node affected, e.g. DivvyState, AccountRoot
+ *     entryType: 'DivvyState',
  *
  *     // Index of the ledger this change occurred in
  *     ledgerIndex: '01AB01AB...',

@@ -12,9 +12,9 @@
 /* eslint-disable quotes*/
 
 var assert = require('assert');
-var SerializedObject = require('ripple-lib').SerializedObject;
-var Amount = require('ripple-lib').Amount;
-var sjcl = require('ripple-lib').sjcl;
+var SerializedObject = require('divvy-lib').SerializedObject;
+var Amount = require('divvy-lib').Amount;
+var sjcl = require('divvy-lib').sjcl;
 
 // Shortcuts
 var hex = sjcl.codec.hex;
@@ -152,7 +152,7 @@ describe('Serialized object', function() {
 
     describe('Format validation', function() {
       // Peercover actually had a problem submitting transactions without a `Fee`
-      // and rippled was only informing of "transaction is invalid"
+      // and divvyd was only informing of "transaction is invalid"
       it('should throw an Error when there is a missing field', function() {
         var input_json = {
           Account: 'r4qLSAzv4LZ9TLsR7diphGwKnSEAMQTSjS',

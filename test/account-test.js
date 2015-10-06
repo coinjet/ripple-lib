@@ -1,5 +1,5 @@
 var assert = require('assert');
-var Account = require('ripple-lib').Account;
+var Account = require('divvy-lib').Account;
 
 describe('Account', function(){
 

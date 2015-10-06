@@ -1,8 +1,8 @@
 'use strict';
 
 var fs = require('fs');
-var Amount = require('../src/js/ripple').Amount;
-var Ledger = require('../src/js/ripple/ledger').Ledger;
+var Amount = require('../src/js/divvy').Amount;
+var Ledger = require('../src/js/divvy/ledger').Ledger;
 
 function parse_options(from, flags) {
   var argv = from.slice(),
@@ -37,7 +37,7 @@ var ledger = Ledger.from_json(JSON.parse(json));
 
 // This will serialize each accountState object to binary and then back to json
 // before finally serializing for hashing. This is mostly to expose any issues
-// with ripple-libs binary <--> json codecs.
+// with divvy-libs binary <--> json codecs.
 if (opts.sanity_test) {
   console.log('All accountState nodes will be processed from ' +
               'json->binary->json->binary. This may take some time ' +

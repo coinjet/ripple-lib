@@ -128,7 +128,7 @@ function toTimestamp(rpepoch) {
 
 /**
  * @param {Number|Date} timestamp (ms since unix epoch)
- * @return {Number} seconds since ripple epoch ( 1/1/2000 GMT)
+ * @return {Number} seconds since divvy epoch ( 1/1/2000 GMT)
  */
 function fromTimestamp(timestamp) {
   if (timestamp instanceof Date) {
@@ -139,8 +139,8 @@ function fromTimestamp(timestamp) {
 }
 
 exports.time = {
-  fromRipple: toTimestamp,
-  toRipple: fromTimestamp
+  fromDivvy: toTimestamp,
+  toDivvy: fromTimestamp
 };
 
 exports.trace = trace;

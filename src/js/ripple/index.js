@@ -12,7 +12,7 @@ exports.UInt256 = require('./uint256').UInt256;
 exports.Seed = require('./seed').Seed;
 exports.Meta = require('./meta').Meta;
 exports.SerializedObject = require('./serializedobject').SerializedObject;
-exports.RippleError = require('./rippleerror').RippleError;
+exports.DivvyError = require('./divvyerror').DivvyError;
 exports.Message = require('./message').Message;
 exports.binformat = require('./binformat');
 exports.utils = require('./utils');
@@ -27,7 +27,7 @@ exports.convertBase = require('./baseconverter');
 // specific features to be included. The version and configuration may change at
 // any time without warning.
 //
-// However, for programs that are tied to a specific version of ripple.js like
+// However, for programs that are tied to a specific version of divvy.js like
 // the official client, it makes sense to expose the SJCL instance so we don't
 // have to include it twice.
 exports.sjcl = require('./utils').sjcl;

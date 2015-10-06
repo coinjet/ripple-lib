@@ -1,9 +1,9 @@
 var assert = require('assert');
-var Request = require('ripple-lib').Request;
-var Remote = require('ripple-lib').Remote;
-var Server = require('ripple-lib').Server;
-var Currency = require('ripple-lib').Currency;
-var RippleError = require('ripple-lib').RippleError;
+var Request = require('divvy-lib').Request;
+var Remote = require('divvy-lib').Remote;
+var Server = require('divvy-lib').Server;
+var Currency = require('divvy-lib').Currency;
+var DivvyError = require('divvy-lib').DivvyError;
 
 function makeServer(url) {
   var server = new Server(new process.EventEmitter(), url);
@@ -202,7 +202,7 @@ describe('Request', function() {
     request.callback(function(err, res) {
       setImmediate(function() {
         assert.strictEqual(requests, 2, 'Failed to broadcast');
-        assert.deepEqual(err, new RippleError(errorResponse));
+        assert.deepEqual(err, new DivvyError(errorResponse));
         done();
       });
     });
@@ -454,7 +454,7 @@ describe('Request', function() {
     request.callback(function(err, res) {
       setTimeout(function() {
         // Wait for the request that would emit 'success' to time out
-        assert.deepEqual(err, new RippleError(errorResponse));
+        assert.deepEqual(err, new DivvyError(errorResponse));
         assert.deepEqual(servers[0].listeners('connect'), [ ]);
         done();
       }, 20);
@@ -838,13 +838,13 @@ describe('Request', function() {
     assert.strictEqual(request.message.tx_blob, 'asdf');
   });
 
-  it('Set ripple state', function() {
+  it('Set divvy state', function() {
     var remote = new Remote();
     remote._connected = true;
 
     var request = new Request(remote, 'server_info');
-    request.rippleState('r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59', 'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59', 'USD');
-    assert.deepEqual(request.message.ripple_state, {
+    request.divvyState('r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59', 'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59', 'USD');
+    assert.deepEqual(request.message.divvy_state, {
       currency: 'USD',
       accounts: [ 'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59', 'r9cZA1mLK5R5Am25ArfXFmqgNwjZgnfk59' ]
     });
