@@ -134,20 +134,20 @@ describe('Amount', function() {
     it('missing value', function() {
       assert.strictEqual(Amount.from_human('USD').to_text_full(), 'NaN');
     });
-    it('1 XRP', function() {
-      assert.strictEqual(Amount.from_human('1 XRP').to_text_full(), '1/XRP');
+    it('1 XDV', function() {
+      assert.strictEqual(Amount.from_human('1 XDV').to_text_full(), '1/XDV');
     });
-    it('1 XRP human', function() {
-      assert.strictEqual(Amount.from_human('1 XRP').to_human_full(), '1/XRP');
+    it('1 XDV human', function() {
+      assert.strictEqual(Amount.from_human('1 XDV').to_human_full(), '1/XDV');
     });
-    it('1XRP human', function() {
-      assert.strictEqual(Amount.from_human('1XRP').to_human_full(), '1/XRP');
+    it('1XDV human', function() {
+      assert.strictEqual(Amount.from_human('1XDV').to_human_full(), '1/XDV');
     });
-    it('0.1 XRP', function() {
-      assert.strictEqual(Amount.from_human('0.1 XRP').to_text_full(), '0.1/XRP');
+    it('0.1 XDV', function() {
+      assert.strictEqual(Amount.from_human('0.1 XDV').to_text_full(), '0.1/XDV');
     });
-    it('0.1 XRP human', function() {
-      assert.strictEqual(Amount.from_human('0.1 XRP').to_human_full(), '0.1/XRP');
+    it('0.1 XDV human', function() {
+      assert.strictEqual(Amount.from_human('0.1 XDV').to_human_full(), '0.1/XDV');
     });
     it('0.1 USD', function() {
       assert.strictEqual(Amount.from_human('0.1 USD').to_text_full(), '0.1/USD/NaN');
@@ -241,11 +241,11 @@ describe('Amount', function() {
     });
   });
   describe('from_json', function() {
-    it('1 XRP', function() {
-      assert.strictEqual(Amount.from_json('1/XRP').to_text_full(), '1/XRP/NaN');
+    it('1 XDV', function() {
+      assert.strictEqual(Amount.from_json('1/XDV').to_text_full(), '1/XDV/NaN');
     });
-    it('1 XRP human', function() {
-      assert.strictEqual(Amount.from_json('1/XRP').to_human_full(), '1/XRP/NaN');
+    it('1 XDV human', function() {
+      assert.strictEqual(Amount.from_json('1/XDV').to_human_full(), '1/XDV/NaN');
     });
   });
   describe('from_number', function() {
@@ -288,7 +288,7 @@ describe('Amount', function() {
   });
   describe('text_full_rewrite', function() {
     it('Number 1', function() {
-      assert.strictEqual('0.000001/XRP', Amount.text_full_rewrite(1));
+      assert.strictEqual('0.000001/XDV', Amount.text_full_rewrite(1));
     });
   });
   describe('json_rewrite', function() {
@@ -326,8 +326,8 @@ describe('Amount', function() {
     it('is_valid "1"', function() {
       assert(Amount.is_valid('1'));
     });
-    it('is_valid "1/XRP"', function() {
-      assert(Amount.is_valid('1/XRP'));
+    it('is_valid "1/XDV"', function() {
+      assert(Amount.is_valid('1/XDV'));
     });
     it('!is_valid NaN', function() {
       assert(!Amount.is_valid(NaN));
@@ -367,7 +367,7 @@ describe('Amount', function() {
       assert.strictEqual('800/USD/' + config.accounts.mtgox.account, Amount.from_json('800/USD/mtgox').to_human_full());
     });
     it('Parse native 0', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').to_text_full());
+      assert.strictEqual('0/XDV', Amount.from_json('0').to_text_full());
     });
     it('Parse native 0.0', function () {
       assert.throws(function() {
@@ -375,7 +375,7 @@ describe('Amount', function() {
       });
     });
     it('Parse native -0', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('-0').to_text_full());
+      assert.strictEqual('0/XDV', Amount.from_json('-0').to_text_full());
     });
     it('Parse native -0.0', function () {
       assert.throws(function() {
@@ -383,13 +383,13 @@ describe('Amount', function() {
       });
     });
     it('Parse native 1000', function () {
-      assert.strictEqual('0.001/XRP', Amount.from_json('1000').to_text_full());
+      assert.strictEqual('0.001/XDV', Amount.from_json('1000').to_text_full());
     });
     it('Parse native 12300000', function () {
-      assert.strictEqual('12.3/XRP', Amount.from_json('12300000').to_text_full());
+      assert.strictEqual('12.3/XDV', Amount.from_json('12300000').to_text_full());
     });
     it('Parse native -12300000', function () {
-      assert.strictEqual('-12.3/XRP', Amount.from_json('-12300000').to_text_full());
+      assert.strictEqual('-12.3/XDV', Amount.from_json('-12300000').to_text_full());
     });
     it('Parse 123./USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', function () {
       assert.strictEqual('123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('123./USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').to_text_full());
@@ -416,19 +416,19 @@ describe('Amount', function() {
       assert.strictEqual('0/12D/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/12D/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').to_text_full());
     });
     it('Parse native 0 human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').to_human_full());
+      assert.strictEqual('0/XDV', Amount.from_json('0').to_human_full());
     });
     it('Parse native -0 human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('-0').to_human_full());
+      assert.strictEqual('0/XDV', Amount.from_json('-0').to_human_full());
     });
     it('Parse native 1000 human', function () {
-      assert.strictEqual('0.001/XRP', Amount.from_json('1000').to_human_full());
+      assert.strictEqual('0.001/XDV', Amount.from_json('1000').to_human_full());
     });
     it('Parse native 12300000 human', function () {
-      assert.strictEqual('12.3/XRP', Amount.from_json('12300000').to_human_full());
+      assert.strictEqual('12.3/XDV', Amount.from_json('12300000').to_human_full());
     });
     it('Parse native -12300000 human', function () {
-      assert.strictEqual('-12.3/XRP', Amount.from_json('-12300000').to_human_full());
+      assert.strictEqual('-12.3/XDV', Amount.from_json('-12300000').to_human_full());
     });
     it('Parse 123./USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh human', function () {
       assert.strictEqual('123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('123./USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').to_human_full());
@@ -474,10 +474,10 @@ describe('Amount', function() {
   });
   describe('Amount operations', function() {
     it('Negate native 123', function () {
-      assert.strictEqual('-0.000123/XRP', Amount.from_json('123').negate().to_text_full());
+      assert.strictEqual('-0.000123/XDV', Amount.from_json('123').negate().to_text_full());
     });
     it('Negate native -123', function () {
-      assert.strictEqual('0.000123/XRP', Amount.from_json('-123').negate().to_text_full());
+      assert.strictEqual('0.000123/XDV', Amount.from_json('-123').negate().to_text_full());
     });
     it('Negate non-native 123', function () {
       assert.strictEqual('-123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').negate().to_text_full());
@@ -488,8 +488,8 @@ describe('Amount', function() {
     it('Clone non-native -123', function () {
       assert.strictEqual('-123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').clone().to_text_full());
     });
-    it('Add XRP to XRP', function () {
-      assert.strictEqual('0.0002/XRP', Amount.from_json('150').add(Amount.from_json('50')).to_text_full());
+    it('Add XDV to XDV', function () {
+      assert.strictEqual('0.0002/XDV', Amount.from_json('150').add(Amount.from_json('50')).to_text_full());
     });
     it('Add USD to USD', function () {
       assert.strictEqual('200.52/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('150.02/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').add(Amount.from_json('50.5/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
@@ -500,47 +500,47 @@ describe('Amount', function() {
     it('Subtract USD from USD', function() {
       assert.strictEqual('99.52/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('150.02/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').subtract(Amount.from_json('50.5/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply 0 XRP with 0 XRP', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('0')).to_text_full());
+    it('Multiply 0 XDV with 0 XDV', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 0 USD with 0 XRP', function () {
+    it('Multiply 0 USD with 0 XDV', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 0 XRP with 0 USD', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply 0 XDV with 0 USD', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply 1 XRP with 0 XRP', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').multiply(Amount.from_json('0')).to_text_full());
+    it('Multiply 1 XDV with 0 XDV', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').multiply(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 1 USD with 0 XRP', function () {
+    it('Multiply 1 USD with 0 XDV', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 1 XRP with 0 USD', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply 1 XDV with 0 USD', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply 0 XRP with 1 XRP', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('1')).to_text_full());
+    it('Multiply 0 XDV with 1 XDV', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('1')).to_text_full());
     });
-    it('Multiply 0 USD with 1 XRP', function () {
+    it('Multiply 0 USD with 1 XDV', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('1')).to_text_full());
     });
-    it('Multiply 0 XRP with 1 USD', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply 0 XDV with 1 USD', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD', function () {
-      assert.equal('0.002/XRP', Amount.from_json('200').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD', function () {
+      assert.equal('0.002/XDV', Amount.from_json('200').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD', function () {
-      assert.strictEqual('0.2/XRP', Amount.from_json('20000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD', function () {
+      assert.strictEqual('0.2/XDV', Amount.from_json('20000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD', function () {
-      assert.strictEqual('20/XRP', Amount.from_json('2000000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD', function () {
+      assert.strictEqual('20/XDV', Amount.from_json('2000000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD, neg', function () {
-      assert.strictEqual('-0.002/XRP', Amount.from_json('200').multiply(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD, neg', function () {
+      assert.strictEqual('-0.002/XDV', Amount.from_json('200').multiply(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD, neg, frac', function () {
-      assert.strictEqual('-0.222/XRP', Amount.from_json('-6000').multiply(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD, neg, frac', function () {
+      assert.strictEqual('-0.222/XDV', Amount.from_json('-6000').multiply(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
     it('Multiply USD with USD', function () {
       assert.strictEqual('20000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
@@ -557,32 +557,32 @@ describe('Amount', function() {
     it('Multiply EUR with USD, neg, <1', function () {
       assert.strictEqual('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0.1/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('-1000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply EUR with XRP, factor < 1', function () {
+    it('Multiply EUR with XDV, factor < 1', function () {
       assert.strictEqual('100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('2000')).to_text_full());
     });
-    it('Multiply EUR with XRP, neg', function () {
+    it('Multiply EUR with XDV, neg', function () {
       assert.strictEqual('-500/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('5')).to_text_full());
     });
-    it('Multiply EUR with XRP, neg, <1', function () {
+    it('Multiply EUR with XDV, neg, <1', function () {
       assert.strictEqual('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('2000')).to_text_full());
     });
-    it('Multiply XRP with XRP', function () {
-      assert.strictEqual('0.0001/XRP', Amount.from_json('10').multiply(Amount.from_json('10')).to_text_full());
+    it('Multiply XDV with XDV', function () {
+      assert.strictEqual('0.0001/XDV', Amount.from_json('10').multiply(Amount.from_json('10')).to_text_full());
     });
-    it('Divide XRP by USD', function () {
-      assert.strictEqual('0.00002/XRP', Amount.from_json('200').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Divide XDV by USD', function () {
+      assert.strictEqual('0.00002/XDV', Amount.from_json('200').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Divide XRP by USD', function () {
-      assert.strictEqual('0.002/XRP', Amount.from_json('20000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Divide XDV by USD', function () {
+      assert.strictEqual('0.002/XDV', Amount.from_json('20000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Divide XRP by USD', function () {
-      assert.strictEqual('0.2/XRP', Amount.from_json('2000000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Divide XDV by USD', function () {
+      assert.strictEqual('0.2/XDV', Amount.from_json('2000000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Divide XRP by USD, neg', function () {
-      assert.strictEqual('-0.00002/XRP', Amount.from_json('200').divide(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Divide XDV by USD, neg', function () {
+      assert.strictEqual('-0.00002/XDV', Amount.from_json('200').divide(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Divide XRP by USD, neg, frac', function () {
-      assert.strictEqual('-0.000162/XRP', Amount.from_json('-6000').divide(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Divide XDV by USD, neg, frac', function () {
+      assert.strictEqual('-0.000162/XDV', Amount.from_json('-6000').divide(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
     it('Divide USD by USD', function () {
       assert.strictEqual('200/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
@@ -602,20 +602,20 @@ describe('Amount', function() {
     it('Divide EUR by USD, neg, <1', function () {
       assert.strictEqual('-0.1/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('-1000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Divide EUR by XRP, result < 1', function () {
+    it('Divide EUR by XDV, result < 1', function () {
       assert.strictEqual('0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('2000')).to_text_full());
     });
-    it('Divide EUR by XRP, neg', function () {
+    it('Divide EUR by XDV, neg', function () {
       assert.strictEqual('-20/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('5')).to_text_full());
     });
-    it('Divide EUR by XRP, neg, <1', function () {
+    it('Divide EUR by XDV, neg, <1', function () {
       assert.strictEqual('-0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('2000')).to_text_full());
     });
     it('Negate native 123 human', function () {
-      assert.strictEqual('-0.000123/XRP', Amount.from_json('123').negate().to_human_full());
+      assert.strictEqual('-0.000123/XDV', Amount.from_json('123').negate().to_human_full());
     });
     it('Negate native -123 human', function () {
-      assert.strictEqual('0.000123/XRP', Amount.from_json('-123').negate().to_human_full());
+      assert.strictEqual('0.000123/XDV', Amount.from_json('-123').negate().to_human_full());
     });
     it('Negate non-native 123 human', function () {
       assert.strictEqual('-123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').negate().to_human_full());
@@ -626,8 +626,8 @@ describe('Amount', function() {
     it('Clone non-native -123 human', function () {
       assert.strictEqual('-123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-123/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').clone().to_human_full());
     });
-    it('Add XRP to XRP human', function () {
-      assert.strictEqual('0.0002/XRP', Amount.from_json('150').add(Amount.from_json('50')).to_human_full());
+    it('Add XDV to XDV human', function () {
+      assert.strictEqual('0.0002/XDV', Amount.from_json('150').add(Amount.from_json('50')).to_human_full());
     });
     it('Add USD to USD human', function () {
       assert.strictEqual('200.52/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('150.02/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').add(Amount.from_json('50.5/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
@@ -638,47 +638,47 @@ describe('Amount', function() {
     it('Subtract USD from USD human', function() {
       assert.strictEqual('99.52/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('150.02/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').subtract(Amount.from_json('50.5/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply 0 XRP with 0 XRP human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('0')).to_human_full());
+    it('Multiply 0 XDV with 0 XDV human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 0 USD with 0 XRP human', function () {
+    it('Multiply 0 USD with 0 XDV human', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 0 XRP with 0 USD human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply 0 XDV with 0 USD human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply 1 XRP with 0 XRP human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').multiply(Amount.from_json('0')).to_human_full());
+    it('Multiply 1 XDV with 0 XDV human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').multiply(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 1 USD with 0 XRP human', function () {
+    it('Multiply 1 USD with 0 XDV human', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 1 XRP with 0 USD human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply 1 XDV with 0 USD human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').multiply(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply 0 XRP with 1 XRP human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('1')).to_human_full());
+    it('Multiply 0 XDV with 1 XDV human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('1')).to_human_full());
     });
-    it('Multiply 0 USD with 1 XRP human', function () {
+    it('Multiply 0 USD with 1 XDV human', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('1')).to_human_full());
     });
-    it('Multiply 0 XRP with 1 USD human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').multiply(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply 0 XDV with 1 USD human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').multiply(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD human', function () {
-      assert.equal('0.002/XRP', Amount.from_json('200').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD human', function () {
+      assert.equal('0.002/XDV', Amount.from_json('200').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD human', function () {
-      assert.strictEqual('0.2/XRP', Amount.from_json('20000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD human', function () {
+      assert.strictEqual('0.2/XDV', Amount.from_json('20000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD human', function () {
-      assert.strictEqual('20/XRP', Amount.from_json('2000000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD human', function () {
+      assert.strictEqual('20/XDV', Amount.from_json('2000000').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD, neg human', function () {
-      assert.strictEqual('-0.002/XRP', Amount.from_json('200').multiply(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD, neg human', function () {
+      assert.strictEqual('-0.002/XDV', Amount.from_json('200').multiply(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD, neg, frac human', function () {
-      assert.strictEqual('-0.222/XRP', Amount.from_json('-6000').multiply(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD, neg, frac human', function () {
+      assert.strictEqual('-0.222/XDV', Amount.from_json('-6000').multiply(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
     it('Multiply USD with USD human', function () {
       assert.strictEqual('20,000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
@@ -695,32 +695,32 @@ describe('Amount', function() {
     it('Multiply EUR with USD, neg, <1 human', function () {
       assert.strictEqual('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0.1/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('-1000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply EUR with XRP, factor < 1 human', function () {
+    it('Multiply EUR with XDV, factor < 1 human', function () {
       assert.strictEqual('100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('2000')).to_human_full());
     });
-    it('Multiply EUR with XRP, neg human', function () {
+    it('Multiply EUR with XDV, neg human', function () {
       assert.strictEqual('-500/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('5')).to_human_full());
     });
-    it('Multiply EUR with XRP, neg, <1 human', function () {
+    it('Multiply EUR with XDV, neg, <1 human', function () {
       assert.strictEqual('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').multiply(Amount.from_json('2000')).to_human_full());
     });
-    it('Multiply XRP with XRP human', function () {
-      assert.strictEqual('0.0001/XRP', Amount.from_json('10').multiply(Amount.from_json('10')).to_human_full());
+    it('Multiply XDV with XDV human', function () {
+      assert.strictEqual('0.0001/XDV', Amount.from_json('10').multiply(Amount.from_json('10')).to_human_full());
     });
-    it('Divide XRP by USD human', function () {
-      assert.strictEqual('0.00002/XRP', Amount.from_json('200').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Divide XDV by USD human', function () {
+      assert.strictEqual('0.00002/XDV', Amount.from_json('200').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Divide XRP by USD human', function () {
-      assert.strictEqual('0.002/XRP', Amount.from_json('20000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Divide XDV by USD human', function () {
+      assert.strictEqual('0.002/XDV', Amount.from_json('20000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Divide XRP by USD human', function () {
-      assert.strictEqual('0.2/XRP', Amount.from_json('2000000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Divide XDV by USD human', function () {
+      assert.strictEqual('0.2/XDV', Amount.from_json('2000000').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Divide XRP by USD, neg human', function () {
-      assert.strictEqual('-0.00002/XRP', Amount.from_json('200').divide(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Divide XDV by USD, neg human', function () {
+      assert.strictEqual('-0.00002/XDV', Amount.from_json('200').divide(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Divide XRP by USD, neg, frac human', function () {
-      assert.strictEqual('-0.000162/XRP', Amount.from_json('-6000').divide(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Divide XDV by USD, neg, frac human', function () {
+      assert.strictEqual('-0.000162/XDV', Amount.from_json('-6000').divide(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
     it('Divide USD by USD human', function () {
       assert.strictEqual('200/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
@@ -740,13 +740,13 @@ describe('Amount', function() {
     it('Divide EUR by USD, neg, <1 human', function () {
       assert.strictEqual('-0.1/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('-1000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Divide EUR by XRP, result < 1 human', function () {
+    it('Divide EUR by XDV, result < 1 human', function () {
       assert.strictEqual('0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('2000')).to_human_full());
     });
-    it('Divide EUR by XRP, neg human', function () {
+    it('Divide EUR by XDV, neg human', function () {
       assert.strictEqual('-20/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('5')).to_human_full());
     });
-    it('Divide EUR by XRP, neg, <1 human', function () {
+    it('Divide EUR by XDV, neg, <1 human', function () {
       assert.strictEqual('-0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').divide(Amount.from_json('2000')).to_human_full());
     });
     it('Divide by zero should throw', function() {
@@ -794,13 +794,13 @@ describe('Amount', function() {
       assert(a.equals(b));
       assert(!a.not_equals_why(b));
     });
-    it('0 XRP == 0 XRP', function () {
+    it('0 XDV == 0 XDV', function () {
       var a = Amount.from_json('0');
       var b = Amount.from_json('0');
       assert(a.equals(b));
       assert(!a.not_equals_why(b));
     });
-    it('0 XRP == -0 XRP', function () {
+    it('0 XDV == -0 XDV', function () {
       var a = Amount.from_json('0');
       var b = Amount.from_json('-0');
       assert(a.equals(b));
@@ -818,15 +818,15 @@ describe('Amount', function() {
       assert(a.equals(b));
       assert(!a.not_equals_why(b));
     });
-    it('10 XRP == 10 XRP', function () {
+    it('10 XDV == 10 XDV', function () {
       var a = Amount.from_json('10');
       var b = Amount.from_json('10');
       assert(a.equals(b));
       assert(!a.not_equals_why(b));
     });
-    it('1.1 XRP == 1.1 XRP', function () {
+    it('1.1 XDV == 1.1 XDV', function () {
       var a = Amount.from_json('1100000');
-      var b = Amount.from_json('11000000').ratio_human('10/XRP');
+      var b = Amount.from_json('11000000').ratio_human('10/XDV');
       assert(a.equals(b));
       assert(!a.not_equals_why(b));
     });
@@ -847,65 +847,65 @@ describe('Amount', function() {
       var a = Amount.from_json('10/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       var b = Amount.from_json('100/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'Non-XRP value differs.');
+      assert.strictEqual(a.not_equals_why(b), 'Non-XDV value differs.');
     });
-    it('10 XRP != 100 XRP', function () {
+    it('10 XDV != 100 XDV', function () {
       var a = Amount.from_json('10');
       var b = Amount.from_json('100');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'XRP value differs.');
+      assert.strictEqual(a.not_equals_why(b), 'XDV value differs.');
     });
     // Mantissa mismatch
     it('1 USD != 2 USD', function () {
       var a = Amount.from_json('1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       var b = Amount.from_json('2/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'Non-XRP value differs.');
+      assert.strictEqual(a.not_equals_why(b), 'Non-XDV value differs.');
     });
-    it('1 XRP != 2 XRP', function () {
+    it('1 XDV != 2 XDV', function () {
       var a = Amount.from_json('1');
       var b = Amount.from_json('2');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'XRP value differs.');
+      assert.strictEqual(a.not_equals_why(b), 'XDV value differs.');
     });
     it('0.1 USD != 0.2 USD', function () {
       var a = Amount.from_json('0.1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       var b = Amount.from_json('0.2/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'Non-XRP value differs.');
+      assert.strictEqual(a.not_equals_why(b), 'Non-XDV value differs.');
     });
     // Sign mismatch
     it('1 USD != -1 USD', function () {
       var a = Amount.from_json('1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       var b = Amount.from_json('-1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'Non-XRP sign differs.');
+      assert.strictEqual(a.not_equals_why(b), 'Non-XDV sign differs.');
     });
-    it('1 XRP != -1 XRP', function () {
+    it('1 XDV != -1 XDV', function () {
       var a = Amount.from_json('1');
       var b = Amount.from_json('-1');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'XRP sign differs.');
+      assert.strictEqual(a.not_equals_why(b), 'XDV sign differs.');
     });
     it('1 USD != 1 USD (issuer mismatch)', function () {
       var a = Amount.from_json('1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       var b = Amount.from_json('1/USD/rH5aWQJ4R7v4Mpyf4kDBUvDFT5cbpFq3XP');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'Non-XRP issuer differs: rH5aWQJ4R7v4Mpyf4kDBUvDFT5cbpFq3XP/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
+      assert.strictEqual(a.not_equals_why(b), 'Non-XDV issuer differs: rH5aWQJ4R7v4Mpyf4kDBUvDFT5cbpFq3XP/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
     });
     it('1 USD != 1 EUR', function () {
       var a = Amount.from_json('1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       var b = Amount.from_json('1/EUR/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       assert(!a.equals(b));
-      assert.strictEqual(a.not_equals_why(b), 'Non-XRP currency differs.');
+      assert.strictEqual(a.not_equals_why(b), 'Non-XDV currency differs.');
     });
-    it('1 USD != 1 XRP', function () {
+    it('1 USD != 1 XDV', function () {
       var a = Amount.from_json('1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       var b = Amount.from_json('1');
       assert(!a.equals(b));
       assert.strictEqual(a.not_equals_why(b), 'Native mismatch.');
     });
-    it('1 XRP != 1 USD', function () {
+    it('1 XDV != 1 USD', function () {
       var a = Amount.from_json('1');
       var b = Amount.from_json('1/USD/rNDKeo9RrCiRdfsMG8AdoZvNZxHASGzbZL');
       assert(!a.equals(b));
@@ -914,47 +914,47 @@ describe('Amount', function() {
   });
 
   describe('product_human', function() {
-    it('Multiply 0 XRP with 0 XRP', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('0')).to_text_full());
+    it('Multiply 0 XDV with 0 XDV', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 0 USD with 0 XRP', function () {
+    it('Multiply 0 USD with 0 XDV', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 0 XRP with 0 USD', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply 0 XDV with 0 USD', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply 1 XRP with 0 XRP', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').product_human(Amount.from_json('0')).to_text_full());
+    it('Multiply 1 XDV with 0 XDV', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').product_human(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 1 USD with 0 XRP', function () {
+    it('Multiply 1 USD with 0 XDV', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('0')).to_text_full());
     });
-    it('Multiply 1 XRP with 0 USD', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply 1 XDV with 0 USD', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply 0 XRP with 1 XRP', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('1')).to_text_full());
+    it('Multiply 0 XDV with 1 XDV', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('1')).to_text_full());
     });
-    it('Multiply 0 USD with 1 XRP', function () {
+    it('Multiply 0 USD with 1 XDV', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('1')).to_text_full());
     });
-    it('Multiply 0 XRP with 1 USD', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply 0 XDV with 1 USD', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD', function () {
-      assert.equal('0.002/XRP', Amount.from_json('200').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD', function () {
+      assert.equal('0.002/XDV', Amount.from_json('200').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD', function () {
-      assert.strictEqual('0.2/XRP', Amount.from_json('20000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD', function () {
+      assert.strictEqual('0.2/XDV', Amount.from_json('20000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD', function () {
-      assert.strictEqual('20/XRP', Amount.from_json('2000000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD', function () {
+      assert.strictEqual('20/XDV', Amount.from_json('2000000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD, neg', function () {
-      assert.strictEqual('-0.002/XRP', Amount.from_json('200').product_human(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD, neg', function () {
+      assert.strictEqual('-0.002/XDV', Amount.from_json('200').product_human(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
-    it('Multiply XRP with USD, neg, frac', function () {
-      assert.strictEqual('-0.222/XRP', Amount.from_json('-6000').product_human(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
+    it('Multiply XDV with USD, neg, frac', function () {
+      assert.strictEqual('-0.222/XDV', Amount.from_json('-6000').product_human(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
     });
     it('Multiply USD with USD', function () {
       assert.strictEqual('20000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full());
@@ -971,62 +971,62 @@ describe('Amount', function() {
     it('Multiply EUR with USD, neg, <1', function () {
       assert.strictEqual(Amount.from_json('0.1/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('-1000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_text_full(), '-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply EUR with XRP, factor < 1', function () {
+    it('Multiply EUR with XDV, factor < 1', function () {
       assert.strictEqual(Amount.from_json('0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('2000')).to_text_full(), '0.0001/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply EUR with XRP, neg', function () {
+    it('Multiply EUR with XDV, neg', function () {
       assert.strictEqual(Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('5')).to_text_full(), '-0.0005/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply EUR with XRP, neg, <1', function () {
+    it('Multiply EUR with XDV, neg, <1', function () {
       assert.strictEqual(Amount.from_json('-0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('2000')).to_text_full(), '-0.0001/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply XRP with XRP', function () {
-      assert.strictEqual(Amount.from_json('10000000').product_human(Amount.from_json('10')).to_text_full(), '0.0001/XRP');
+    it('Multiply XDV with XDV', function () {
+      assert.strictEqual(Amount.from_json('10000000').product_human(Amount.from_json('10')).to_text_full(), '0.0001/XDV');
     });
     it('Multiply USD with XAU (dem)', function () {
       assert.strictEqual(Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('10/015841551A748AD2C1F76FF6ECB0CCCD00000000/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh'), {reference_date: 443845330 + 31535000}).to_text_full(), '19900.00316303883/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply 0 XRP with 0 XRP human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('0')).to_human_full());
+    it('Multiply 0 XDV with 0 XDV human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 0 USD with 0 XRP human', function () {
+    it('Multiply 0 USD with 0 XDV human', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 0 XRP with 0 USD human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply 0 XDV with 0 USD human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply 1 XRP with 0 XRP human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').product_human(Amount.from_json('0')).to_human_full());
+    it('Multiply 1 XDV with 0 XDV human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').product_human(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 1 USD with 0 XRP human', function () {
+    it('Multiply 1 USD with 0 XDV human', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('0')).to_human_full());
     });
-    it('Multiply 1 XRP with 0 USD human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('1').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply 1 XDV with 0 USD human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('1').product_human(Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply 0 XRP with 1 XRP human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('1')).to_human_full());
+    it('Multiply 0 XDV with 1 XDV human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('1')).to_human_full());
     });
-    it('Multiply 0 USD with 1 XRP human', function () {
+    it('Multiply 0 USD with 1 XDV human', function () {
       assert.strictEqual('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('0/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('1')).to_human_full());
     });
-    it('Multiply 0 XRP with 1 USD human', function () {
-      assert.strictEqual('0/XRP', Amount.from_json('0').product_human(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply 0 XDV with 1 USD human', function () {
+      assert.strictEqual('0/XDV', Amount.from_json('0').product_human(Amount.from_json('1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD human', function () {
-      assert.equal('0.002/XRP', Amount.from_json('200').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD human', function () {
+      assert.equal('0.002/XDV', Amount.from_json('200').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD human', function () {
-      assert.strictEqual('0.2/XRP', Amount.from_json('20000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD human', function () {
+      assert.strictEqual('0.2/XDV', Amount.from_json('20000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD human', function () {
-      assert.strictEqual('20/XRP', Amount.from_json('2000000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD human', function () {
+      assert.strictEqual('20/XDV', Amount.from_json('2000000').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD, neg human', function () {
-      assert.strictEqual('-0.002/XRP', Amount.from_json('200').product_human(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD, neg human', function () {
+      assert.strictEqual('-0.002/XDV', Amount.from_json('200').product_human(Amount.from_json('-10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
-    it('Multiply XRP with USD, neg, frac human', function () {
-      assert.strictEqual('-0.222/XRP', Amount.from_json('-6000').product_human(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
+    it('Multiply XDV with USD, neg, frac human', function () {
+      assert.strictEqual('-0.222/XDV', Amount.from_json('-6000').product_human(Amount.from_json('37/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
     });
     it('Multiply USD with USD human', function () {
       assert.strictEqual('20,000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh', Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('10/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full());
@@ -1043,17 +1043,17 @@ describe('Amount', function() {
     it('Multiply EUR with USD, neg, <1 human', function () {
       assert.strictEqual(Amount.from_json('0.1/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('-1000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh')).to_human_full(), '-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply EUR with XRP, factor < 1 human', function () {
+    it('Multiply EUR with XDV, factor < 1 human', function () {
       assert.strictEqual(Amount.from_json('0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('2000')).to_human_full(), '0.0001/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply EUR with XRP, neg human', function () {
+    it('Multiply EUR with XDV, neg human', function () {
       assert.strictEqual(Amount.from_json('-100/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('5')).to_human_full(), '-0.0005/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply EUR with XRP, neg, <1 human', function () {
+    it('Multiply EUR with XDV, neg, <1 human', function () {
       assert.strictEqual(Amount.from_json('-0.05/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('2000')).to_human_full(), '-0.0001/EUR/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
     });
-    it('Multiply XRP with XRP human', function () {
-      assert.strictEqual(Amount.from_json('10000000').product_human(Amount.from_json('10')).to_human_full(), '0.0001/XRP');
+    it('Multiply XDV with XDV human', function () {
+      assert.strictEqual(Amount.from_json('10000000').product_human(Amount.from_json('10')).to_human_full(), '0.0001/XDV');
     });
     it('Multiply USD with XAU (dem) human', function () {
       assert.strictEqual(Amount.from_json('2000/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh').product_human(Amount.from_json('10/015841551A748AD2C1F76FF6ECB0CCCD00000000/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh'), {reference_date: 443845330 + 31535000}).to_human_full(), '19,900.00316303883/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
@@ -1091,22 +1091,22 @@ describe('Amount', function() {
   });
 
   describe('from_quality', function() {
-    it('XRP/XRP', function () {
+    it('XDV/XDV', function () {
       assert.throws(function() {
-        Amount.from_quality('7B73A610A009249B0CC0D4311E8BA7927B5A34D86634581C5F0FF9FF678E1000', 'XRP', NaN, {base_currency: 'XRP'}).to_text_full();
+        Amount.from_quality('7B73A610A009249B0CC0D4311E8BA7927B5A34D86634581C5F0FF9FF678E1000', 'XDV', NaN, {base_currency: 'XDV'}).to_text_full();
       });
     });
-    it('BTC/XRP', function () {
-      assert.strictEqual(Amount.from_quality('7B73A610A009249B0CC0D4311E8BA7927B5A34D86634581C5F0FF9FF678E1000', 'XRP', NaN, {base_currency: 'BTC'}).to_text_full(), '44,970/XRP');
+    it('BTC/XDV', function () {
+      assert.strictEqual(Amount.from_quality('7B73A610A009249B0CC0D4311E8BA7927B5A34D86634581C5F0FF9FF678E1000', 'XDV', NaN, {base_currency: 'BTC'}).to_text_full(), '44,970/XDV');
     });
-    it('BTC/XRP inverse', function () {
-      assert.strictEqual(Amount.from_quality('37AAC93D336021AE94310D0430FFA090F7137C97D473488C4A0918D0DEF8624E', 'XRP', NaN, {inverse: true, base_currency: 'BTC'}).to_text_full(), '39,053.954453/XRP');
+    it('BTC/XDV inverse', function () {
+      assert.strictEqual(Amount.from_quality('37AAC93D336021AE94310D0430FFA090F7137C97D473488C4A0918D0DEF8624E', 'XDV', NaN, {inverse: true, base_currency: 'BTC'}).to_text_full(), '39,053.954453/XDV');
     });
-    it('XRP/USD', function () {
-      assert.strictEqual(Amount.from_quality('DFA3B6DDAB58C7E8E5D944E736DA4B7046C30E4F460FD9DE4D05DCAA8FE12000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {base_currency: 'XRP'}).to_text_full(), '0.0165/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
+    it('XDV/USD', function () {
+      assert.strictEqual(Amount.from_quality('DFA3B6DDAB58C7E8E5D944E736DA4B7046C30E4F460FD9DE4D05DCAA8FE12000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {base_currency: 'XDV'}).to_text_full(), '0.0165/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
     });
-    it('XRP/USD inverse', function () {
-      assert.strictEqual(Amount.from_quality('4627DFFCFF8B5A265EDBD8AE8C14A52325DBFEDAF4F5C32E5C22A840E27DCA9B', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {inverse: true, base_currency: 'XRP'}).to_text_full(), '0.010251/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
+    it('XDV/USD inverse', function () {
+      assert.strictEqual(Amount.from_quality('4627DFFCFF8B5A265EDBD8AE8C14A52325DBFEDAF4F5C32E5C22A840E27DCA9B', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {inverse: true, base_currency: 'XDV'}).to_text_full(), '0.010251/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
     });
     it('BTC/USD', function () {
       assert.strictEqual(Amount.from_quality('6EAB7C172DEFA430DBFAD120FDC373B5F5AF8B191649EC9858038D7EA4C68000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {base_currency: 'BTC'}).to_text_full(), '1000/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
@@ -1114,11 +1114,11 @@ describe('Amount', function() {
     it('BTC/USD inverse', function () {
       assert.strictEqual(Amount.from_quality('20294C923E80A51B487EB9547B3835FD483748B170D2D0A455071AFD498D0000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {inverse: true, base_currency: 'BTC'}).to_text_full(), '0.5/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
     });
-    it('XAU(dem)/XRP', function () {
-      assert.strictEqual(Amount.from_quality('587322CCBDE0ABD01704769A73A077C32FB39057D813D4165F1FF973CAF997EF', 'XRP', NaN, {base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_text_full(), '90,452.246928/XRP');
+    it('XAU(dem)/XDV', function () {
+      assert.strictEqual(Amount.from_quality('587322CCBDE0ABD01704769A73A077C32FB39057D813D4165F1FF973CAF997EF', 'XDV', NaN, {base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_text_full(), '90,452.246928/XDV');
     });
-    it('XAU(dem)/XRP inverse', function () {
-      assert.strictEqual(Amount.from_quality('F72C7A9EAE4A45ED1FB547AD037D07B9B965C6E662BEBAFA4A03F2A976804235', 'XRP', NaN, {inverse: true, base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_text_full(), '90,442.196677/XRP');
+    it('XAU(dem)/XDV inverse', function () {
+      assert.strictEqual(Amount.from_quality('F72C7A9EAE4A45ED1FB547AD037D07B9B965C6E662BEBAFA4A03F2A976804235', 'XDV', NaN, {inverse: true, base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_text_full(), '90,442.196677/XDV');
     });
     it('USD/XAU(dem)', function () {
       assert.strictEqual(Amount.from_quality('4743E58E44974B325D42FD2BB683A6E36950F350EE46DD3A521B644B99782F5F', '015841551A748AD2C1F76FF6ECB0CCCD00000000', 'rUyPiNcSFFj6uMR2gEaD8jUerQ59G1qvwN', {base_currency: 'USD', reference_date: 443845330 + 31535000}).to_text_full(), '0.007710100231303007/XAU (-0.5%pa)/rUyPiNcSFFj6uMR2gEaD8jUerQ59G1qvwN');
@@ -1126,17 +1126,17 @@ describe('Amount', function() {
     it('USD/XAU(dem) inverse', function () {
       assert.strictEqual(Amount.from_quality('CDFD3AFB2F8C5DBEF75B081F7C957FF5509563266F28F36C5704A0FB0BAD8800', '015841551A748AD2C1F76FF6ECB0CCCD00000000', 'rUyPiNcSFFj6uMR2gEaD8jUerQ59G1qvwN', {inverse: true, base_currency: 'USD', reference_date: 443845330 + 31535000}).to_text_full(), '0.007675186123263489/XAU (-0.5%pa)/rUyPiNcSFFj6uMR2gEaD8jUerQ59G1qvwN');
     });
-    it('BTC/XRP human', function () {
-      assert.strictEqual(Amount.from_quality('7B73A610A009249B0CC0D4311E8BA7927B5A34D86634581C5F0FF9FF678E1000', 'XRP', NaN, {base_currency: 'BTC'}).to_human_full(), '44,970/XRP');
+    it('BTC/XDV human', function () {
+      assert.strictEqual(Amount.from_quality('7B73A610A009249B0CC0D4311E8BA7927B5A34D86634581C5F0FF9FF678E1000', 'XDV', NaN, {base_currency: 'BTC'}).to_human_full(), '44,970/XDV');
     });
-    it('BTC/XRP inverse human', function () {
-      assert.strictEqual(Amount.from_quality('37AAC93D336021AE94310D0430FFA090F7137C97D473488C4A0918D0DEF8624E', 'XRP', NaN, {inverse: true, base_currency: 'BTC'}).to_human_full(), '39,053.954453/XRP');
+    it('BTC/XDV inverse human', function () {
+      assert.strictEqual(Amount.from_quality('37AAC93D336021AE94310D0430FFA090F7137C97D473488C4A0918D0DEF8624E', 'XDV', NaN, {inverse: true, base_currency: 'BTC'}).to_human_full(), '39,053.954453/XDV');
     });
-    it('XRP/USD human', function () {
-      assert.strictEqual(Amount.from_quality('DFA3B6DDAB58C7E8E5D944E736DA4B7046C30E4F460FD9DE4D05DCAA8FE12000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {base_currency: 'XRP'}).to_human_full(), '0.0165/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
+    it('XDV/USD human', function () {
+      assert.strictEqual(Amount.from_quality('DFA3B6DDAB58C7E8E5D944E736DA4B7046C30E4F460FD9DE4D05DCAA8FE12000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {base_currency: 'XDV'}).to_human_full(), '0.0165/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
     });
-    it('XRP/USD inverse human', function () {
-      assert.strictEqual(Amount.from_quality('4627DFFCFF8B5A265EDBD8AE8C14A52325DBFEDAF4F5C32E5C22A840E27DCA9B', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {inverse: true, base_currency: 'XRP'}).to_human_full(), '0.010251/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
+    it('XDV/USD inverse human', function () {
+      assert.strictEqual(Amount.from_quality('4627DFFCFF8B5A265EDBD8AE8C14A52325DBFEDAF4F5C32E5C22A840E27DCA9B', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {inverse: true, base_currency: 'XDV'}).to_human_full(), '0.010251/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
     });
     it('BTC/USD human', function () {
       assert.strictEqual(Amount.from_quality('6EAB7C172DEFA430DBFAD120FDC373B5F5AF8B191649EC9858038D7EA4C68000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {base_currency: 'BTC'}).to_human_full(), '1,000/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
@@ -1144,11 +1144,11 @@ describe('Amount', function() {
     it('BTC/USD inverse human', function () {
       assert.strictEqual(Amount.from_quality('20294C923E80A51B487EB9547B3835FD483748B170D2D0A455071AFD498D0000', 'USD', 'rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B', {inverse: true, base_currency: 'BTC'}).to_human_full(), '0.5/USD/rvYAfWj5gh67oV6fW32ZzP3Aw4Eubs59B');
     });
-    it('XAU(dem)/XRP human', function () {
-      assert.strictEqual(Amount.from_quality('587322CCBDE0ABD01704769A73A077C32FB39057D813D4165F1FF973CAF997EF', 'XRP', NaN, {base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_human_full(), '90,452.246928/XRP');
+    it('XAU(dem)/XDV human', function () {
+      assert.strictEqual(Amount.from_quality('587322CCBDE0ABD01704769A73A077C32FB39057D813D4165F1FF973CAF997EF', 'XDV', NaN, {base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_human_full(), '90,452.246928/XDV');
     });
-    it('XAU(dem)/XRP inverse human', function () {
-      assert.strictEqual(Amount.from_quality('F72C7A9EAE4A45ED1FB547AD037D07B9B965C6E662BEBAFA4A03F2A976804235', 'XRP', NaN, {inverse: true, base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_human_full(), '90,442.196677/XRP');
+    it('XAU(dem)/XDV inverse human', function () {
+      assert.strictEqual(Amount.from_quality('F72C7A9EAE4A45ED1FB547AD037D07B9B965C6E662BEBAFA4A03F2A976804235', 'XDV', NaN, {inverse: true, base_currency: '015841551A748AD2C1F76FF6ECB0CCCD00000000', reference_date: 443845330 + 31535000}).to_human_full(), '90,442.196677/XDV');
     });
     it('USD/XAU(dem) human', function () {
       assert.strictEqual(Amount.from_quality('4743E58E44974B325D42FD2BB683A6E36950F350EE46DD3A521B644B99782F5F', '015841551A748AD2C1F76FF6ECB0CCCD00000000', 'rUyPiNcSFFj6uMR2gEaD8jUerQ59G1qvwN', {base_currency: 'USD', reference_date: 443845330 + 31535000}).to_human_full(), '0.007710100231303007/XAU (-0.5%pa)/rUyPiNcSFFj6uMR2gEaD8jUerQ59G1qvwN');
@@ -1214,23 +1214,23 @@ describe('Amount', function() {
       assert.strictEqual(Amount.bi_man_min_value.toString(), '1000000000000000');
     });
 
-    it('from_json minimum XRP', function() {
+    it('from_json minimum XDV', function() {
       var amt = Amount.from_json('-100000000000000000');
       assert.strictEqual(amt.to_json(), '-100000000000000000');
     });
 
-    it('from_json maximum XRP', function() {
+    it('from_json maximum XDV', function() {
       var amt = Amount.from_json('100000000000000000');
       assert.strictEqual(amt.to_json(), '100000000000000000');
     });
 
-    it('from_json less than minimum XRP', function() {
+    it('from_json less than minimum XDV', function() {
       assert.throws(function() {
         Amount.from_json('-100000000000000001');
       });
     });
 
-    it('from_json more than maximum XRP', function() {
+    it('from_json more than maximum XDV', function() {
       assert.throws(function() {
         Amount.from_json('100000000000000001');
       });

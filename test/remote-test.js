@@ -664,7 +664,7 @@ describe('Remote', function() {
     var orderbook = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: 'rJy64aCJLP3vf8o3WPKn4iQKtfpjh6voAR',
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     orderbook._subscribed = true;
@@ -793,8 +793,8 @@ describe('Remote', function() {
     var parsedOfferCreate = Remote.parseBinaryTransaction(binaryTransaction.OfferCreate.binary);
     assert.deepEqual(parsedOfferCreate, binaryTransaction.OfferCreate.parsed);
 
-    var parsedPartialPaymentWithXRPDelieveredAmount = Remote.parseBinaryTransaction(binaryTransaction.PartialPaymentWithXRPDeliveredAmount.binary);
-    assert.deepEqual(parsedPartialPaymentWithXRPDelieveredAmount, binaryTransaction.PartialPaymentWithXRPDeliveredAmount.parsed);
+    var parsedPartialPaymentWithXDVDelieveredAmount = Remote.parseBinaryTransaction(binaryTransaction.PartialPaymentWithXDVDeliveredAmount.binary);
+    assert.deepEqual(parsedPartialPaymentWithXDVDelieveredAmount, binaryTransaction.PartialPaymentWithXDVDeliveredAmount.parsed);
   });
 
   it('Parse binary account transaction', function() {
@@ -1410,7 +1410,7 @@ describe('Remote', function() {
         issuer: ADDRESS
       },
       taker_pays: {
-        currency: 'XRP'
+        currency: 'XDV'
       }
     });
 
@@ -1422,7 +1422,7 @@ describe('Remote', function() {
         issuer: ADDRESS
       },
       taker_pays: {
-        currency: Currency.from_human('XRP').to_hex()
+        currency: Currency.from_human('XDV').to_hex()
       },
       taker: UInt160.ACCOUNT_ONE
     });
@@ -1435,7 +1435,7 @@ describe('Remote', function() {
         issuer: ADDRESS
       },
       taker_pays: {
-        currency: 'XRP'
+        currency: 'XDV'
       },
       ledger: LEDGER_HASH,
       limit: 10
@@ -1449,7 +1449,7 @@ describe('Remote', function() {
         issuer: ADDRESS
       },
       taker_pays: {
-        currency: Currency.from_human('XRP').to_hex()
+        currency: Currency.from_human('XDV').to_hex()
       },
       taker: UInt160.ACCOUNT_ONE,
       ledger_hash: LEDGER_HASH,

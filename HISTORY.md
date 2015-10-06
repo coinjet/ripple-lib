@@ -90,7 +90,7 @@
 
 + [Fix IOU value passed to `Amount.from_json()`](https://github.com/divvy/divvy-lib/commit/fd1b64393dffb3d1819cd40b8d43df43a4db042d)
 
-+ [Update transaction binary parsing to account for XRP delivered amounts](https://github.com/divvy/divvy-lib/commit/35a346a674e6ee1e1e495db93700d55984efc7dd)
++ [Update transaction binary parsing to account for XDV delivered amounts](https://github.com/divvy/divvy-lib/commit/35a346a674e6ee1e1e495db93700d55984efc7dd)
 
 + [Bumped dependencies](https://github.com/divvy/divvy-lib/commit/f9bc7cc746b44b24b61bbe260ae2e9d9617286da)
 
@@ -166,7 +166,7 @@ are locally determined to have expired: `tejMaxLedger`.
 
 + [Wait for transaction validation before returning `tec` error](https://github.com/divvy/divvy-lib/commit/6bdd4b2670906588852fc4dda457607b4aac08e4)
 
-+ [Change default `max_fee` on `Remote` to `1 XRP`](https://github.com/divvy/divvy-lib/commit/d6b1728c23ff85c3cc791bed6982a750641fd95f)
++ [Change default `max_fee` on `Remote` to `1 XDV`](https://github.com/divvy/divvy-lib/commit/d6b1728c23ff85c3cc791bed6982a750641fd95f)
 
 + [Fix: Request ledger_accept should return the Remote](https://github.com/divvy/divvy-lib/pull/209)
 
@@ -308,7 +308,7 @@ var request = remote.requestAccountOffers(options);
 
 + **Deprecations**
 
-    1. Removed humanistic amount detection in `transaction.payment`. Passing `1XRP` as the payment amount no longer works.
+    1. Removed humanistic amount detection in `transaction.payment`. Passing `1XDV` as the payment amount no longer works.
     2. `remote.setServer` uses full server URL rather than hostname. Example: `remote.setServer('wss://s`.divvy.com:443')`
     3. Removed constructors for deprecated transaction types from `transaction.js`.
     4. Removed `invoiceID` option from `transaction.payment`. Instead, use the `transaction.invoiceID` method.
@@ -327,7 +327,7 @@ var request = remote.requestAccountOffers(options);
         parseBinary: false
       }
     ```
-+ Added full currency name support, e.g. `Currency.from_json('XRP').to_human({full_name:'Divvys'})` will return `XRP - Divvys`
++ Added full currency name support, e.g. `Currency.from_json('XDV').to_human({full_name:'Divvys'})` will return `XDV - Divvys`
 
 + Improved interest bearing currency support, e.g. `Currency.from_human('USD - US Dollar (2.5%pa)')`
 

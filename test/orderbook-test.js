@@ -15,14 +15,14 @@ describe('OrderBook', function() {
 
   it('toJSON', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
 
     assert.deepEqual(book.toJSON(), {
       taker_gets: {
-        currency: Currency.from_json('XRP').to_hex()
+        currency: Currency.from_json('XDV').to_hex()
       },
       taker_pays: {
         currency: Currency.from_json('BTC').to_hex(),
@@ -33,7 +33,7 @@ describe('OrderBook', function() {
     book = new Remote().createOrderBook({
       issuer_gets: addresses.ISSUER,
       currency_gets: 'BTC',
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.deepEqual(book.toJSON(), {
@@ -42,14 +42,14 @@ describe('OrderBook', function() {
         issuer: addresses.ISSUER
       },
       taker_pays: {
-        currency: Currency.from_json('XRP').to_hex()
+        currency: Currency.from_json('XDV').to_hex()
       }
     });
   });
 
   it('Check orderbook validity', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -59,7 +59,7 @@ describe('OrderBook', function() {
 
   it('Automatic subscription (based on listeners)', function(done) {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -73,7 +73,7 @@ describe('OrderBook', function() {
 
   it('Subscribe', function(done) {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -95,7 +95,7 @@ describe('OrderBook', function() {
 
   it('Unsubscribe', function(done) {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -115,7 +115,7 @@ describe('OrderBook', function() {
 
   it('Automatic unsubscription - remove all listeners', function(done) {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -130,7 +130,7 @@ describe('OrderBook', function() {
 
   it('Automatic unsubscription - once listener', function(done) {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -145,7 +145,7 @@ describe('OrderBook', function() {
 
   it('Set owner funds', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -158,7 +158,7 @@ describe('OrderBook', function() {
 
   it('Set owner funds - unadjusted funds', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -171,7 +171,7 @@ describe('OrderBook', function() {
 
   it('Set owner funds - invalid account', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -183,7 +183,7 @@ describe('OrderBook', function() {
 
   it('Set owner funds - invalid amount', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -195,7 +195,7 @@ describe('OrderBook', function() {
 
   it('Has owner funds', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -206,7 +206,7 @@ describe('OrderBook', function() {
 
   it('Delete owner funds', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -222,7 +222,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._ownerFunds[addresses.ACCOUNT] = '1';
@@ -237,7 +237,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.strictEqual(book.incrementOwnerOfferCount(addresses.ACCOUNT), 1);
@@ -248,7 +248,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.throws(function() {
@@ -260,7 +260,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.incrementOwnerOfferCount(addresses.ACCOUNT);
@@ -273,7 +273,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.incrementOwnerOfferCount(addresses.ACCOUNT);
@@ -287,7 +287,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.throws(function() {
@@ -299,7 +299,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._ownerOffersTotal[addresses.ACCOUNT] = Amount.from_json({
@@ -327,7 +327,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.throws(function() {
@@ -343,7 +343,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
     book._ownerOffersTotal[addresses.ACCOUNT] = Amount.from_json({
       value: 3,
@@ -356,9 +356,9 @@ describe('OrderBook', function() {
 
   it('Get owner offer total - native', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._ownerOffersTotal[addresses.ACCOUNT] = Amount.from_json('3');
@@ -370,7 +370,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.strictEqual(book.getOwnerOfferTotal(addresses.ACCOUNT).to_text(), '0');
@@ -378,7 +378,7 @@ describe('OrderBook', function() {
 
   it('Get owner offer total - native - no total', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -390,7 +390,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -400,7 +400,7 @@ describe('OrderBook', function() {
 
   it('Apply transfer rate - native currency', function() {
     var book = new Remote().createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -414,7 +414,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.throws(function() {
@@ -426,7 +426,7 @@ describe('OrderBook', function() {
     var book = new Remote().createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     assert.throws(function() {
@@ -439,7 +439,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     remote.request = function(request) {
@@ -467,7 +467,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     remote.request = function(request) {
@@ -494,7 +494,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -512,7 +512,7 @@ describe('OrderBook', function() {
   it('Request transfer rate - native currency', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -532,7 +532,7 @@ describe('OrderBook', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
-      currency_pays: 'XRP',
+      currency_pays: 'XDV',
       issuer_gets: addresses.ISSUER
     });
 
@@ -568,7 +568,7 @@ describe('OrderBook', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
-      currency_pays: 'XRP',
+      currency_pays: 'XDV',
       issuer_gets: addresses.ISSUER
     });
 
@@ -605,7 +605,7 @@ describe('OrderBook', function() {
   it('Set offer funded amount - xrp/iou - funded', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -641,7 +641,7 @@ describe('OrderBook', function() {
   it('Set offer funded amount - xrp/iou - unfunded', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -679,7 +679,7 @@ describe('OrderBook', function() {
   it('Set offer funded amount - zero funds', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -716,7 +716,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     var meta = new Meta({
@@ -764,7 +764,7 @@ describe('OrderBook', function() {
     var remote = new Remote();
 
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -809,7 +809,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     var meta = new Meta({
@@ -859,7 +859,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     var meta = new Meta({
@@ -907,7 +907,7 @@ describe('OrderBook', function() {
     var remote = new Remote();
 
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -942,7 +942,7 @@ describe('OrderBook', function() {
     var remote = new Remote();
 
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'BTC'
     });
@@ -974,7 +974,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     var meta = new Meta({
@@ -1069,7 +1069,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     var meta = new Meta({
@@ -1112,7 +1112,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1000000000;
@@ -1165,7 +1165,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1000000000;
@@ -1205,7 +1205,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1232,7 +1232,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1259,7 +1259,7 @@ describe('OrderBook', function() {
     var message = fixtures.transactionWithAccountRoot();
 
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'USD'
     });
@@ -1304,7 +1304,7 @@ describe('OrderBook', function() {
     });
 
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'USD'
     });
@@ -1334,7 +1334,7 @@ describe('OrderBook', function() {
     var remote = new Remote();
 
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       issuer_pays: addresses.ISSUER,
       currency_pays: 'USD'
     });
@@ -1371,7 +1371,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     var message = fixtures.transactionWithDivvyState();
@@ -1399,7 +1399,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1432,7 +1432,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1505,7 +1505,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1539,7 +1539,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1560,7 +1560,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1582,7 +1582,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._issuerTransferRate = 1002000000;
@@ -1620,7 +1620,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.on('transaction', function() {
@@ -1657,7 +1657,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -1680,7 +1680,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -1706,7 +1706,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.on('transaction', function() {
@@ -1745,7 +1745,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.on('trade', function(tradePays, tradeGets) {
@@ -1778,7 +1778,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -1803,7 +1803,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -1827,7 +1827,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -1862,7 +1862,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.on('transaction', function() {
@@ -1901,7 +1901,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.on('trade', function(tradePays, tradeGets) {
@@ -1933,7 +1933,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.on('trade', function(tradePays, tradeGets) {
@@ -1970,7 +1970,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book.on('transaction', function() {
@@ -2009,7 +2009,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -2036,7 +2036,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -2065,7 +2065,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -2089,7 +2089,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -2124,7 +2124,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -2161,7 +2161,7 @@ describe('OrderBook', function() {
     var book = remote.createOrderBook({
       currency_gets: 'USD',
       issuer_gets: addresses.ISSUER,
-      currency_pays: 'XRP'
+      currency_pays: 'XDV'
     });
 
     book._subscribed = true;
@@ -2467,7 +2467,7 @@ describe('OrderBook', function() {
     };
 
     var book = remote.createOrderBook({
-      currency_gets: 'XRP',
+      currency_gets: 'XDV',
       currency_pays: 'USD',
       issuer_pays: addresses.ISSUER
     });

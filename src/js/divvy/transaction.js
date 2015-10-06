@@ -98,8 +98,8 @@ Transaction.flags = {
     OptionalDestTag: 0x00020000,
     RequireAuth: 0x00040000,
     OptionalAuth: 0x00080000,
-    DisallowXRP: 0x00100000,
-    AllowXRP: 0x00200000
+    DisallowXDV: 0x00100000,
+    AllowXDV: 0x00200000
   },
 
   TrustSet: {
@@ -132,7 +132,7 @@ Transaction.set_clear_flags = {
   AccountSet: {
     asfRequireDest: 1,
     asfRequireAuth: 2,
-    asfDisallowXRP: 3,
+    asfDisallowXDV: 3,
     asfDisableMaster: 4,
     asfAccountTxnID: 5,
     asfNoFreeze: 6,
@@ -905,7 +905,7 @@ Transaction.prototype.accountTxnID = function(id) {
  *
  * asfRequireDest:    Require a destination tag
  * asfRequireAuth:    Authorization is required to extend trust
- * asfDisallowXRP:    XRP should not be sent to this account
+ * asfDisallowXDV:    XDV should not be sent to this account
  * asfDisableMaster:  Disallow use of the master key
  * asfNoFreeze:       Permanently give up the ability to freeze individual
  *                    trust lines. This flag can never be cleared.

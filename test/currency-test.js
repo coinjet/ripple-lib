@@ -9,8 +9,8 @@ describe('Currency', function() {
     it('json_rewrite("USD") == "USD"', function() {
       assert.strictEqual('USD', currency.json_rewrite('USD'));
     });
-    it('json_rewrite("NaN") == "XRP"', function() {
-      assert.strictEqual('XRP', currency.json_rewrite(NaN));
+    it('json_rewrite("NaN") == "XDV"', function() {
+      assert.strictEqual('XDV', currency.json_rewrite(NaN));
     });
     it('json_rewrite("015841551A748AD2C1F76FF6ECB0CCCD00000000") == "XAU (-0.5%pa)"', function() {
       assert.strictEqual(currency.json_rewrite("015841551A748AD2C1F76FF6ECB0CCCD00000000"),
@@ -18,33 +18,33 @@ describe('Currency', function() {
     });
   });
   describe('from_json', function() {
-    it('from_json().to_json() == "XRP"', function() {
+    it('from_json().to_json() == "XDV"', function() {
       var r = currency.from_json();
       assert(!r.is_valid());
-      assert.strictEqual('XRP', r.to_json());
+      assert.strictEqual('XDV', r.to_json());
     });
-    it('from_json(NaN).to_json() == "XRP"', function() {
+    it('from_json(NaN).to_json() == "XDV"', function() {
       var r = currency.from_json(NaN);
       assert(!r.is_valid());
-      assert.strictEqual('XRP', r.to_json());
+      assert.strictEqual('XDV', r.to_json());
     });
-    it('from_json().to_json("") == "XRP"', function() {
+    it('from_json().to_json("") == "XDV"', function() {
       var r = currency.from_json('');
       assert(r.is_valid());
       assert(r.is_native());
-      assert.strictEqual('XRP', r.to_json());
+      assert.strictEqual('XDV', r.to_json());
     });
-    it('from_json("XRP").to_json() == "XRP"', function() {
-      var r = currency.from_json('XRP');
+    it('from_json("XDV").to_json() == "XDV"', function() {
+      var r = currency.from_json('XDV');
       assert(r.is_valid());
       assert(r.is_native());
-      assert.strictEqual('XRP', r.to_json());
+      assert.strictEqual('XDV', r.to_json());
     });
-    it('from_json("0000000000000000000000000000000000000000").to_json() == "XRP"', function() {
+    it('from_json("0000000000000000000000000000000000000000").to_json() == "XDV"', function() {
       var r = currency.from_json('0000000000000000000000000000000000000000');
       assert(r.is_valid());
       assert(r.is_native());
-      assert.strictEqual('XRP', r.to_json());
+      assert.strictEqual('XDV', r.to_json());
     });
     it('from_json("111").to_human()', function() {
       var r = currency.from_json("111");
@@ -126,14 +126,14 @@ describe('Currency', function() {
       var cur = currency.from_human('INR - 30 Indian Rupees');
       assert.strictEqual(cur.to_json(), 'INR');
     });
-    it('From human "XRP"', function() {
-      var cur = currency.from_human('XRP');
-      assert.strictEqual(cur.to_json(), 'XRP');
+    it('From human "XDV"', function() {
+      var cur = currency.from_human('XDV');
+      assert.strictEqual(cur.to_json(), 'XDV');
       assert(cur.is_native(), true);
     });
-    it('From human "XRP - Divvys"', function() {
-      var cur = currency.from_human('XRP - Divvys');
-      assert.strictEqual(cur.to_json(), 'XRP');
+    it('From human "XDV - Divvys"', function() {
+      var cur = currency.from_human('XDV - Divvys');
+      assert.strictEqual(cur.to_json(), 'XDV');
       assert(cur.is_native(), true);
     });
 
@@ -143,8 +143,8 @@ describe('Currency', function() {
     it('"USD".to_human() == "USD"', function() {
       assert.strictEqual('USD', currency.from_json('USD').to_human());
     });
-    it('"NaN".to_human() == "XRP"', function() {
-      assert.strictEqual('XRP', currency.from_json(NaN).to_human());
+    it('"NaN".to_human() == "XDV"', function() {
+      assert.strictEqual('XDV', currency.from_json(NaN).to_human());
     });
     it('"015841551A748AD2C1F76FF6ECB0CCCD00000000") == "015841551A748AD2C1F76FF6ECB0CCCD00000000"', function() {
       assert.strictEqual(currency.from_json("015841551A748AD2C1F76FF6ECB0CCCD00000000").to_human(), 'XAU (-0.5%pa)');
@@ -173,8 +173,8 @@ describe('Currency', function() {
     it('to_human with full_name "USD - US Dollar"', function() {
       assert.strictEqual('USD - US Dollar', currency.from_json('USD').to_human({full_name:'US Dollar'}));
     });
-    it('to_human with full_name "XRP - Divvys"', function() {
-      assert.strictEqual('XRP - Divvys', currency.from_json('XRP').to_human({full_name:'Divvys'}));
+    it('to_human with full_name "XDV - Divvys"', function() {
+      assert.strictEqual('XDV - Divvys', currency.from_json('XDV').to_human({full_name:'Divvys'}));
     });
     it('to_human human "TIM" without full_name', function() {
       var cur = currency.from_json("TIM");
@@ -211,25 +211,25 @@ describe('Currency', function() {
     });
     it('should parse json 0', function() {
       var cur = currency.from_json(0);
-      assert.strictEqual(cur.to_json(), 'XRP');
-      assert.strictEqual(cur.get_iso(), 'XRP');
+      assert.strictEqual(cur.to_json(), 'XDV');
+      assert.strictEqual(cur.get_iso(), 'XDV');
     });
     it('should parse json 0', function() {
       var cur = currency.from_json('0');
-      assert.strictEqual(cur.to_json(), 'XRP');
-      assert.strictEqual(cur.get_iso(), 'XRP');
+      assert.strictEqual(cur.to_json(), 'XDV');
+      assert.strictEqual(cur.get_iso(), 'XDV');
     });
   });
 
   describe('is_valid', function() {
-    it('Currency.is_valid("XRP")', function() {
-      assert(currency.is_valid('XRP'));
+    it('Currency.is_valid("XDV")', function() {
+      assert(currency.is_valid('XDV'));
     });
     it('!Currency.is_valid(NaN)', function() {
       assert(!currency.is_valid(NaN));
     });
-    it('from_json("XRP").is_valid()', function() {
-      assert(currency.from_json('XRP').is_valid());
+    it('from_json("XDV").is_valid()', function() {
+      assert(currency.from_json('XDV').is_valid());
     });
     it('!from_json(NaN).is_valid()', function() {
       assert(!currency.from_json(NaN).is_valid());
@@ -237,13 +237,13 @@ describe('Currency', function() {
   });
   describe('clone', function() {
     it('should clone currency object', function() {
-      var c = currency.from_json('XRP');
-      assert.strictEqual('XRP', c.clone().to_json());
+      var c = currency.from_json('XDV');
+      assert.strictEqual('XDV', c.clone().to_json());
     });
   });
   describe('to_human', function() {
     it('should generate human string', function() {
-      assert.strictEqual('XRP', currency.from_json('XRP').to_human());
+      assert.strictEqual('XDV', currency.from_json('XDV').to_human());
     });
   });
   describe('has_interest', function() {
@@ -287,8 +287,8 @@ describe('Currency', function() {
     });
   });
   describe('get_iso', function() {
-    it('should get "XRP" iso_code', function() {
-      assert.strictEqual('XRP', currency.from_json('XRP').get_iso());
+    it('should get "XDV" iso_code', function() {
+      assert.strictEqual('XDV', currency.from_json('XDV').get_iso());
     });
     it('should get iso_code', function() {
       assert.strictEqual('USD', currency.from_json('USD - US Dollar').get_iso());

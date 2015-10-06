@@ -428,7 +428,7 @@
             "type_hex": "0000000000000001"
           },
           {
-            "currency": "XRP",
+            "currency": "XDV",
             "type": 16,
             "type_hex": "0000000000000010"
           },
@@ -451,7 +451,7 @@
             "type_hex": "0000000000000001"
           },
           {
-            "currency": "XRP",
+            "currency": "XDV",
             "type": 16,
             "type_hex": "0000000000000010"
           },
@@ -851,7 +851,7 @@
       "validated": true
     }  
   },
-  "PartialPaymentWithXRPDeliveredAmount": {
+  "PartialPaymentWithXDVDeliveredAmount": {
     "binary": {
       "date": 475869060,
       "hash": "A3F258AFABC01863D03AD3B8CCBC5BB63D769598C6017CA49E5F3EA3FF3E2F87",
@@ -876,7 +876,7 @@
             "type_hex": "0000000000000001"
           },
           {
-            "currency": "XRP",
+            "currency": "XDV",
             "type": 16,
             "type_hex": "0000000000000010"
           }
@@ -888,7 +888,7 @@
             "type_hex": "0000000000000001"
           },
           {
-            "currency": "XRP",
+            "currency": "XDV",
             "type": 16,
             "type_hex": "0000000000000010"
           }
@@ -905,7 +905,7 @@
             "type_hex": "0000000000000001"
           },
           {
-            "currency": "XRP",
+            "currency": "XDV",
             "type": 16,
             "type_hex": "0000000000000010"
           }
@@ -922,7 +922,7 @@
             "type_hex": "0000000000000001"
           },
           {
-            "currency": "XRP",
+            "currency": "XDV",
             "type": 16,
             "type_hex": "0000000000000010"
           }

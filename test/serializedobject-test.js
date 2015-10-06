@@ -48,7 +48,7 @@ describe('Serialized object', function() {
             type_hex: "0000000000000031"
           },
           {
-            currency: 'XRP',
+            currency: 'XDV',
             type: 16,
             type_hex: "0000000000000010"
           }

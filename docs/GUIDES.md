@@ -173,7 +173,7 @@ See the [wiki](https://divvy.com/wiki/JSON_Messages#subscribe) for details on su
 
 ##Submitting a payment to the network
 
-Submitting a payment transaction to the Divvy network involves connecting to a `Remote`, creating a transaction, signing it with the user's secret, and submitting it to the `divvyd` server. Note that the `Amount` module is used to convert human-readable amounts like '1XRP' or '10.50USD' to the type of Amount object used by the Divvy network.
+Submitting a payment transaction to the Divvy network involves connecting to a `Remote`, creating a transaction, signing it with the user's secret, and submitting it to the `divvyd` server. Note that the `Amount` module is used to convert human-readable amounts like '1XDV' or '10.50USD' to the type of Amount object used by the Divvy network.
 
 ```js
 /* Loading divvy-lib Remote and Amount modules in Node.js */
@@ -187,7 +187,7 @@ var Amount = require('divvy-lib').Amount;
 var MY_ADDRESS = 'rrrMyAddress';
 var MY_SECRET  = 'secret';
 var RECIPIENT  = 'rrrRecipient';
-var AMOUNT     = Amount.from_human('1XRP');
+var AMOUNT     = Amount.from_human('1XDV');
 
 var remote = new Remote({ /* Remote options */ });
 
@@ -210,16 +210,16 @@ remote.connect(function() {
 
 A full description of network transaction fees can be found on the [Divvy Wiki](https://divvy.com/wiki/Transaction_Fee).
 
-In short, transaction fees are very small amounts (on the order of ~10) of [XRP drops](https://divvy.com/wiki/Divvy_credits#Notes_on_drops) spent and destroyed with every transaction. They are largely used to account for network load and prevent spam. With `divvy-lib`, transaction fees are calculated locally by default and the fee you are willing to pay is submitted along with your transaction.
+In short, transaction fees are very small amounts (on the order of ~10) of [XDV drops](https://divvy.com/wiki/Divvy_credits#Notes_on_drops) spent and destroyed with every transaction. They are largely used to account for network load and prevent spam. With `divvy-lib`, transaction fees are calculated locally by default and the fee you are willing to pay is submitted along with your transaction.
 
-Since the fee required for a transaction may change between the time when the original fee was calculated and the time when the transaction is submitted, it is wise to use the [`fee_cushion`](REFERENCE.md#1-remote-options) to ensure that the transaction will go through. For example, suppose the original fee calculated for a transaction was 10 XRP drops but at the instant the transaction is submitted the server is experiencing a higher load and it has raised its minimum fee to 12 XRP drops. Without a `fee_cusion`, this transaction would not be processed by the server, but with a `fee_cusion` of, say, 1.5 it would be processed and you would just pay the 2 extra XRP drops.
+Since the fee required for a transaction may change between the time when the original fee was calculated and the time when the transaction is submitted, it is wise to use the [`fee_cushion`](REFERENCE.md#1-remote-options) to ensure that the transaction will go through. For example, suppose the original fee calculated for a transaction was 10 XDV drops but at the instant the transaction is submitted the server is experiencing a higher load and it has raised its minimum fee to 12 XDV drops. Without a `fee_cusion`, this transaction would not be processed by the server, but with a `fee_cusion` of, say, 1.5 it would be processed and you would just pay the 2 extra XDV drops.
 
 The [`max_fee`](REFERENCE.md#1-remote-options) option can be used to avoid submitting a transaction to a server that is charging unreasonably high fees.
 
 
 ##Submitting a trade offer to the network
 
-Submitting a trade offer to the network is similar to submitting a payment transaction. Here is an example offering to sell 1 USD in exchange for 100 XRP:
+Submitting a trade offer to the network is similar to submitting a payment transaction. Here is an example offering to sell 1 USD in exchange for 100 XDV:
 
 ```js
 /* Loading divvy-lib Remote and Amount modules in Node.js */

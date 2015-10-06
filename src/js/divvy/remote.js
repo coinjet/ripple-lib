@@ -196,7 +196,7 @@ Remote.DEFAULTS = {
   local_signing: true,
   canonical_signing: true,
   fee_cushion: 1.2,
-  max_fee: 1000000, // 1 XRP
+  max_fee: 1000000, // 1 XDV
   max_attempts: 10,
   submission_timeout: 1000 * 20,
   last_ledger_offset: 3,
@@ -216,7 +216,7 @@ Remote.flags = {
     PasswordSpent: 0x00010000, // password set fee is spent
     RequireDestTag: 0x00020000, // require a DestinationTag for payments
     RequireAuth: 0x00040000, // require a authorization to hold IOUs
-    DisallowXRP: 0x00080000, // disallow sending XRP
+    DisallowXDV: 0x00080000, // disallow sending XDV
     DisableMaster: 0x00100000,  // force regular key
     DefaultDivvy: 0x00800000,
     NoFreeze: 0x00200000, // permanently disallowed freezing trustlines
@@ -2510,7 +2510,7 @@ Remote.prototype.createTransaction = function(type, options) {
  * This takes into account the last known network and local load fees.
  *
  * @param {Number} fee units
- * @return {Amount} Final fee in XRP for specified number of fee units.
+ * @return {Amount} Final fee in XDV for specified number of fee units.
  */
 
 Remote.prototype.feeTx = function(units) {

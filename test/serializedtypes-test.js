@@ -482,32 +482,32 @@ describe('Serialized types', function() {
   });
 
   describe('Amount', function() {
-    it('Serialize 0 XRP', function () {
+    it('Serialize 0 XDV', function () {
       var so = new SerializedObject();
       types.Amount.serialize(so, '0');
       assert.strictEqual(so.to_hex(), '4000000000000000');
     });
-    it('Serialize 1 XRP', function () {
+    it('Serialize 1 XDV', function () {
       var so = new SerializedObject();
       types.Amount.serialize(so, '1');
       assert.strictEqual(so.to_hex(), '4000000000000001');
     });
-    it('Serialize -1 XRP', function () {
+    it('Serialize -1 XDV', function () {
       var so = new SerializedObject();
       types.Amount.serialize(so, '-1');
       assert.strictEqual(so.to_hex(), '0000000000000001');
     });
-    it('Serialize 213 XRP', function () {
+    it('Serialize 213 XDV', function () {
       var so = new SerializedObject();
       types.Amount.serialize(so, '213');
       assert.strictEqual(so.to_hex(), '40000000000000D5');
     });
-    it('Serialize 270544960 XRP', function () {
+    it('Serialize 270544960 XDV', function () {
       var so = new SerializedObject();
       types.Amount.serialize(so, '270544960');
       assert.strictEqual(so.to_hex(), '4000000010203040');
     });
-    it('Serialize 1161981756646125568 XRP', function () {
+    it('Serialize 1161981756646125568 XDV', function () {
       var so = new SerializedObject();
       assert.throws(function() {
         var amt = Amount.from_json('1161981756646125696');
@@ -529,13 +529,13 @@ describe('Serialized types', function() {
       types.Amount.serialize(so, '-1/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
       assert.strictEqual(so.to_hex(), '94838D7EA4C680000000000000000000000000005553440000000000B5F762798A53D543A014CAF8B297CFF8F2F937E8');
     });
-    it('Serialize 15/XRP/rM1oqKtfh1zgjdAgbFmaRm3btfGBX25xVo', function () {
+    it('Serialize 15/XDV/rM1oqKtfh1zgjdAgbFmaRm3btfGBX25xVo', function () {
       // This actually appears in the ledger, so we need to be able to serialize
       // Transaction #A2AD66C93C7B7277CD5AEB718A4E82D88C7099129948BC66A394EE38B34657A9
       var so = new SerializedObject();
       types.Amount.serialize(so, {
         "value":"1000",
-        "currency":"XRP",
+        "currency":"XDV",
         "issuer":"rM1oqKtfh1zgjdAgbFmaRm3btfGBX25xVo"
       });
       assert.strictEqual(so.to_hex(), 'D5438D7EA4C680000000000000000000000000005852500000000000E4FE687C90257D3D2D694C8531CDEECBE84F3367');
@@ -555,23 +555,23 @@ describe('Serialized types', function() {
       types.Amount.serialize(so, Amount.max_value+'/USD/rHb9CJAWyB4rj91VRWn96DkukG4bwdtyTh');
       assert.strictEqual(so.to_hex(), 'EC6386F26FC0FFFF0000000000000000000000005553440000000000B5F762798A53D543A014CAF8B297CFF8F2F937E8');
     });
-    it('Parse 1 XRP', function () {
+    it('Parse 1 XDV', function () {
       var so = new SerializedObject('4000000000000001');
       assert.strictEqual(types.Amount.parse(so).to_json(), '1');
     });
-    it('Parse -1 XRP', function () {
+    it('Parse -1 XDV', function () {
       var so = new SerializedObject('0000000000000001');
       assert.strictEqual(types.Amount.parse(so).to_json(), '-1');
     });
-    it('Parse 213 XRP', function () {
+    it('Parse 213 XDV', function () {
       var so = new SerializedObject('40000000000000D5');
       assert.strictEqual(types.Amount.parse(so).to_json(), '213');
     });
-    it('Parse 270544960 XRP', function () {
+    it('Parse 270544960 XDV', function () {
       var so = new SerializedObject('4000000010203040');
       assert.strictEqual(types.Amount.parse(so).to_json(), '270544960');
     });
-    it('Parse 1161981756646125568 XRP', function () {
+    it('Parse 1161981756646125568 XDV', function () {
       assert.throws(function() {
         // hex(1161981756646125568) = 1020304050607000
         var so = new SerializedObject('1020304050607000');
@@ -675,7 +675,7 @@ describe('Serialized types', function() {
       }]]);
       assert.strictEqual(so.to_hex(), '31000000000000000000000000000000000000007B00000000000000000000000055534400000000000000000000000000000000000000000000000315FF31000000000000000000000000000000000000007B000000000000000000000000425443000000000000000000000000000000000000000000000003153100000000000000000000000000000000000003DB0000000000000000000000004555520000000000000000000000000000000000000000000000014100'); //TODO: Check this independently
     });
-    it('Serialize path through XRP', function () {
+    it('Serialize path through XDV', function () {
       var hex = '31000000000000000000000000000000000000007B00000000000000000000000055534400000000000000000000000000000000000000000000000315FF1000000000000000000000000000000000000000003100000000000000000000000000000000000003DB0000000000000000000000004555520000000000000000000000000000000000000000000000014100';
       var json = [
         [{
@@ -684,7 +684,7 @@ describe('Serialized types', function() {
           issuer:    "rrrrrrrrrrrrrrrrrrrpYnYCNYf"
         }],
         [{
-          currency: "XRP"
+          currency: "XDV"
         }, {
           account:   "rrrrrrrrrrrrrrrrrrrpvQsW3V3",
           currency:  'EUR',
@@ -701,7 +701,7 @@ describe('Serialized types', function() {
           type_hex: '0000000000000031'
         }],
         [{
-          currency: 'XRP',
+          currency: 'XDV',
           type: 16,
           type_hex: '0000000000000010'
         }, {
@@ -721,7 +721,7 @@ describe('Serialized types', function() {
       var parsed_path = SerializedObject.jsonify_structure(types.PathSet.parse(so));
       assert.deepEqual(parsed_path, result_json);
     });
-    it('Serialize path through XRP IOUs', function () {
+    it('Serialize path through XDV IOUs', function () {
       var hex = '31000000000000000000000000000000000000007B00000000000000000000000055534400000000000000000000000000000000000000000000000315FF1000000000000000000000000058525000000000003100000000000000000000000000000000000003DB0000000000000000000000004555520000000000000000000000000000000000000000000000014100';
       var json = [
         [{
@@ -730,7 +730,7 @@ describe('Serialized types', function() {
           issuer:    "rrrrrrrrrrrrrrrrrrrpYnYCNYf"
         }],
         [{
-          currency: "XRP",
+          currency: "XDV",
           non_native: true
         }, {
           account:   "rrrrrrrrrrrrrrrrrrrpvQsW3V3",
@@ -748,7 +748,7 @@ describe('Serialized types', function() {
           type_hex: '0000000000000031'
         }],
         [{
-          currency: 'XRP',
+          currency: 'XDV',
           non_native: true,
           type: 16,
           type_hex: '0000000000000010'
@@ -769,10 +769,10 @@ describe('Serialized types', function() {
       var parsed_path = SerializedObject.jsonify_structure(types.PathSet.parse(so));
       assert.deepEqual(parsed_path, result_json);
     });
-    it('Serialize path through XRP IOUs (realistic example)', function () {
+    it('Serialize path through XDV IOUs (realistic example)', function () {
       // Appears in the history
       // TX #0CBB429C456ED999CC691DFCC8E62E8C8C7E9522C2BEA967FED0D7E2A9B28D13
-      // Note that XRP IOUs are no longer allowed, so this functionality is
+      // Note that XDV IOUs are no longer allowed, so this functionality is
       // for historic transactions only.
 
       var hex = '31585E1F3BD02A15D6185F8BB9B57CC60DEDDB37C10000000000000000000000004254430000000000585E1F3BD02A15D6185F8BB9B57CC60DEDDB37C131E4FE687C90257D3D2D694C8531CDEECBE84F33670000000000000000000000004254430000000000E4FE687C90257D3D2D694C8531CDEECBE84F3367310A20B3C85F482532A9578DBB3950B85CA06594D100000000000000000000000042544300000000000A20B3C85F482532A9578DBB3950B85CA06594D13000000000000000000000000055534400000000000A20B3C85F482532A9578DBB3950B85CA06594D1FF31585E1F3BD02A15D6185F8BB9B57CC60DEDDB37C10000000000000000000000004254430000000000585E1F3BD02A15D6185F8BB9B57CC60DEDDB37C131E4FE687C90257D3D2D694C8531CDEECBE84F33670000000000000000000000004254430000000000E4FE687C90257D3D2D694C8531CDEECBE84F33673115036E2D3F5437A83E5AC3CAEE34FF2C21DEB618000000000000000000000000425443000000000015036E2D3F5437A83E5AC3CAEE34FF2C21DEB6183000000000000000000000000055534400000000000A20B3C85F482532A9578DBB3950B85CA06594D1FF31585E1F3BD02A15D6185F8BB9B57CC60DEDDB37C10000000000000000000000004254430000000000585E1F3BD02A15D6185F8BB9B57CC60DEDDB37C13157180C769B66D942EE69E6DCC940CA48D82337AD000000000000000000000000425443000000000057180C769B66D942EE69E6DCC940CA48D82337AD1000000000000000000000000058525000000000003000000000000000000000000055534400000000000A20B3C85F482532A9578DBB3950B85CA06594D100';
@@ -818,7 +818,7 @@ describe('Serialized types', function() {
           "currency": "BTC",
           "issuer": "r3AWbdp2jQLXLywJypdoNwVSvr81xs3uhn"
         }, {
-          "currency": "XRP",
+          "currency": "XDV",
           "non_native": true
         }, {
           "currency": "USD",
@@ -888,7 +888,7 @@ describe('Serialized types', function() {
           type: 49,
           type_hex: '0000000000000031'
         }, {
-          currency: 'XRP',
+          currency: 'XDV',
           non_native: true,
           type: 16,
           type_hex: '0000000000000010'
