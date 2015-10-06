@@ -2,7 +2,7 @@
 
 A JavaScript API for interacting with Divvy in Node.js and the browser
 
-[![Build Status](https://travis-ci.org/xdv/divvy-lib.svg?branch=develop)](https://travis-ci.org/xdv/divvy-lib) [![Coverage Status](https://coveralls.io/repos/divvy/divvy-lib/badge.png?branch=develop)](https://coveralls.io/r/divvy/divvy-lib?branch=develop)
+[![Build Status](https://travis-ci.org/xdv/divvy-lib.svg?branch=master)](https://travis-ci.org/xdv/divvy-lib) [![Coverage Status](https://coveralls.io/repos/divvy/divvy-lib/badge.png?branch=develop)](https://coveralls.io/r/divvy/divvy-lib?branch=develop)
 
 [![NPM](https://nodei.co/npm/divvy-lib.png)](https://www.npmjs.org/package/divvy-lib)
 
