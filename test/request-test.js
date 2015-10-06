@@ -27,10 +27,10 @@ const SERVER_INFO = {
     'server_state': 'full',
     'validated_ledger': {
       'age': 0,
-      'base_fee_xrp': 0.00001,
+      'base_fee_xdv': 0.00001,
       'hash': 'E43FD49087B18031721D9C3C4743FE1692C326AFF7084A2C01B355CE65A4C699',
-      'reserve_base_xrp': 20,
-      'reserve_inc_xrp': 5,
+      'reserve_base_xdv': 20,
+      'reserve_inc_xdv': 5,
       'seq': 7016339
     },
     'validation_quorum': 3

@@ -791,10 +791,10 @@ describe('Server', function() {
           server_state: "full",
           validated_ledger: {
             age: 5,
-            base_fee_xrp: 0.00001,
+            base_fee_xdv: 0.00001,
             hash: "AB575193C623179078BE7CC42965FD4262EE8611D1CE7F839CEEBFFEF4B653B6",
-            reserve_base_xrp: 20,
-            reserve_inc_xrp: 5,
+            reserve_base_xdv: 20,
+            reserve_inc_xdv: 5,
             seq: 7623483
           },
           validation_quorum: 3
@@ -1059,10 +1059,10 @@ describe('Server', function() {
               server_state: "full",
               validated_ledger: {
                 age: 5,
-                base_fee_xrp: 0.00001,
+                base_fee_xdv: 0.00001,
                 hash: "AB575193C623179078BE7CC42965FD4262EE8611D1CE7F839CEEBFFEF4B653B6",
-                reserve_base_xrp: 20,
-                reserve_inc_xrp: 5,
+                reserve_base_xdv: 20,
+                reserve_inc_xdv: 5,
                 seq: 7623483
               },
               validation_quorum: 3

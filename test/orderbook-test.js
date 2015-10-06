@@ -528,7 +528,7 @@ describe('OrderBook', function() {
     });
   });
 
-  it('Set offer funded amount - iou/xrp - fully funded', function() {
+  it('Set offer funded amount - iou/xdv - fully funded', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
@@ -564,7 +564,7 @@ describe('OrderBook', function() {
     assert.deepEqual(offer, expected);
   });
 
-  it('Set offer funded amount - iou/xrp - unfunded', function() {
+  it('Set offer funded amount - iou/xdv - unfunded', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
       currency_gets: 'BTC',
@@ -602,7 +602,7 @@ describe('OrderBook', function() {
     assert.deepEqual(offer, expected);
   });
 
-  it('Set offer funded amount - xrp/iou - funded', function() {
+  it('Set offer funded amount - xdv/iou - funded', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
       currency_gets: 'XDV',
@@ -638,7 +638,7 @@ describe('OrderBook', function() {
     assert.deepEqual(offer, expected);
   });
 
-  it('Set offer funded amount - xrp/iou - unfunded', function() {
+  it('Set offer funded amount - xdv/iou - unfunded', function() {
     var remote = new Remote();
     var book = remote.createOrderBook({
       currency_gets: 'XDV',
@@ -1393,7 +1393,7 @@ describe('OrderBook', function() {
     book.updateFundedAmounts(message);
   });
 
-  it('Set offers - issuer transfer rate set - iou/xrp', function() {
+  it('Set offers - issuer transfer rate set - iou/xdv', function() {
     var remote = new Remote();
 
     var book = remote.createOrderBook({
@@ -1426,7 +1426,7 @@ describe('OrderBook', function() {
     assert.strictEqual(book.getOwnerFunds(addresses.FOURTH_ACCOUNT).to_text(), '7229.594289344439');
   });
 
-  it('Set offers - issuer transfer rate set - iou/xrp - funded amounts', function() {
+  it('Set offers - issuer transfer rate set - iou/xdv - funded amounts', function() {
     var remote = new Remote();
 
     var book = remote.createOrderBook({

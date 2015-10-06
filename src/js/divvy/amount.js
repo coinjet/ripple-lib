@@ -574,7 +574,7 @@ Amount.prototype.parse_issuer = function(issuer) {
  * @param {Date|Number} opts.reference_date Date based on which
  * demurrage/interest should be applied. Can be given as JavaScript Date or int
  * for Divvy epoch.
- * @param {Boolean} opts.xrp_as_drops Whether XDV amount should be treated as
+ * @param {Boolean} opts.xdv_as_drops Whether XDV amount should be treated as
  *   drops. When the base currency is XDV, the quality is calculated in drops.
  *   For human use however, we want to think of 1000000 drops as 1 XDV and
  *   prices as per-XDV instead of per-drop.
@@ -617,7 +617,7 @@ function(quality, counterCurrency, counterIssuer, opts) {
   var adjusted = opts.inverse ? inverse(value) : value;
   var nativeAdjusted = adjusted;
 
-  if (!opts.xrp_as_drops) {
+  if (!opts.xdv_as_drops) {
     // `In a currency exchange, the exchange rate is quoted as the units of the
     //  counter currency in terms of a single unit of a base currency`. A
     //  quality is how much taker must `pay` to get ONE `gets` unit thus:
