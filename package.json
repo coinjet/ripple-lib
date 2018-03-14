@@ -18,7 +18,7 @@
     "async": "~0.9.0",
     "bignumber.js": "^2.0.3",
     "extend": "~1.2.1",
-    "lodash": "^3.1.0",
+    "lodash": "^2.4.1",
     "lru-cache": "~2.5.0",
     "divvy-wallet-generator": "git://github.com/xdv/divvy-wallet.git#4fe05d5622327c4d8389fea958b02ea62042e7a5",
     "ws": "~0.7.1"
@@ -27,12 +27,12 @@
     "assert-diff": "^1.0.1",
     "coveralls": "~2.10.0",
     "eslint": "^0.18.0",
-    "gulp": "~3.8.10",
+    "gulp": "~3.8.7",
     "gulp-bump": "~0.1.13",
     "gulp-clean-dest": "^0.1.0",
     "gulp-concat": "~2.4.3",
     "gulp-filelog": "^0.4.1",
-    "gulp-flowtype": "^0.4.1",
+    "gulp-flowtype": "1.0.0",
     "gulp-plumber": "^0.6.6",
     "gulp-react": "^2.0.0",
     "gulp-rename": "~1.2.0",
@@ -43,7 +43,7 @@
     "map-stream": "~0.1.0",
     "mocha": "~2.1.0",
     "nock": "^0.34.1",
-    "webpack": "~1.5.3",
+    "webpack": "^1.3.3-beta1",
     "yargs": "~1.3.1"
   },
   "scripts": {
