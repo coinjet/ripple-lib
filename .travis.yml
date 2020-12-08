@@ -5,6 +5,10 @@ node_js:
 before_script:
   - npm install -g mocha@2.5.1
   - npm install -g eslint@0.18.0
+  - rm -rf xdv/divvy-rest-client/node_modules/gulp-filelog/node_modules/through2
+  - cd xdv/divvy-rest-client/node_modules/gulp-filelog
+  - npm install through2@1.1.1
+  - cd ~
   - curl 'https://raw.githubusercontent.com/xdv/javascript-style-guide/master/eslintrc' > ./eslintrc
   - eslint --reset -c ./eslintrc $(git --no-pager diff --name-only --diff-filter=AM --relative $(git merge-base FETCH_HEAD origin/HEAD) FETCH_HEAD | grep "\.js$")
 script: MOCHA_REPORTER=tap npm test --coverage
