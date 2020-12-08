@@ -3,12 +3,13 @@
 A JavaScript API for interacting with Divvy in Node.js and the browser
 
 [![Build Status](https://travis-ci.org/xdv/divvy-lib.svg?branch=master)](https://travis-ci.org/xdv/divvy-lib)
+
 [![NPM](https://nodei.co/npm/divvy-lib.png)](https://www.npmjs.org/package/divvy-lib)
 
 ### Features
 
 + Connect to a divvyd server in JavaScript (Node.js or browser)
-+ Issue [divvyd API](https://divvy.com/build/divvyd-apis/) requests
++ Issue [divvyd API](https://xdv.io/build/divvyd-apis/) requests
 + Listen to events on the Divvy network (transaction, ledger, etc.)
 + Sign and submit transactions to the Divvy network
 
@@ -22,12 +23,11 @@ A JavaScript API for interacting with Divvy in Node.js and the browser
 
 1. [Guides](docs/GUIDES.md)
 2. [API Reference](docs/REFERENCE.md)
-3. [Wiki](https://divvy.com/wiki/Divvy_JavaScript_library)
 
 ### Also see
 
-+ [The Divvy wiki](https://divvy.com/wiki)
-+ [divvy.com](https://divvy.com)
++ [xdv.io](https://xdv.io)
++ [divvy wiki](https://wiki.xdv.io)
 
 ## Installation
 
