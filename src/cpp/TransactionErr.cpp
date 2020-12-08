@@ -76,7 +76,7 @@ bool transResultInfo(TER terCode, std::string& strToken, std::string& strHuman)
 		{	temINVALID_FLAG,		"temINVALID_FLAG",			"The transaction has an invalid flag."					},
 		{	temREDUNDANT,			"temREDUNDANT",				"Sends same currency to self."							},
 		{	temREDUNDANT_SEND_MAX,	"temREDUNDANT_SEND_MAX",	"Send max is redundant."								},
-		{	temRIPPLE_EMPTY,		"temRIPPLE_EMPTY",			"PathSet with no paths."								},
+		{	temDIVVY_EMPTY,		    "temDIVVY_EMPTY",			"PathSet with no paths."								},
 		{	temUNCERTAIN,			"temUNCERTAIN",				"In process of determining result. Never returned."		},
 		{	temUNKNOWN,				"temUNKNOWN",				"The transactions requires logic not implemented yet."	},
 

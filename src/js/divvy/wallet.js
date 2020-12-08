@@ -1,6 +1,6 @@
 var sjcl = require('./utils').sjcl;
 
-var WalletGenerator = require('divvy-wallet-generator')({
+var WalletGenerator = require('divvy-wallet')({
   sjcl: sjcl
 });
 

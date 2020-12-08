@@ -55,7 +55,7 @@ enum TER	// aka TransactionEngineResult
 	temINVALID_FLAG,
 	temREDUNDANT,
 	temREDUNDANT_SEND_MAX,
-	temRIPPLE_EMPTY,
+	temDIVVY_EMPTY,
 	temUNCERTAIN,		// An intermediate result used internally, should never be returned.
 	temUNKNOWN,
 
@@ -111,7 +111,7 @@ enum TER	// aka TransactionEngineResult
 	// - Forwarded
 	tesSUCCESS		= 0,
 
-	// 100 .. 129 C Claim fee only (ripple transaction with no good paths, pay to non-existent account, no path)
+	// 100 .. 129 C Claim fee only (divvy transaction with no good paths, pay to non-existent account, no path)
 	// Causes:
 	// - Success, but does not achieve optimal result.
 	// - Invalid transaction or no effect, but claim fee to use the sequence number.

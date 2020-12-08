@@ -65,8 +65,8 @@ Currency.HEX_CURRENCY_BAD = '0000000000000000000000005852500000000000';
 Currency.prototype.human_RE = /^\s*([a-zA-Z0-9\<\>\(\)\{\}\[\]\|\?\!\@\#\$\%\^\&]{3})(\s*-\s*[- \w]+)?(\s*\(-?\d+\.?\d*%pa\))?\s*$/;
 /*eslint-enable max-len*/
 
-Currency.from_json = function(j, shouldInterpretXrpAsIou) {
-    return (new Currency()).parse_json(j, shouldInterpretXrpAsIou);
+Currency.from_json = function(j, shouldInterpretXdvAsIou) {
+    return (new Currency()).parse_json(j, shouldInterpretXdvAsIou);
 };
 
 Currency.from_human = function(j, opts) {
@@ -74,7 +74,7 @@ Currency.from_human = function(j, opts) {
 };
 
 // this._value = NaN on error.
-Currency.prototype.parse_json = function(j, shouldInterpretXrpAsIou) {
+Currency.prototype.parse_json = function(j, shouldInterpretXdvAsIou) {
   this._value = NaN;
 
   if (j instanceof Currency) {
@@ -92,7 +92,7 @@ Currency.prototype.parse_json = function(j, shouldInterpretXrpAsIou) {
     case 'string':
       if (!j || j === '0') {
         // Empty string or XDV
-        this.parse_hex(shouldInterpretXrpAsIou
+        this.parse_hex(shouldInterpretXdvAsIou
           ? Currency.HEX_CURRENCY_BAD
           : Currency.HEX_ZERO);
         break;
@@ -120,7 +120,7 @@ Currency.prototype.parse_json = function(j, shouldInterpretXrpAsIou) {
         // we drop everything else that could have been provided
         // e.g. 'XDV - Divvy'
         if (!currencyCode || /^(0|XDV)$/.test(currencyCode)) {
-          this.parse_hex(shouldInterpretXrpAsIou
+          this.parse_hex(shouldInterpretXdvAsIou
             ? Currency.HEX_CURRENCY_BAD
             : Currency.HEX_ZERO);
 

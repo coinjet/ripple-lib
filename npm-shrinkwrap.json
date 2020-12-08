@@ -20,9 +20,9 @@
       "version": "2.5.2",
       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-2.5.2.tgz"
     },
-    "divvy-wallet-generator": {
+    "divvy-wallet": {
       "version": "1.0.3",
-      "resolved": "https://registry.npmjs.org/divvy-wallet-generator/-/divvy-wallet-generator-1.0.3.tgz"
+      "resolved": "https://registry.npmjs.org/divvy-wallet/-/divvy-wallet-1.0.3.tgz"
     },
     "ws": {
       "version": "0.7.1",
