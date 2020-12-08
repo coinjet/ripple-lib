@@ -20,7 +20,7 @@
     "extend": "1.2.1",
     "lodash": "2.4.1",
     "lru-cache": "2.5.0",
-    "divvy-wallet": "git://github.com/xdv/divvy-wallet.git#31eb54b9b10416085fe2e427e8d68e7ffe2f47c7",
+    "divvy-wallet": "git://github.com/xdv/divvy-wallet.git#2412bcacda00f44ab255e135b66ad076bec82c97",
     "ws": "0.7.1"
   },
   "devDependencies": {
