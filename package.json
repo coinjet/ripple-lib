@@ -21,7 +21,7 @@
     "lodash": "2.4.1",
     "lru-cache": "2.5.0",
     "divvy-wallet": "git://github.com/xdv/divvy-wallet.git#2412bcacda00f44ab255e135b66ad076bec82c97",
-    "ws": "0.7.1"
+    "ws": "1.1.5"
   },
   "devDependencies": {
     "assert-diff": "1.0.1",
