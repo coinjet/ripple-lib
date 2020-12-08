@@ -11,9 +11,10 @@ before_script:
   - cd ~
   - curl 'https://raw.githubusercontent.com/xdv/javascript-style-guide/master/eslintrc' > ./eslintrc
   - eslint --reset -c ./eslintrc $(git --no-pager diff --name-only --diff-filter=AM --relative $(git merge-base FETCH_HEAD origin/HEAD) FETCH_HEAD | grep "\.js$")
-script: MOCHA_REPORTER=tap npm test --coverage
-after_success:
-- npm run coveralls
+script: npm run build
+# script: MOCHA_REPORTER=tap npm test --coverage
+# after_success:
+# - npm run coveralls
 notifications:
   email: false
   slack:
